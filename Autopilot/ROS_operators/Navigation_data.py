@@ -15,13 +15,13 @@ class navData:
         rospy.init_node('navigation_listener', anonymous=True)
 
         statePX     = "/mavros/state" 
-        GPSPX       = "/mavros/global_position/global"
-        compassPX   = "/mavros/global_position/compass_hdg"
+        GPSPX       = "/mavros/global_position/raw/global"
+        compassPX   = "/mavros/vfr_hud"
         velocityPX  = "/mavros/global_position/raw/gps_vel"
 
         rospy.Subscriber(statePX, mavros_msgs.msg.State, self._handle_state)
         rospy.Subscriber(GPSPX, sensor_msgs.msg.NavSatFix, self._handle_GPS)
-        rospy.Subscriber(compassPX, std_msgs.msg.Float64, self._handle_compass)
+        rospy.Subscriber(compassPX, mavros_msgs.msg.VFR_HUD, self._handle_compass)
         rospy.Subscriber(velocityPX, geometry_msgs.msg.TwistStamped, self._handle_velocity)
 
         self.is_connected = False
@@ -55,7 +55,7 @@ class navData:
         self.has_GPS = True
 
     def _handle_compass(self, msg):
-        self.bearing = msg.data
+        self.bearing = msg.heading
 
         self.has_bearing = True
 

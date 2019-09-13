@@ -17,7 +17,7 @@ class Arduino():
         self.error_message = ""
         self.has_connection = False
 
-    def connect(self, port = "/dev/ttyACM1", baud = 9800):
+    def connect(self, port = "/dev/ttyACM0", baud = 9800):
         try:
             self.serial_connection = serial.Serial(port, baud, timeout=1)
             print("Connection to " + port + " established succesfully!\n")
@@ -42,7 +42,6 @@ class Arduino():
         self._setValues(ranged_motor, ranged_ror)
         try: 
             self.serial_connection.write(bytes(self.object_send))
-            print("data sent")
         except Exception as error_message:
             self.error_message = error_message
             print(error_message)

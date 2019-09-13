@@ -24,11 +24,13 @@ def main():
         currentVect = nav.get_Vector()
         wantedVec = wantGPS.calculate(curGPS)
         wantedVec.magnitude = 0.0
-
+        wantedVec.showVector()
         controller.set_wanted(wantedVec)
         out = controller.update(currentVect)
+        out.showVector()
         outfart = currentVect.magnitude + out.magnitude
         arduino.update(outfart, out.angle)
+        time.sleep(0.1)
 
 if __name__ == "__main__":
     main()
