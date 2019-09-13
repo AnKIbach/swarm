@@ -1,0 +1,10 @@
+Regler for variabelnavn og importer:
+
+1. Funksjoner og moduler har STORE bokstaver foran. variabler for bruk av funskjoner med lignende navn har små.
+2. Skriv variabelnavnet ut til det fulle etter hva den skal brukes til - unngå forkortelser.
+    Eks: def setValues er bedre enn def setVal.
+3. Kode skrives i engelsk.
+4. Unngå bruk av . for mellomrom, bruk heller _ eller skriv uten mellomrom. (dette fordi moduler kalles med .)
+5. Unngå forskjell i flertall og entall på samme ting, bruk det som en måte å se forskjell på.
+
+6. Skill alltid mellom import av ferdiglagde/nedlastede moduler og hjemmelagde moduler/klasser

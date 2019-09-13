@@ -1,0 +1,6 @@
+Regler for filstruktur:
+
+1. Bruk gode navn, gjerne med _. Unngå . i filnavn.
+2. Opprett mapper der det er forventet å oppstå mer enn 2/3 filer på samme ting. 
+    Tips: Moduler kalles fra submapper med mappenavn.filnavn
+3. 
