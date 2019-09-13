@@ -4,7 +4,7 @@ import math as m
 
 class PID :
     def __init__(self): 
-        self.Kp=Vector(1.0,1.0)
+        self.Kp=Vector(0.1,0.1)
         self.Ki=Vector(0.0,0.0)
         self.Kd=Vector(0.0,0.0)
 

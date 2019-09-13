@@ -23,7 +23,6 @@ def main():
         curGPS = nav.get_GPS()
         currentVect = nav.get_Vector()
         wantedVec = wantGPS.calculate(curGPS)
-        wantedVec.magnitude = 0.0
         wantedVec.showVector()
         controller.set_wanted(wantedVec)
         out = controller.update(currentVect)

@@ -18,6 +18,7 @@ class autopilot:
 
     def set_wanted_vec(self, wanted)
         pass
+    
     def __call__(self, current):
         if isinstance(current, Vector):
             pass
