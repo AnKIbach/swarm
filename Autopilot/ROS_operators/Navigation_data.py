@@ -39,7 +39,6 @@ class navData:
         self.bearing = 0.0
 
         self.velocity = 0.0
-        
 
     def _handle_state(self, msg):
         self.connection = msg.connected
