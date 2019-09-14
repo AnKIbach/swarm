@@ -17,6 +17,7 @@ def main():
             arduino.update(sped, ang)
 
     except KeyboardInterrupt:
+        arduino.update(0.0,0.0)
         sys.exit(0)
 
 

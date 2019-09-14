@@ -35,7 +35,9 @@ def main():
             wanted_vector = wanted_GPS.calculate(current_GPS)
 
             autopilot.set_wanted_vector(wanted_vector)
-            
+
+            speed = input("enter speed: ")
+            current_vector.magnitude = speed
             change = autopilot(current_vector)
 
             arduino.update(change.magnitude, change.angle)
@@ -44,7 +46,7 @@ def main():
     except KeyboardInterrupt:
         print("exiting...")
         sys.exit(0)
-        
+
 if __name__ == "__main__":
     main()
 
