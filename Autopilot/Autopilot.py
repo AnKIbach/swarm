@@ -20,7 +20,7 @@ def main():
 
     wait_time = 0.0
 
-    while nav.is_ready() == False or arduino.is_ready() == False:
+    while nav.get_connection_state() == False or arduino.is_ready() == False:
     #waits for both systems to connect
         wait_time += 0.1
         time.sleep(0.1)
