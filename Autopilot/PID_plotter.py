@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+import matplotlib.pyplot as plt
+
+class plotter:
+    def __init__(self):
+        self.title = 'Klikkaboisa'
+        self.x_label = 'clicks'
+        self.y_label = 'speed'
+        self.curveNames =['speed_out',
+                        'speed actual',
+                        'angle out',
+                        'angle actual']
+
+    def present(self, *args):
+        thingList = []
+        for things in args:
+            thingList.append(things)
+
+        for idx,toList in enumerate(thingList):
+            try:
+                plt.plot(toList, label = self.curveNames[idx])
+            except:
+                pass
+
+        plt.xlabel(self.x_label)
+        plt.ylabel(self.y_label)
+        plt.title(self.title)
+        plt.legend()
+        plt.show()
+

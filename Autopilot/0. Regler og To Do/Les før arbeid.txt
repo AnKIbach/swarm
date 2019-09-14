@@ -3,34 +3,6 @@ Husk å:
 env\scripts\activate
 ctrl + shift + p : python:select interpreter for å starte virtuelt enviroment
 
-TO DO:
 
-3. Ferdigstill GPS_calculations.py for å kunne finne distanse og vinkel mellom to GPS punkter
-    Problem 1: Få bearing til å fungerer
-
-    Site arbeid (15.08): GPS avstanden fungerer som en drøm - tar argumentene self og other for to gps punkter
-    arbeid (29.07): Startet med filene og lagd klasser for GPS og kalkuleringer (calculator), 
-    sliter med de to beskrevede problemene: finne deltaer og gjøre formel til kode
-
-1. Finn en måte å teste PIDen ordentlig på
-    Problem: PIDen hopper fra to motsatte verdier, formelene er riktig, men må ha en delay eller feil i omgjøringen
-    fra wanted til actual - kort sagt: finn en måte å simulere virkelig endring i fart.
-    
-    siste arbeid (21.07): Fornøyd med PIDen og stiller den klar til testing fysisk
-    arbeid (15.07): Får testet og ut ønskede verdier kun fra P kontrolleren, må lage en ordentlig loop for å
-    Arbeid(04.07): Konkluderte med at formelen for PID pr nå er riktig, men verdiene den får for actual og wanted er dårlige
-
-2. Rydde opp og lag regler for variabelnavn og funksjonskall
-    Problem: alt av filer blir et større og større rot. Må ha enkle regler som gjør det lett å holde ryddigheten høy
-
-    Siste arbeid (04.07): Innså at det var et problem. prøvd å forbedre litt her og der, men trenger regler.
-    Regler påbegynt, men må implementeres og utbedres.
-
-
-
-For fun:
-
-1. Fortsette å utvikle pygame
-    Sist arbeid : Fikk en båt som 
 
 

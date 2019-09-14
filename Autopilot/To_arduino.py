@@ -35,7 +35,7 @@ class Arduino():
             self.error_message = error_message
             print(error_message)
     
-    def update(self, motor, ror, **kwargs):
+    def update(self, motor, ror):
         ranged_motor = self.range_motor.new(motor)
         ranged_ror = self.range_ror.new(ror)
 

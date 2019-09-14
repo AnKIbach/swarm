@@ -38,6 +38,10 @@ class PID :
 
         pid = self.P_value + self.I_value + self.D_value
 
+        #linearity fix
+        pid.magnitude = current_vector.magnitude + pid.magnitude
+
+        #max speed fix
         if pid.magnitude > self.pid_max.magnitude or pid.magnitude < -1*self.pid_max.magnitude: 
             pid.magnitude = self.pid_max.magnitude
         if pid.angle > self.pid_max.angle or pid.angle < -1*self.pid_max.angle:
@@ -45,9 +49,11 @@ class PID :
 
         return pid
 
-    def set_wanted(self, wanted_vector): 
-        self.wanted_vector = wanted_vector
-
+    def set_wanted(self, wanted): 
+        if isinstance(wanted, Vector) or isinstance(wanted, tuple):
+            self.wanted_vector = wanted
+        if isinstance(wanted, list) or isinstance(wanted, float):
+            self.wanted_vector.set(wanted[0], wanted[1])
 
     def _set_integrator(self, integrator = Vector(0.0,0.0)):
         self.Integrator = integrator
@@ -59,3 +65,4 @@ class PID :
         deltaXY = m.radians(self.wanted_vector.angle - current_vector.angle )
         self.delta_angle = m.degrees(m.atan2(m.sin(deltaXY), m.cos(deltaXY)))
         return self.delta_angle
+
