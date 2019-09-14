@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import math as m
-from Vector_definition import Vector
+
+from Vector_class import Vector
 
 class GPS:
     def __init__(self, latitude = 0.0, longitude = 0.0): 

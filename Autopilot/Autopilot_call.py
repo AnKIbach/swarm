@@ -3,7 +3,7 @@ import time
 
 from PID import PID
 import PID_plotter as plot
-from Vector_definition import Vector
+from Vector_class import Vector
 
 class Autopilot:
     def __init__(self, use_guidance = True):

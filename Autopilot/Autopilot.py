@@ -2,17 +2,18 @@
 import time
 import sys
 
-from Autopilot_callFunc import Autopilot
-from To_arduino import Arduino
-from GPS_definition import GPS
-from Vector_definition import Vector
+from GPS_class import GPS
+from Vector_class import Vector
+from Arduino_data import Arduino
+from Autopilot_call import Autopilot
 from ROS_operators.Navigation_data import navData
+
 
 
 def main():
     nav = navData()
     autopilot = Autopilot()
-    arduino = Arduino()
+    arduino = Arduino(speedLimit = 0.5) #speed limiter for testing
     arduino.connect()
     arduino.neutral_start()
 

@@ -1,7 +1,7 @@
 import time
 import sys
 
-from To_arduino import Arduino
+from Arduino_data import Arduino
 
 def main():
     arduino = Arduino()

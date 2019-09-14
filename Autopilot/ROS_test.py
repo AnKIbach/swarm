@@ -2,10 +2,11 @@
 import time
 
 from PID import PID 
-from Vector_definition import Vector
-from GPS_definition import GPS
-from PID import PID 
+from GPS_class import GPS
 from Ranger import autoRange
+from Vector_class import Vector
+
+
 
 v1 = Vector(10.0,190.0)
 v2 = Vector(10.0,190.0)

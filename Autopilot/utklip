@@ -1,6 +1,0 @@
-    # if arduino.is_ready() == True:
-    #     arduino.neutral_start()
-    
-    # else:
-    #     print("arduino failed to connect with error:")
-    #     print(arduino.get_error())
