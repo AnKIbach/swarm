@@ -8,6 +8,7 @@ from Arduino_data import Arduino
 from Autopilot_call import Autopilot
 from ROS_operators.Navigation_data import navData
 
+wanted_GPS = GPS(60.394087, 5.266185)
 
 
 def main():
@@ -17,7 +18,7 @@ def main():
     arduino.connect()
     arduino.neutral_start()
 
-    wanted_GPS = GPS(60.394238, 5.266250)
+    global wanted_GPS
 
     wait_time = 0.0
 
@@ -37,16 +38,19 @@ def main():
 
             autopilot.set_wanted_vector(wanted_vector)
 
-            speed = input("enter speed: ")
-            current_vector.magnitude = speed
             change = autopilot(current_vector)
 
             arduino.update(change.magnitude, change.angle)
             time.sleep(0.1)
 
     except KeyboardInterrupt:
-        print("exiting...")
-        sys.exit(0)
+        try:
+            wanted_GPS = input("enter new GPS: ")
+            main()
+        except ValueError:
+            sys.exit()
+            print("exiting...")
+
 
 if __name__ == "__main__":
     main()

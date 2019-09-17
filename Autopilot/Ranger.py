@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from Vector_definition import Vector
+from Vector_class import Vector
 
 class autoRange:
     def __init__(self, old_min = 0.0, old_max = 0.0, new_min = 0.0, new_max = 0.0):
