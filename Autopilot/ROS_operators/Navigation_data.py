@@ -12,10 +12,10 @@ from Vector_class import Vector
 
 class navData:
     def __init__(self):
-        rospy.init_node('navigation_listener', anonymous=True)
+        rospy.init_node('navigation', anonymous=True)
 
         statePX     = "/mavros/state" 
-        GPSPX       = "/mavros/global_position/raw/global"
+        GPSPX       = "/mavros/global_position/raw/fix"
         compassPX   = "/mavros/vfr_hud"
         velocityPX  = "/mavros/global_position/raw/gps_vel"
 

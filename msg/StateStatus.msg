@@ -1,0 +1,11 @@
+std_msgs/Header header
+float64 batteryRatio
+float64 timeSinceLaunch
+float64 distanceFromLaunch
+bool    hasGPSFix
+int16   numGpsSatelites
+bool    hasControllerSignal
+bool    hasAttitudeStabilization
+bool    hasYawPosition
+bool    hasAltitudeControl
+bool    hasPositionControl

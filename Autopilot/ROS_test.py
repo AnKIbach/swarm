@@ -28,7 +28,8 @@ pid_out.showVector()
 
 rangespeed = autoRange(0.0,20.0,0.0,90.0)
 rangeangle = autoRange(-45.0,45.0,0.0,180.0)
-speedout = rangespeed.new(v2.magnitude + pid_out.magnitude) #important - linear v2
-angleout = rangeangle.new(pid_out.angle)
-print(speedout, angleout)
+
+new = rangeangle.new(0.05)
+
+print(new)
 
