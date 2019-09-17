@@ -7,8 +7,8 @@ import mavros_msgs.msg
 import sensor_msgs.msg 
 import geometry_msgs.msg 
 
-from GPS_definition import GPS
-from Vector_definition import Vector
+from GPS_class import GPS
+from Vector_class import Vector
 
 class navData:
     def __init__(self):

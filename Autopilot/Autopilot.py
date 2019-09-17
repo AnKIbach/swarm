@@ -7,6 +7,7 @@ from Vector_class import Vector
 from Arduino_data import Arduino
 from Autopilot_call import Autopilot
 from ROS_operators.Navigation_data import navData
+from ROS_operators.Autopilot_talker import talker
 
 wanted_GPS = GPS(60.394087, 5.266185)
 
@@ -17,6 +18,7 @@ def main():
     arduino = Arduino(speedLimit = 0.5) #speed limiter for testing
     arduino.connect()
     arduino.neutral_start()
+    autopilot_talker = talker()
 
     global wanted_GPS
 
@@ -41,6 +43,9 @@ def main():
             change = autopilot(current_vector)
 
             arduino.update(change.magnitude, change.angle)
+
+            autopilot_talker(wanted_vector,current_vector, change)
+            
             time.sleep(0.1)
 
     except KeyboardInterrupt:
