@@ -12,12 +12,16 @@ from Vector_class import Vector
 from autopilot.msg import RuntimeData
 from autopilot.msg import BoatData
 
-class talker:
+class Talker:
     def __init__(self):
+        
+        autopilotStatus = "autopilot/status"
+        autopilotWanted = "autopilot/wanted"
+        autopilotChange = "autopilot/change"
 
-        self.pub_status = rospy.Publisher('autopilot/actual', BoatData, queue_size=10)
-        self.pub_wanted = rospy.Publisher('autopilot/wanted', RuntimeData, queue_size=10)
-        self.pub_change = rospy.Publisher('autopilot/change', RuntimeData, queue_size=10)
+        self.pub_status = rospy.Publisher(autopilotStatus, BoatData, queue_size=10)
+        self.pub_wanted = rospy.Publisher(autopilotWanted, RuntimeData, queue_size=10)
+        self.pub_change = rospy.Publisher(autopilotChange, RuntimeData, queue_size=10)
 
         self.autoData = BoatData()
         self.autoData.header = Header()

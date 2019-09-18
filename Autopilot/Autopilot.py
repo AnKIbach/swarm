@@ -7,19 +7,21 @@ from GPS_class import GPS
 from Vector_class import Vector
 from Arduino_data import Arduino
 from Autopilot_call import Autopilot
-from ROS_operators.Navigation_data import navData
-from ROS_operators.Autopilot_talker import talker
+from ROS_operators.Navigation_data import navData, newGPS #newGPS for testing
+from ROS_operators.Autopilot_talker import Talker
 
 
 def main():
     nav = navData()
-    autopilot = Autopilot() 
+    new_gps = newGPS() 
+    autopilot = Autopilot()
+    
     #uncomment for test
     #arduino = Arduino(speedLimit = 0.5) #speed limiter for testing
     #arduino.connect()
     #arduino.neutral_start()
     
-    autopilot_talker = talker()
+    autopilot_talker = Talker()
 
     wanted_GPS = GPS(60.394087, 5.266185)
 
@@ -34,8 +36,16 @@ def main():
 
     while True:
         try:
+            #wanted_GPS = new_gps(wanted_GPS)
+
+            print("wanted GPS")
+            wanted_GPS.show()
+
             current_GPS = nav.get_GPS()
             current_vector = nav.get_Vector()
+            
+            print("GPS current")
+            current_GPS.show()
 
             wanted_vector = wanted_GPS.calculate(current_GPS)
 
