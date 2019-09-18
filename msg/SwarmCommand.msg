@@ -2,10 +2,9 @@ SwarmHeader header
 int32 taskType
 int32 headingMode
 int32 colavMode
-LatLonAltVector destination
-LatLonAltVector locationOfInterest
+
 float64 speed
 float64 heading
-Route route
+
 Area area
 bool doImidiate

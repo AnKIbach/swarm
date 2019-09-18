@@ -42,11 +42,11 @@ def main():
             autopilot.set_wanted_vector(wanted_vector)
 
             change = autopilot(current_vector)
-            print("change")
+            print("current change")
             change.showVector()
 
             #arduino.update(change.magnitude, -change.angle)
-            autopilot_talker(wanted_vector,current_vector, change)
+            autopilot_talker(current_vector, current_GPS) 
 
             time.sleep(0.1)
 
@@ -54,7 +54,7 @@ def main():
         except rospy.ROSInterruptException():
             sys.exit()
         finally:
-            print(1)
+            pass
 
 
 
