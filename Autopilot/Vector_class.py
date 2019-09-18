@@ -44,4 +44,4 @@ class Vector:
             return NotImplemented
 
     def showVector(self):
-        print ("Magnitude: " , self.magnitude , "\nAngle: " , self.angle)
+        print ("Magnitude: " , round(self.magnitude, 3) , " Angle: " , round(self.angle, 3))

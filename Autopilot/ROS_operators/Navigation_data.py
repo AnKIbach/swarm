@@ -102,22 +102,22 @@ class newGPS:
         #gps topic without publisher
         GPS_adress = "/mavros/global_position/set_gp_origin"
 
-        self.get_gps    = rospy.Subscriber(GPS_adress, geographic_msgs.msg.GeoPoint, self._update_gps)
+        self.get_gps = rospy.Subscriber(GPS_adress, geographic_msgs.msg.GeoPoint, self._update_gps)
 
         self.GPS_received = False
 
-    def __call__(self, current_wanted):
-        if self.GPS_received == True:
-            self.GPS_received = False
-            return self.GPS
-        else:
-            return current_wanted
+    def update(self, current_wanted):
+        # if self.GPS_received == True:
+        #     self.GPS_received = False
+        #     return self.GPS
+        # else:
+        return current_wanted
 
     def _update_gps(self, msg):
         lat = msg.latitude
         lon = msg.longitude
         self.GPS.set(lat,lon)
-
-        self.GPS_received = True
+        if lat > 50.0:
+            self.GPS_received = True
 
 

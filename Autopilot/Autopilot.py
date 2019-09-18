@@ -3,11 +3,13 @@ import time
 import sys
 
 import rospy
+
 from GPS_class import GPS
 from Vector_class import Vector
 from Arduino_data import Arduino
 from Autopilot_call import Autopilot
-from ROS_operators.Navigation_data import navData, newGPS #newGPS for testing
+from ROS_operators.Navigation_data import navData
+from ROS_operators.Navigation_data import newGPS #newGPS for testing
 from ROS_operators.Autopilot_talker import Talker
 
 
@@ -21,10 +23,12 @@ def main():
     #arduino.connect()
     #arduino.neutral_start()
     
+    #fix for test
     autopilot_talker = Talker()
 
     wanted_GPS = GPS(60.394087, 5.266185)
-
+    wanted_GPS.show()
+    time.sleep(2.0)
     wait_time = 0.0
 
     while nav.get_connection_state() == False: #or arduino.is_ready() == False:
@@ -36,7 +40,7 @@ def main():
 
     while True:
         try:
-            #wanted_GPS = new_gps(wanted_GPS)
+            wanted_GPS = new_gps.update(wanted_GPS)
 
             print("wanted GPS")
             wanted_GPS.show()
@@ -47,18 +51,18 @@ def main():
             print("GPS current")
             current_GPS.show()
 
-            wanted_vector = wanted_GPS.calculate(current_GPS)
+            wanted_vector = current_GPS.calculate(wanted_GPS)
 
             autopilot.set_wanted_vector(wanted_vector)
 
             change = autopilot(current_vector)
-            print("current change")
-            change.showVector()
 
+            print("change vector")
+            change.showVector()
             #arduino.update(change.magnitude, -change.angle)
             autopilot_talker(current_vector, current_GPS) 
 
-            time.sleep(0.1)
+            time.sleep(1.0)
 
         
         except rospy.ROSInterruptException():
