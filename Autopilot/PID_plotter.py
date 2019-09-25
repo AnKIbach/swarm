@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import matplotlib.pyplot as plt
 
-class plotter:
+class Plotter:
     def __init__(self):
         self.title = 'Klikkaboisa'
         self.x_label = 'clicks'
