@@ -6,10 +6,12 @@ class Plotter:
         self.title = 'Klikkaboisa'
         self.x_label = 'clicks'
         self.y_label = 'speed'
-        self.curveNames =['speed_out',
-                        'speed actual',
-                        'angle out',
-                        'angle actual']
+        self.curveNames =['s actual',
+                        's wanted',
+                        's out',
+                        'a actual'
+                        'a wanted',
+                        'a out']
 
     def present(self, *args):
         thingList = []

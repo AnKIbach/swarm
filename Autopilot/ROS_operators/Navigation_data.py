@@ -106,12 +106,12 @@ class newGPS:
 
         self.GPS_received = False
 
-    def update(self, current_wanted):
-        # if self.GPS_received == True:
-        #     self.GPS_received = False
-        #     return self.GPS
-        # else:
-        return current_wanted
+    def __call__(self, current_wanted):
+        if self.GPS_received == True:
+            self.GPS_received = False
+            return self.GPS
+        else:
+            return current_wanted
 
     def _update_gps(self, msg):
         lat = msg.latitude

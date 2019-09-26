@@ -27,14 +27,12 @@ def main():
     #fix for test
     autopilot_talker = Talker()
 
-    sOut, sAct, aOut, aAct = [], [], [], []
+    sOut, sAct, sWan, aOut, aAct, aWan = [], [], [], [], [], []
     wait_time, clicks = 0.0, 0
 
     wanted_GPS = GPS(60.394087, 5.266185)
-    wanted_GPS.show()
-    time.sleep(2.0)
 
-    while nav.get_connection_state() == False: #or arduino.is_ready() == False:
+    while nav.is_ready() == False: #or arduino.is_ready() == False:
     #waits for both systems to connect
         wait_time += 0.1
         time.sleep(0.1)
@@ -43,16 +41,10 @@ def main():
 
     while True:
         try:
-            wanted_GPS = new_gps.update(wanted_GPS)
-
-            print("wanted GPS")
-            wanted_GPS.show()
+            wanted_GPS = new_gps(wanted_GPS)
 
             current_GPS = nav.get_GPS()
             current_vector = nav.get_Vector()
-            
-            print("GPS current")
-            current_GPS.show()
 
             wanted_vector = current_GPS.calculate(wanted_GPS)
 
@@ -62,22 +54,28 @@ def main():
 
             print("change vector")
             change.showVector()
+
             #arduino.update(change.magnitude, -change.angle)
+            
             autopilot_talker(current_vector, current_GPS) 
 
             #for visualisation of values:
-            sOut.append(wanted_vector.magnitude)
-            aOut.append(wanted_vector.angle)
             sAct.append(current_vector.magnitude)
             aAct.append(current_vector.angle)
+            sWan.append(wanted_vector.magnitude)
+            aWan.append(wanted_vector.angle)
+            sOut.append(change.magnitude)
+            aOut.append(change.angle)
 
-            if clicks <= 100:
-                plt.present(sOut, sAct, aOut, aAct)
+
+            if clicks >= 20:
+                plt.present(sAct, sWan, sOut)
+                plt.present(aAct, aWan, aOut)
                 clicks = 0 
             else:
                 clicks += 1
 
-            time.sleep(1.0)
+            time.sleep(0.5)
 
         except rospy.ROSInterruptException():
             sys.exit()

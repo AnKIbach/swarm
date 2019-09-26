@@ -11,7 +11,7 @@ class Arduino():
         self.speeds = [90,90,90,90,90]
         self.motor = 0
         self.ror = 0
-        self.range_motor = autoRange(0.0,20.0,90.0,140.0) #180 for full speed
+        self.range_motor = autoRange(0.0,100.0,90.0,140.0) #180 for full speed
         self.range_ror = autoRange(-45.0,45.0,0.0,180.0)
 
         self.speed_limiter = speedLimit

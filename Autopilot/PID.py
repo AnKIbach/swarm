@@ -15,7 +15,7 @@ class PID :
         self.Integrator=Vector()
         self.Integrator_max=Vector(500,360)
         self.Integrator_min=Vector(-500,0)
-        self.pid_max = Vector(20.0, 360) 
+        self.pid_max = Vector(100.0, 360) 
         self.wanted_vector=Vector()
         self.error=Vector()
         self.delta_angle = 0.0
@@ -39,13 +39,13 @@ class PID :
         
         self.I_value = self.Integrator * self.Ki
 
-        pid = self.P_value + self.I_value + self.D_value
+        pid = self.P_value #+ self.I_value + self.D_value
 
         #linearity fix
         pid.magnitude = current_vector.magnitude + pid.magnitude
 
         #max speed fix
-        if pid.magnitude > self.pid_max.magnitude or pid.magnitude < -1*self.pid_max.magnitude: 
+        if pid.magnitude > self.pid_max.magnitude or pid.magnitude < 0.0: 
             pid.magnitude = self.pid_max.magnitude
         if pid.angle > self.pid_max.angle or pid.angle < -1*self.pid_max.angle:
             pid.angle = self.pid_max.angle
