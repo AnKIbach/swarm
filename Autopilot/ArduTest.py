@@ -1,24 +1,32 @@
 import time
 import sys
 
+import pyfirmata
+
 from Arduino_data import Arduino
 
 def main():
-    arduino = Arduino()
+    board = pyfirmata.Arduino('/dev/ttyACM0')
+    ror =  board.get_pin('d:6:s')
+    ror2 =  board.get_pin('d:5:s')
+    motor = board.get_pin('d:11:p')
+    motor2 = board.get_pin('d:10:p')
+    motor3 = board.get_pin('d:9:p')
 
-    arduino.connect()
-
-    arduino.neutral_start()
-
-    try: 
+    try:
         while True:
-            sped = input("enter speed: ")
-            ang = input("enter angle: ")
-            arduino.update(sped, ang)
-
+            speed = int(input("enter speed: "))
+            ror.write(speed)
+            ror2.write(speed)
+            motor.write(speed)
+            motor2.write(speed)
+            motor3.write(speed)
+    except ValueError:
+        ror.write(90)
+        motor.write(90)
     except KeyboardInterrupt:
-        arduino.update(0.0,0.0)
-        sys.exit(0)
+        ror.write(90)
+        motor.write(90)
 
 
 if __name__ == "__main__":

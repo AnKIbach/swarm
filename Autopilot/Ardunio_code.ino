@@ -41,7 +41,6 @@ void loop() {
     babord_motor.write(Speeds[2]);
     styrbord_servo.write(Speeds[3]);
     babord_servo.write(Speeds[4]);
-    delay(1);
     //
     stringComplete = false;
     i = 0;

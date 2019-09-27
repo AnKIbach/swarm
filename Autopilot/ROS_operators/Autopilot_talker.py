@@ -26,6 +26,8 @@ class Talker:
         self.autoData = BoatData()
         self.autoData.header = Header()
         self.autoData.data = RuntimeData()
+        self.wanted_data = RuntimeData()
+        self.change_data = RuntimeData()
 
     def __call__(self, movement_data, position_data, nav_status = False, ardu_status = False):
         self.autoData.header.stamp    = rospy.Time.now()
@@ -42,10 +44,16 @@ class Talker:
         self.pub_status.publish(self.autoData)
 
     def _pub_wanted(self, movement_data, position_data):
-        pass
+        self.wanted_data.velocity  = movement_data.magnitude
+        self.wanted_data.bearing   = movement_data.angle
+        self.wanted_data.latitude  = position_data.lat
+        self.wanted_data.longitude = position_data.lon
 
     def _pub_change(self, movement_data, position_data):
-        pass
+        self.change_data.velocity  = movement_data.magnitude
+        self.change_data.bearing   = movement_data.angle
+        self.change_data.latitude  = position_data.lat
+        self.change_data.longitude = position_data.lon
 
 
 
