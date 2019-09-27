@@ -1,70 +1,92 @@
 #!/usr/bin/env python
-import serial 
 import time
-import struct 
+import sys
+
+import serial
+import pyfirmata
 
 from Ranger import autoRange
-#port = '/dev/ttyACM0' #port for seriel kontakt
 
-class Arduino():
-    def __init__(self, speedLimit = 1.0):
-        self.speeds = [90,90,90,90,90]
-        self.motor = 0
-        self.ror = 0
-        self.range_motor = autoRange(0.0,100.0,90.0,140.0) #180 for full speed
-        self.range_ror = autoRange(-45.0,45.0,0.0,180.0)
+class Arduino:
+    def __init__(self, speedLimit = 1.0, port = '/dev/ttyACM0'):
+        self.motor_wanted  = 0.0
+        self.rudder_wanted = 0.0
+        self.port = port
 
-        self.speed_limiter = speedLimit
-        self.error_message = ""
+        #rangers for converting speed to output
+        self.range_motor  = autoRange(0.0,100.0,90.0,180.0)
+        self.range_rudder = autoRange(-45.0, 45.0, 0.0, 180.0)
+
+        self.speed_limt = speedLimit
+
+        self.error = ''
         self.has_connection = False
+        self.started_correctly = False
 
-    def connect(self, port = "/dev/ttyACM0", baud = 9800):
-        try:
-            self.serial_connection = serial.Serial(port, baud, timeout=1)
-            print("Connection to " + port + " established succesfully!\n")
+        try: 
+            self.board = pyfirmata.Arduino(self.port)
             self.has_connection = True
-        except Exception as e:
-            print(e)
+            self._start()
+        except serial.SerialException as e:
+            self.error = e
+            print("could not connect to arduino at", self.port, "with error: ", e)
 
-    def neutral_start(self):
-        self._setValues()
-        try: 
-            self.serial_connection.write(bytes(self.object_send))
-            print("Boat started correctly")
-            return True
-        except Exception as error_message:
-            self.error_message = error_message
-            print(error_message)
-    
-    def update(self, motor, ror):
-        ranged_motor = self.range_motor.new(motor)
-        ranged_ror = self.range_ror.new(ror)
+        self.pins = [self.board.get_pin('d:6:s'),
+                    self.board.get_pin('d:5:s'),
+                    self.board.get_pin('d:11:p'),
+                    self.board.get_pin('d:10:p'),
+                    self.board.get_pin('d:9:p')]
 
-        ranged_motor = ranged_motor * self.speed_limiter
-        self._setValues(ranged_motor, ranged_ror)
-        try: 
-            self.serial_connection.write(bytes(self.object_send))
-        except Exception as error_message:
-            self.error_message = error_message
-            print(error_message)
+        # self.rudder_left     = self.board.get_pin('d:6:s')
+        # self.rudder_right    = self.board.get_pin('d:5:s')
+        # self.motor_center    = self.board.get_pin('d:11:p')
+        # self.motor_left      = self.board.get_pin('d:10:p')
+        # self.motor_right     = self.board.get_pin('d:9:p')
 
-    def _setValues(self, Motor_speed = 90, Rudder_angle = 90):
-        self.object_send_temp = ''
-        for i in range(3):
-            self.speeds[i] = Motor_speed
-        for j in range(3,5):
-            self.speeds[j] = Rudder_angle
-        for speed in self.speeds:
-            self.object_send_temp += str(speed) + ':'
-        self.object_send = self.object_send_temp + ';'
-        self.object_send_temp = ''
+    def __call__(self, motor = 50.0, rudder = 0.0):
+        self.rudder_wanted  = self.range_rudder.new(rudder)
+        self.motor_wanted   = self.range_motor.new(motor * self.speed_limt)
+        try:
+            for i in range(0,2): #write for rudders
+                self.pins[i].write(self.rudder_wanted)
+            for i in range(2,5): 
+                self.pins[i].write(self.motor_wanted)
+        except pyfirmata.InvalidPinDefError as e:
+            self.error = e
+            print("could not set values with error: ", e)
 
-    def is_ready(self):
-        return self.has_connection 
+    def _start(self):
+        try:
+            for pin in self.pins:
+                self.pins[pin].write(90.0)
+            time.sleep(1)
+            self.started_correctly = True
+        except serial.SerialException as e:
+            self.error = e
+            print("could not start motors correctly with error: ", e)
+            #catch error and return true value for started
 
     def get_error(self):
-        return self.error_message
+        return self.error
 
+    def get_current(self, what = 0):
+        if what == 1:
+            return self.motor_wanted #add pin.read function if wanted
+        elif what == 2:
+            return self.rudder_wanted
+        elif what == 0:
+            return [self.rudder_wanted, self.motor_wanted]
+        else:
+            print("no value to return selected...")
 
+    def connection_state(self):
+        return self.has_connection
 
+    def start_state(self):
+        return self.started_correctly
 
+    def is_ready(self):
+        if self.has_connection == True and self.started_correctly == True:
+            return True
+        else:
+            return False 

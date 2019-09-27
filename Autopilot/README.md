@@ -9,13 +9,14 @@ Base_files - filer til GUI for base
 Multicast - filer til å sende og motta data med multicast, mest brukt av Communication.py
 ROS_operators - operatører og klasser for bruk av ROS, dvs innhenting og videresending av data. 
 Source_pictures - kun bilder til bruk i testing av Tkinter og Pygame
+Old_files - filer som er brukt tidligere, men i nåverende utgivelse er "obsolete"
 
 Mål - det skal kun være de tre hovedprogrammene som ligger i parent-directoriet Autopilot, mens alle filer ligger i mapper under.
 ''
 
 ''
 Arbeides med nå?
-Prøver å ferdigstille datarekken fra sensordata til å gi fart på motorer og rorutslag. 
+På vei ut på vannet
 ''
 
 
@@ -33,6 +34,8 @@ https://code.visualstudio.com/docs/python/python-tutorial !!!
     5.5. Pr nå brukes: 
         pygame
         pyserial
+        pyfirmata
+
         
 6. Plassering av mappen - vær bevisst på at programmer som ligger i mappen ROS_operators krever at prosjektmappen kjøres i en catkin workspace på en PC med ROS og MAVROS installert
 ''

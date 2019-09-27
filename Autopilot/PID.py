@@ -15,7 +15,7 @@ class PID :
         self.Integrator=Vector()
         self.Integrator_max=Vector(500,360)
         self.Integrator_min=Vector(-500,0)
-        self.pid_max = Vector(100.0, 360) 
+        self.pid_max = Vector(100.0, 360)  #TO DO: find a working convertion for meters to object to speed from 0-20
         self.wanted_vector=Vector()
         self.error=Vector()
         self.delta_angle = 0.0

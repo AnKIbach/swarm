@@ -20,16 +20,13 @@ def main():
     autopilot = Autopilot()
     
     #uncomment for test
-    #arduino = Arduino(speedLimit = 0.5) #speed limiter for testing
-    #arduino.connect()
-    #arduino.neutral_start()
+    arduino = Arduino(speedLimit = 0.5) #speed limiter for testing
     
     #fix for test
     autopilot_talker = Talker()
 
     sOut, sAct, sWan, aOut, aAct, aWan = [], [], [], [], [], []
     wait_time, clicks = 0.0, 0
-
     wanted_GPS = GPS(60.394087, 5.266185)
 
     while nav.is_ready() == False: #or arduino.is_ready() == False:
@@ -38,6 +35,14 @@ def main():
         time.sleep(0.1)
         if wait_time > 10.0: #exit if timeout is over 10s
             sys.exit(0)
+
+    if nav.is_ready() == True:
+        print("Pixhawk is connected and ready at: ", nav.mode)
+
+    if arduino.is_ready() == True:
+        print("Arduino is connected and started at: ", arduino.port)
+
+    print("entering autopilot loop...")
 
     while True:
         try:
@@ -55,7 +60,7 @@ def main():
             print("change vector")
             change.showVector()
 
-            #arduino.update(change.magnitude, -change.angle)
+            arduino(change.magnitude, -change.angle)
             
             autopilot_talker(current_vector, current_GPS) 
 
@@ -67,7 +72,7 @@ def main():
             sOut.append(change.magnitude)
             aOut.append(change.angle)
 
-
+            #presentation of current data after 20 clicks
             if clicks >= 20:
                 plt.present(sAct, sWan, sOut)
                 plt.present(aAct, aWan, aOut)
@@ -75,6 +80,7 @@ def main():
             else:
                 clicks += 1
 
+            #comment out for full test
             time.sleep(0.5)
 
         except rospy.ROSInterruptException():

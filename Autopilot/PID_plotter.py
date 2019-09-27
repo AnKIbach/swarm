@@ -5,13 +5,13 @@ class Plotter:
     def __init__(self):
         self.title = 'Klikkaboisa'
         self.x_label = 'clicks'
-        self.y_label = 'speed'
-        self.curveNames =['s actual',
-                        's wanted',
-                        's out',
-                        'a actual'
-                        'a wanted',
-                        'a out']
+        self.y_label = 'value [m/s | deg]'
+        self.curveNames =['actual',
+                        'wanted',
+                        'out',
+                        'actual'
+                        'wanted',
+                        'out']
 
     def present(self, *args):
         thingList = []

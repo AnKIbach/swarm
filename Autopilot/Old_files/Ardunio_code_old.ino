@@ -1,4 +1,9 @@
 
+//OBS OBS this code is obsolete with current system
+//Arduino now runs StandardFirmata file from examples library in IDE
+
+
+
 #include <Servo.h>
 #define INPUT_SIZE 100
 char inputString[INPUT_SIZE];
