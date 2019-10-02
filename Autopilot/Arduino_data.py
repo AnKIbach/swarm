@@ -62,8 +62,8 @@ class Arduino:
 
     def _start(self):
         try:
-            for pin in self.pins:
-                self.pins[pin].write(90.0)
+            for i in range(5):
+                self.pins[i].write(90.0)
             time.sleep(1)
             self.started_correctly = True
         except serial.SerialException as e:
