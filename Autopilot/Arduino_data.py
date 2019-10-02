@@ -8,7 +8,7 @@ import pyfirmata
 from Ranger import autoRange
 
 class Arduino:
-    def __init__(self, speedLimit = 1.0, port = '/dev/ttyACM0'):
+    def __init__(self, speedLimit = 1.0, port = '/dev/ttyACM1'):
         self.motor_wanted  = 0.0
         self.rudder_wanted = 0.0
         self.port = port
