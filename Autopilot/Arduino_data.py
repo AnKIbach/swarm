@@ -23,6 +23,12 @@ class Arduino:
         self.has_connection = False
         self.started_correctly = False
 
+        self.pins = [self.board.get_pin('d:6:s'),
+                    self.board.get_pin('d:5:s'),
+                    self.board.get_pin('d:11:p'),
+                    self.board.get_pin('d:10:p'),
+                    self.board.get_pin('d:9:p')]
+
         try: 
             self.board = pyfirmata.Arduino(self.port)
             self.has_connection = True
@@ -30,13 +36,7 @@ class Arduino:
         except serial.SerialException as e:
             self.error = e
             print("could not connect to arduino at", self.port, "with error: ", e)
-
-        self.pins = [self.board.get_pin('d:6:s'),
-                    self.board.get_pin('d:5:s'),
-                    self.board.get_pin('d:11:p'),
-                    self.board.get_pin('d:10:p'),
-                    self.board.get_pin('d:9:p')]
-
+            
         # self.rudder_left     = self.board.get_pin('d:6:s')
         # self.rudder_right    = self.board.get_pin('d:5:s')
         # self.motor_center    = self.board.get_pin('d:11:p')
