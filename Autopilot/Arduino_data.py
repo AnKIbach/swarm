@@ -40,7 +40,7 @@ class Arduino:
             self._start()
         except serial.SerialException as e:
             self.error = e
-            print"could not start boat with error: ", e)
+            print("could not start boat with error: ", e)
 
         # self.rudder_left     = self.board.get_pin('d:6:s')
         # self.rudder_right    = self.board.get_pin('d:5:s')
