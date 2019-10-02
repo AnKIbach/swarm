@@ -23,6 +23,13 @@ class Arduino:
         self.has_connection = False
         self.started_correctly = False
 
+        try: 
+            self.board = pyfirmata.Arduino(self.port)
+            self.has_connection = True
+        except serial.SerialException as e:
+            self.error = e
+            print("could not connect to arduino at", self.port, "with error: ", e)
+
         self.pins = [self.board.get_pin('d:6:s'),
                     self.board.get_pin('d:5:s'),
                     self.board.get_pin('d:11:p'),
@@ -30,13 +37,11 @@ class Arduino:
                     self.board.get_pin('d:9:p')]
 
         try: 
-            self.board = pyfirmata.Arduino(self.port)
-            self.has_connection = True
             self._start()
         except serial.SerialException as e:
             self.error = e
-            print("could not connect to arduino at", self.port, "with error: ", e)
-            
+            print"could not start boat with error: ", e)
+
         # self.rudder_left     = self.board.get_pin('d:6:s')
         # self.rudder_right    = self.board.get_pin('d:5:s')
         # self.motor_center    = self.board.get_pin('d:11:p')
