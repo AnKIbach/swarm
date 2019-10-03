@@ -8,14 +8,14 @@ import pyfirmata
 from Ranger import autoRange
 
 class Arduino:
-    def __init__(self, speedLimit = 1.0, port = '/dev/ttyACM1'):
+    def __init__(self, port, speedLimit = 1.0):
         self.motor_wanted  = 0.0
         self.rudder_wanted = 0.0
         self.port = port
 
         #rangers for converting speed to output
-        self.range_motor  = autoRange(0.0,100.0,90.0,180.0)
-        self.range_rudder = autoRange(-45.0, 45.0, 0.0, 180.0)
+        self.range_motor  = autoRange(0.0,20.0,0.0,0.1)
+        self.range_rudder = autoRange(-45.0, 45.0, 0.0, 179.0)
 
         self.speed_limt = speedLimit
 
@@ -30,11 +30,12 @@ class Arduino:
             self.error = e
             print("could not connect to arduino at", self.port, "with error: ", e)
 
-        self.pins = [self.board.get_pin('d:6:s'),
-                    self.board.get_pin('d:5:s'),
-                    self.board.get_pin('d:11:p'),
-                    self.board.get_pin('d:10:p'),
-                    self.board.get_pin('d:9:p')]
+        if self.has_connection == True:
+            self.pins = [self.board.get_pin('d:5:s'),
+                        self.board.get_pin('d:6:s'),
+                        self.board.get_pin('d:9:s'),
+                        self.board.get_pin('d:10:p'),
+                        self.board.get_pin('d:11:p')]
 
         try: 
             self._start()
@@ -48,14 +49,19 @@ class Arduino:
         # self.motor_left      = self.board.get_pin('d:10:p')
         # self.motor_right     = self.board.get_pin('d:9:p')
 
-    def __call__(self, motor = 50.0, rudder = 0.0):
-        self.rudder_wanted  = self.range_rudder.new(rudder)
-        self.motor_wanted   = self.range_motor.new(motor * self.speed_limt)
+    def __call__(self, motor = 10.0, rudder = 0.0):
+        self.rudder_wanted  = round(self.range_rudder.new(rudder), 3)
+        self.motor_wanted   = round(self.range_motor.new(motor * self.speed_limt), 3)
+
+        print("motor out: ", self.motor_wanted)
+        print("rudder out: ", self.rudder_wanted)
+
         try:
-            for i in range(0,2): #write for rudders
+            for i in range(0,3): #write for rudders
                 self.pins[i].write(self.rudder_wanted)
-            for i in range(2,5): 
-                self.pins[i].write(self.motor_wanted)
+            #current testing for values out to engine
+            for i in range(3,5): 
+                    self.pins[i].write(self.motor_wanted)
         except pyfirmata.InvalidPinDefError as e:
             self.error = e
             print("could not set values with error: ", e)

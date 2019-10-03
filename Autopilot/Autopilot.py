@@ -20,7 +20,7 @@ def main():
     autopilot = Autopilot()
     
     #uncomment for test
-    arduino = Arduino(speedLimit = 0.5) #speed limiter for testing
+    arduino = Arduino('/dev/ttyACM0', speedLimit = 0.8) #speed limiter for testing
     
     #fix for test
     autopilot_talker = Talker()
@@ -58,8 +58,8 @@ def main():
             change = autopilot(current_vector)
 
             print("change vector")
-            change.showVector()
-
+            change.showVector() 
+            
             arduino(change.magnitude, -change.angle)
             
             autopilot_talker(current_vector, current_GPS) 
@@ -74,8 +74,8 @@ def main():
 
             #presentation of current data after 20 clicks
             if clicks >= 20:
-                plt.present(sAct, sWan, sOut)
-                plt.present(aAct, aWan, aOut)
+                #plt.present(sAct, sWan, sOut)
+                #plt.present(aAct, aWan, aOut)
                 clicks = 0 
             else:
                 clicks += 1
