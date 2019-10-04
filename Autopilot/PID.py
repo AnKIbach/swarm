@@ -39,7 +39,7 @@ class PID :
         
         self.I_value = self.Integrator * self.Ki
 
-        pid = self.P_value #+ self.I_value + self.D_value
+        pid = self.P_value + self.I_value + self.D_value
 
         #linearity fix
         pid.magnitude = current_vector.magnitude + pid.magnitude

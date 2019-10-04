@@ -15,7 +15,7 @@ class Arduino:
 
         #rangers for converting speed to output
         self.range_motor  = autoRange(0.0,10.0,90,120) 
-        self.range_rudder = autoRange(-45.0, 45.0, 50, 130)
+        self.range_rudder = autoRange(-45.0, 45.0, 60, 120)
 
         self.speed_limt = speedLimit
 
@@ -59,7 +59,6 @@ class Arduino:
         try:
             for i in range(0,1): #write for rudders
                 self.pins[i].write(self.rudder_wanted)
-            #current testing for values out to engine
             for i in range(2,5): 
                 self.pins[i].write(self.motor_wanted)
         except pyfirmata.InvalidPinDefError as e:
