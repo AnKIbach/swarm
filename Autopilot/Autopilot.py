@@ -60,7 +60,7 @@ def main():
             print("change vector")
             change.showVector() 
             
-            arduino(change.magnitude, -change.angle)
+            arduino(change.magnitude, change.angle) #possible addition of another dampening for angle
             
             autopilot_talker(current_vector, current_GPS) 
 
@@ -74,8 +74,8 @@ def main():
 
             #presentation of current data after 20 clicks
             if clicks >= 20:
-                #plt.present(sAct, sWan, sOut)
-                #plt.present(aAct, aWan, aOut)
+                plt.present(sAct, sWan, sOut)
+                plt.present(aAct, aWan, aOut)
                 clicks = 0 
             else:
                 clicks += 1

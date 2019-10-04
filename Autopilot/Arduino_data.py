@@ -14,8 +14,8 @@ class Arduino:
         self.port = port
 
         #rangers for converting speed to output
-        self.range_motor  = autoRange(0.0,20.0,0.0,0.1)
-        self.range_rudder = autoRange(-45.0, 45.0, 0.0, 179.0)
+        self.range_motor  = autoRange(0.0,20.0,90,180)
+        self.range_rudder = autoRange(-45.0, 45.0, 45, 135)
 
         self.speed_limt = speedLimit
 
@@ -34,8 +34,8 @@ class Arduino:
             self.pins = [self.board.get_pin('d:5:s'),
                         self.board.get_pin('d:6:s'),
                         self.board.get_pin('d:9:s'),
-                        self.board.get_pin('d:10:p'),
-                        self.board.get_pin('d:11:p')]
+                        self.board.get_pin('d:10:s'),
+                        self.board.get_pin('d:11:s')]
 
         try: 
             self._start()
@@ -45,9 +45,9 @@ class Arduino:
 
         # self.rudder_left     = self.board.get_pin('d:6:s')
         # self.rudder_right    = self.board.get_pin('d:5:s')
-        # self.motor_center    = self.board.get_pin('d:11:p')
-        # self.motor_left      = self.board.get_pin('d:10:p')
-        # self.motor_right     = self.board.get_pin('d:9:p')
+        # self.motor_center    = self.board.get_pin('d:11:s')
+        # self.motor_left      = self.board.get_pin('d:10:s')
+        # self.motor_right     = self.board.get_pin('d:9:s')
 
     def __call__(self, motor = 10.0, rudder = 0.0):
         self.rudder_wanted  = round(self.range_rudder.new(rudder), 3)
@@ -61,7 +61,7 @@ class Arduino:
                 self.pins[i].write(self.rudder_wanted)
             #current testing for values out to engine
             for i in range(3,5): 
-                    self.pins[i].write(self.motor_wanted)
+                #self.pins[i].write(self.motor_wanted)
         except pyfirmata.InvalidPinDefError as e:
             self.error = e
             print("could not set values with error: ", e)
@@ -69,8 +69,9 @@ class Arduino:
     def _start(self):
         try:
             for i in range(5):
-                self.pins[i].write(90.0)
-            time.sleep(1)
+                self.pins[i].write(90)
+            print("waiting for start...")
+            time.sleep(4)
             self.started_correctly = True
         except serial.SerialException as e:
             self.error = e
