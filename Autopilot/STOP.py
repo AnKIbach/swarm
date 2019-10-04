@@ -6,6 +6,7 @@ from Arduino_data import Arduino
 
 def main():
     arduino = Arduino('dev/ttyACM0', speedLimit = 0.5) #speed limiter for testing
+    arduino._start()
     if arduino.is_ready() == True:
         print("Boat reset, exiting...")
         sys.exit()

@@ -20,16 +20,16 @@ def main():
     autopilot = Autopilot()
     
     #uncomment for test
-    arduino = Arduino('/dev/ttyACM0', speedLimit = 0.8) #speed limiter for testing
+    arduino = Arduino('/dev/ttyACM0', speedLimit = 0.6) #speed limiter for testing
     
     #fix for test
     autopilot_talker = Talker()
 
     sOut, sAct, sWan, aOut, aAct, aWan = [], [], [], [], [], []
     wait_time, clicks = 0.0, 0
-    wanted_GPS = GPS(60.394087, 5.266185)
+    wanted_GPS = GPS(60.394217, 5.266299)
 
-    while nav.is_ready() == False: #or arduino.is_ready() == False:
+    while nav.is_ready() == False and arduino.is_ready() == False:
     #waits for both systems to connect
         wait_time += 0.1
         time.sleep(0.1)

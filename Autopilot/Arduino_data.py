@@ -14,8 +14,8 @@ class Arduino:
         self.port = port
 
         #rangers for converting speed to output
-        self.range_motor  = autoRange(0.0,20.0,90,180)
-        self.range_rudder = autoRange(-45.0, 45.0, 45, 135)
+        self.range_motor  = autoRange(0.0,10.0,90,120) 
+        self.range_rudder = autoRange(-45.0, 45.0, 50, 130)
 
         self.speed_limt = speedLimit
 
@@ -49,7 +49,7 @@ class Arduino:
         # self.motor_left      = self.board.get_pin('d:10:s')
         # self.motor_right     = self.board.get_pin('d:9:s')
 
-    def __call__(self, motor = 10.0, rudder = 0.0):
+    def __call__(self, motor = 5.0, rudder = 0.0):
         self.rudder_wanted  = round(self.range_rudder.new(rudder), 3)
         self.motor_wanted   = round(self.range_motor.new(motor * self.speed_limt), 3)
 
@@ -57,11 +57,11 @@ class Arduino:
         print("rudder out: ", self.rudder_wanted)
 
         try:
-            for i in range(0,3): #write for rudders
+            for i in range(0,1): #write for rudders
                 self.pins[i].write(self.rudder_wanted)
             #current testing for values out to engine
-            for i in range(3,5): 
-                #self.pins[i].write(self.motor_wanted)
+            for i in range(2,5): 
+                self.pins[i].write(self.motor_wanted)
         except pyfirmata.InvalidPinDefError as e:
             self.error = e
             print("could not set values with error: ", e)
