@@ -20,7 +20,7 @@ def main():
     autopilot = Autopilot()
     
     #uncomment for test
-    arduino = Arduino('/dev/ttyACM0', speedLimit = 0.6) #speed limiter for testing
+    arduino = Arduino('/dev/ttyACM1', speedLimit = 0.6) #speed limiter for testing
     
     #fix for test
     autopilot_talker = Talker()
@@ -55,22 +55,31 @@ def main():
 
             autopilot.set_wanted_vector(wanted_vector)
 
-            change = autopilot(current_vector)
+            change_vector = autopilot(current_vector)
 
             print("change vector")
-            change.showVector() 
+            change_vector.showVector() 
             
-            arduino(change.magnitude, change.angle) #possible addition of another dampening for angle
+            arduino(change_vector.magnitude, change_vector.angle) #possible addition of another dampening for angle
             
-            autopilot_talker(current_vector, current_GPS) 
+            #publishing to ROS
+            autopilot_talker(current_vector, 
+                            current_GPS,
+                            wanted_vector,
+                            wanted_GPS, #change for behaviour
+                            change_vector,
+                            nav_status=True,
+                            ardu_status=True
+                            )
+
 
             #for visualisation of values:
             sAct.append(current_vector.magnitude)
             aAct.append(current_vector.angle)
             sWan.append(wanted_vector.magnitude)
             aWan.append(wanted_vector.angle)
-            sOut.append(change.magnitude)
-            aOut.append(change.angle)
+            sOut.append(change_vector.magnitude)
+            aOut.append(change_vector.angle)
 
             #presentation of current data after 20 clicks
             if clicks >= 20:

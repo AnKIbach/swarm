@@ -29,7 +29,15 @@ class Talker:
         self.wanted_data = RuntimeData()
         self.change_data = RuntimeData()
 
-    def __call__(self, movement_data, position_data, nav_status = False, ardu_status = False):
+    def __call__(self, 
+                movement_data, 
+                position_data, 
+                wanted_movement,
+                wanted_position,
+                change_movement, 
+                nav_status = False, 
+                ardu_status = False):
+
         self.autoData.header.stamp    = rospy.Time.now()
         self.autoData.header.frame_id = ''
 
@@ -42,6 +50,9 @@ class Talker:
         self.autoData.ArduinoReady = ardu_status
 
         self.pub_status.publish(self.autoData)
+        
+        self._pub_wanted(wanted_movement, wanted_position)
+        self._pub_change(change_movement)
 
     def _pub_wanted(self, movement_data, position_data):
         self.wanted_data.velocity  = movement_data.magnitude
@@ -49,11 +60,13 @@ class Talker:
         self.wanted_data.latitude  = position_data.lat
         self.wanted_data.longitude = position_data.lon
 
-    def _pub_change(self, movement_data, position_data):
-        self.change_data.velocity  = movement_data.magnitude
-        self.change_data.bearing   = movement_data.angle
-        self.change_data.latitude  = position_data.lat
-        self.change_data.longitude = position_data.lon
+        self.pub_wanted.publish(self.wanted_data)
+
+    def _pub_change(self, output_data):
+        self.change_data.velocity  = output_data.magnitude
+        self.change_data.bearing   = output_data.angle
+
+        self.pub_change.publish(self.change_data)
 
 
 
