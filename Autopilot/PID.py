@@ -8,13 +8,13 @@ from  Vector_class import Vector
 class PID :
     def __init__(self): 
         self.Kp=Vector(0.5,0.5)
-        self.Ki=Vector(0.0,0.0)
-        self.Kd=Vector(0.0,0.0)
+        self.Ki=Vector(0.1,0.1) #set for test
+        self.Kd=Vector(0.1,0.1) #set for test
 
         self.Derivator=Vector()
         self.Integrator=Vector()
-        self.Integrator_max=Vector(500,500)
-        self.Integrator_min=Vector(-500,0)
+        self.Integrator_max=Vector(500,500) #set for test
+        self.Integrator_min=Vector(-500,0) #set for test
         self.pid_max = Vector(10.0, 45.0)  #TO DO: find a working convertion for meters to object to speed from 0-20
         self.wanted_vector=Vector()
         self.error=Vector()

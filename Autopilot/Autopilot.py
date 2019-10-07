@@ -67,10 +67,7 @@ def main():
                             current_GPS,
                             wanted_vector,
                             wanted_GPS, #change for behaviour
-                            change_vector,
-                            nav_status=True,
-                            ardu_status=True
-                            )
+                            change_vector)
 
 
             #for visualisation of values:

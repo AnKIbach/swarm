@@ -1,5 +1,7 @@
 SwarmHeader header
-FlightStatus flightStatus
-StateStatus stateStatus
+BoatStatus boatStatus
+
+
+#StateStatus stateStatus
 
 

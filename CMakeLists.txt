@@ -21,7 +21,7 @@ add_message_files(
         FILES
         Area.msg
         BoatData.msg
-        FlightStatus.msg
+        BoatStatus.msg
         RuntimeData.msg
         StateStatus.msg
         SwarmCommand.msg

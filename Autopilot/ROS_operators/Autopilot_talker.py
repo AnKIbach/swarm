@@ -34,9 +34,7 @@ class Talker:
                 position_data, 
                 wanted_movement,
                 wanted_position,
-                change_movement, 
-                nav_status = False, 
-                ardu_status = False):
+                change_movement):
 
         self.autoData.header.stamp    = rospy.Time.now()
         self.autoData.header.frame_id = ''
