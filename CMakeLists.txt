@@ -28,6 +28,9 @@ add_message_files(
         SwarmOdometry.msg
         SwarmHeader.msg
         SwarmStatus.msg
+
+        Position.msg
+        Movement.msg
 )
 
 include_directories( ${catkin_INCLUDE_DIRS} )

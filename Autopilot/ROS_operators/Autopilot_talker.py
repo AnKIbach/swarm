@@ -39,13 +39,10 @@ class Talker:
         self.autoData.header.stamp    = rospy.Time.now()
         self.autoData.header.frame_id = ''
 
-        self.autoData.data.velocity  = movement_data.magnitude
-        self.autoData.data.bearing   = movement_data.angle
-        self.autoData.data.latitude  = position_data.lat
-        self.autoData.data.longitude = position_data.lon
-
-        self.autoData.NavReady     = nav_status
-        self.autoData.ArduinoReady = ardu_status
+        self.autoData.data.movement.velocity  = movement_data.magnitude
+        self.autoData.data.movement.bearing   = movement_data.angle
+        self.autoData.data.position.latitude  = position_data.lat
+        self.autoData.data.position.longitude = position_data.lon
 
         self.pub_status.publish(self.autoData)
         
@@ -53,16 +50,16 @@ class Talker:
         self._pub_change(change_movement)
 
     def _pub_wanted(self, movement_data, position_data):
-        self.wanted_data.velocity  = movement_data.magnitude
-        self.wanted_data.bearing   = movement_data.angle
-        self.wanted_data.latitude  = position_data.lat
-        self.wanted_data.longitude = position_data.lon
+        self.wanted_data.movement.velocity  = movement_data.magnitude
+        self.wanted_data.movement.bearing   = movement_data.angle
+        self.wanted_data.position.latitude  = position_data.lat
+        self.wanted_data.position.longitude = position_data.lon
 
         self.pub_wanted.publish(self.wanted_data)
 
     def _pub_change(self, output_data):
-        self.change_data.velocity  = output_data.magnitude
-        self.change_data.bearing   = output_data.angle
+        self.change_data.movement.velocity  = output_data.magnitude
+        self.change_data.movement.bearing   = output_data.angle
 
         self.pub_change.publish(self.change_data)
 

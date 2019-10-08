@@ -1,4 +1,4 @@
 SwarmHeader header
 
-RuntimeData boatData
+RuntimeData odometry
 

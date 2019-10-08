@@ -1,21 +1,24 @@
 import rospy
 
-from communication.msg import LatLonAltVector
-from communication.msg import Area
-from communication.msg import Route
+#download psutil from python
 
-from communication.msg import SwarmStatus
-from communication.msg import SwarmOdometry
-from communication.msg import SwarmCommand
-from communication.msg import SwarmHeader
-from communication.msg import FlightStatus
-from communication.msg import StateStatus
+from autopilot.msg import Area
+from autopilot.msg import Movement
+from autopilot.msg import Position
+
+from autopilot.msg import SwarmStatus
+from autopilot.msg import SwarmOdometry
+from autopilot.msg import SwarmCommand
+from autopilot.msg import SwarmHeader
+from autopilot.msg import BoatStatus
+from autopilot.msg import BoatData
+from autopilot.msg import StateStatus
+from autopilot.msg import RuntimeData
+
 
 from nav_msgs.msg import Odometry
 
-from geometry_msgs.msg import PoseWithCovariance
-from geometry_msgs.msg import TwistWithCovariance
-
+#uncertain of value in code
 from geometry_msgs.msg import Point
 from geometry_msgs.msg import Quaternion
 from geometry_msgs.msg import Vector3
@@ -47,73 +50,27 @@ def json2Header(msg):
 
 def position2Json(position):
     msg = {}
-    msg['x'] = position.x
-    msg['y'] = position.y
-    msg['z'] = position.z
+    msg['lat'] = position.latitude
+    msg['lon'] = position.longitude
     return msg
 
 def json2Position(msg):
-    position = Point()
-    position.x = msg['x']
-    position.y = msg['y']
-    position.z = msg['z']
+    position = Position()
+    position.latitude  = msg['lat']
+    position.longitude = msg['lon']
     return position
 
-def latLonAltVector2Json(latLonAltVector):
+def movement2Json(movement):
     msg = {}
-    msg['lat'] = latLonAltVector.latitude
-    msg['lon'] = latLonAltVector.longitude
-    msg['alt'] = latLonAltVector.altitude
+    msg["spd"] = movement.velocity
+    msg["hdn"] = movement.bearing
     return msg
 
-def json2LatLonAltVector(msg):
-    latLonAltVector = LatLonAltVector()
-    latLonAltVector.latitude = msg['lat']
-    latLonAltVector.longitude = msg['lon']
-    latLonAltVector.altitude = msg['alt']
-    return latLonAltVector
-
-def orientation2Json(orientation):
-    msg = {}
-    msg["w"] = orientation.w
-    msg["x"] = orientation.x
-    msg["y"] = orientation.y
-    msg["z"] = orientation.z
-    return msg
-
-def json2Orientation(msg):
-    orientation = Quaternion()
-    orientation.w = msg["w"]
-    orientation.x = msg["x"]
-    orientation.y = msg["y"]
-    orientation.z = msg["z"]
-    return orientation
-
-def pose2Json(pose):
-    msg = {}
-    msg["pos"] = position2Json(pose.pose.position)
-    msg["ati"] = orientation2Json(pose.pose.orientation)
-    return msg
-
-def json2Pose(msg):
-    pose = PoseWithCovariance()
-    pose.pose.position    = json2Position(   msg["pos"])
-    pose.pose.orientation = json2Orientation(msg["ati"])
-    return pose
-
-
-
-def velocity2Json(vel):
-    msg = {}
-    msg["lin"] = linVel2Json(vel.twist.linear)
-    msg["ang"] = angVel2Json(vel.twist.angular)
-    return msg
-
-def json2Velocity(msg):
-    vel = TwistWithCovariance()
-    vel.twist.linear  = json2LinVel(msg["lin"] )
-    vel.twist.angular = json2AngVel(msg["ang"] )
-    return vel
+def json2Movement(msg):
+    movement = Movement()
+    movement.velocity = msg["speed"]
+    movement.bearing  = msg["heading"]
+    return movement
 
 def swarmOdometry2Json(swarmOdometry):
     msg = {}
@@ -127,16 +84,16 @@ def json2SwarmOdometry(msg):
     swarmOdometry.odometry = json2Odometry(msg["odometry"])
     return swarmOdometry
 
-def odometry2Json(odometry):
+def odometry2Json(odometry): #not 100% on the definitons here
     msg = {}
-    msg["pose"]   = pose2Json(    odometry.pose)
-    msg["vel"]    = velocity2Json(odometry.twist)
+    msg["position"]   = position2Json(odometry)
+    msg["movement"]   = movement2Json(odometry)
     return msg
 
 def json2Odometry(msg):
-    odometry = Odometry() #runtimedata
-    odometry.pose   = json2Pose(msg["pose"])
-    odometry.twist  = json2Velocity(msg["vel"])
+    odometry = RuntimeData()
+    odometry.movement = json2Position(msg["position"])
+    odometry.position = json2Movement(msg["movement"])
     return odometry
 
 def swarmCommand2Json(swarmCommand):
@@ -145,14 +102,12 @@ def swarmCommand2Json(swarmCommand):
     msg['tasktype']        = swarmCommand.taskType
     msg['headingMode']     = swarmCommand.headingMode
     msg['colavMode']       = swarmCommand.colavMode
-    msg['destination']     = latLonAltVector2Json( swarmCommand.destination        )
-    msg['locationOfInterest'] = latLonAltVector2Json( swarmCommand.locationOfInterest )
+    msg['destination']     = position2Json( swarmCommand.destination)
     msg['speed']           = swarmCommand.speed
     msg['heading']         = swarmCommand.heading
-    msg['route']           = route2Json(swarmCommand.route)
-    msg['area']            = area2Json(swarmCommand.area)
+    # msg['area']            = area2Json(swarmCommand.area)
     msg['do_imediate']     = swarmCommand.doImidiate
-    #msg['id']              = swarmCommand.id
+    #msg['id']              = swarmCommand.id #uncertain of value
     return msg
 
 def json2SwarmCommand(msg):
@@ -161,58 +116,40 @@ def json2SwarmCommand(msg):
     cmd.taskType           = msg['tasktype']
     cmd.headingMode        = msg['headingMode']
     cmd.colavMode          = msg['colavMode']
-    cmd.destination        = json2LatLonAltVector( msg['destination']     )
-    cmd.locationOfInterest = json2LatLonAltVector( msg['locationOfInterest'] )
+    cmd.destination        = json2Position( msg['destination'] )
     cmd.speed              = msg['speed']
     cmd.heading            = msg['heading']
-    cmd.route              = json2Route(msg['route'])
-    cmd.area               = json2Area( msg['area'])
+    # cmd.area               = json2Area( msg['area'])
     cmd.doImidiate         = msg['do_imediate']
     return cmd
 
 
 
-def stateStatus2Json(state_status):
+def boatStatus2Json(status):
     msg = {}
-    msg["battery_ratio"]              = state_status.batteryRatio
-    msg["time_since_launch"]          = state_status.timeSinceLaunch
-    msg["distance_from_launch"]       = state_status.distanceFromLaunch
-    msg["has_gps_fix"]                = state_status.hasGPSFix
-    msg["num_gps_satelites"]          = state_status.numGpsSatelites
-    msg["has_controller_signal"]      = state_status.hasControllerSignal
-    msg["has_attitude_stabilization"] = state_status.hasAttitudeStabilization
-    msg["has_yaw_position"]           = state_status.hasYawPosition
-    msg["has_altitude_control"]       = state_status.hasAltitudeControl
-    msg["has_position_control"]       = state_status.hasPositionControl
+    msg["fcu_mode"]                   = status.fcuMode
+    msg["fcu_status"]                 = status.fcuStatus
+    msg["time_since_launch"]          = status.timeSinceLaunch
+    msg["distance_from_launch"]       = status.distanceFromLaunch
+    msg["num_gps_satelites"]          = status.numGpsSatelites
+    msg["pixhawk_ready"]              = status.pixhawkReady 
+    msg["arduino_ready"]              = status.arduinoReady 
+    msg["has_gps_fix"]                = status.hasGPSFix
+    msg["has_wifi"]                   = status.hasControllerSignal
     return msg
 
-def json2StateStatus(msg):
-    state_status = StateStatus()
-    state_status.batteryRatio             = msg["battery_ratio"]
-    state_status.timeSinceLaunch          = msg["time_since_launch"]
-    state_status.distanceFromLaunch       = msg["distance_from_launch"]
-    state_status.hasGPSFix                = msg["has_gps_fix"]
-    state_status.numGpsSatelites          = msg["num_gps_satelites"]
-    state_status.hasControllerSignal      = msg["has_controller_signal"]
-    state_status.hasAttitudeStabilization = msg["has_attitude_stabilization"]
-    state_status.hasYawPosition           = msg["has_yaw_position"]
-    state_status.hasAltitudeControl       = msg["has_altitude_control"]
-    state_status.hasPositionControl       = msg["has_position_control"]
-    return state_status
-
-def swarmStatus2Json(swarm_status):
-    msg = {}
-    msg["header"]        = header2Json(swarm_status.header)
-    msg["flight_status"] = flightStatus2Json(swarm_status.flightStatus)
-    msg["state_status"]  = stateStatus2Json( swarm_status.stateStatus)
-    return msg
-
-def json2SwarmStatus(msg):
-    swarm_status = SwarmStatus()
-    swarm_status.header       = json2Header(msg['header'])
-    swarm_status.flightStatus = json2FlightStatus(msg['flight_status'])
-    swarm_status.stateStatus  = json2StateStatus( msg['state_status'])
-    return swarm_status
+def json2BoatStatus(msg):
+    status = StateStatus()
+    status.fcuMode              = msg["fcu_mode"]
+    status.fcuStatus            = msg["fcu_status"] 
+    status.timeSinceLaunch      = msg["time_since_launch"]
+    status.distanceFromLaunch   = msg["distance_from_launch"] 
+    status.numGpsSatelites      = msg["num_gps_satelites"] 
+    status.pixhawkReady         = msg["pixhawk_ready"] 
+    status.arduinoReady         = msg["arduino_ready"] 
+    status.hasGPSFix            = msg["has_gps_fix"]
+    status.hasControllerSignal  = msg["has_wifi"] 
+    return status
 
 def cpuStatus2Json():
     msg = {}
@@ -240,6 +177,50 @@ def cpuStatus2Json():
 #     msg['longitude']  = detection.longitude
 #     msg['type']       = detection.type
 #     return msg
+
+
+# def latLonAltVector2Json(latLonAltVector):
+#     msg = {}
+#     msg['lat'] = latLonAltVector.latitude
+#     msg['lon'] = latLonAltVector.longitude
+#     msg['alt'] = latLonAltVector.altitude
+#     return msg
+
+# def json2LatLonAltVector(msg):
+#     latLonAltVector = LatLonAltVector()
+#     latLonAltVector.latitude = msg['lat']
+#     latLonAltVector.longitude = msg['lon']
+#     latLonAltVector.altitude = msg['alt']
+#     return latLonAltVector
+
+# def orientation2Json(orientation):
+#     msg = {}
+#     msg["w"] = orientation.w
+#     msg["x"] = orientation.x
+#     msg["y"] = orientation.y
+#     msg["z"] = orientation.z
+#     return msg
+
+# def json2Orientation(msg):
+#     orientation = Quaternion()
+#     orientation.w = msg["w"]
+#     orientation.x = msg["x"]
+#     orientation.y = msg["y"]
+#     orientation.z = msg["z"]
+#     return orientation
+
+# def pose2Json(pose):
+#     msg = {}
+#     msg["pos"] = position2Json(pose.pose.position)
+#     msg["ati"] = orientation2Json(pose.pose.orientation)
+#     return msg
+
+# def json2Pose(msg):
+#     pose = PoseWithCovariance()
+#     pose.pose.position    = json2Position(   msg["pos"])
+#     pose.pose.orientation = json2Orientation(msg["ati"])
+#     return pose
+
 
 # def linVel2Json(linVel):
 #     msg = {}
@@ -269,7 +250,19 @@ def cpuStatus2Json():
 #     angVel.z = msg["y"]
 #     return angVel
 
+# def swarmStatus2Json(swarm_status):
+#     msg = {}
+#     msg["header"]        = header2Json(swarm_status.header)
+#     msg["flight_status"] = flightStatus2Json(swarm_status.flightStatus)
+#     msg["status"]  = stateStatus2Json( swarm_status.stateStatus)
+#     return msg
 
+# def json2SwarmStatus(msg):
+#     swarm_status = SwarmStatus()
+#     swarm_status.header       = json2Header(msg['header'])
+#     swarm_status.flightStatus = json2FlightStatus(msg['flight_status'])
+#     swarm_status.stateStatus  = json2StateStatus( msg['status'])
+#     return swarm_status
 
 # def flightStatus2Json(flight_status):
 #     msg = {}
