@@ -58,12 +58,16 @@ def main():
 
             change_vector = autopilot(current_vector)
 
-            print("current vector: ", current_vector.showVector())
-            
-            print("wanted vector: ", wanted_vector.showVector())
-        
-            print("change vector: ", change_vector.showVector())
-             
+            print("current vector: ")
+            current_vector.showVector()
+            print("")
+            print("wanted vector: ")
+            wanted_vector.showVector()
+            print("")
+            print("change vector: ")
+            change_vector.showVector()
+            print("")
+            wanted_GPS.show()
             
             arduino(change_vector.magnitude, change_vector.angle) #possible addition of another dampening for angle
             

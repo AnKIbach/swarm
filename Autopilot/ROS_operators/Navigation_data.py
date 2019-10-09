@@ -117,6 +117,7 @@ class newGPS:
         lat = msg.position.latitude
         lon = msg.position.longitude
         self.GPS.set(lat,lon)
+        print(self.GPS_received)
         if lat > 50.0:
             self.GPS_received = True
 
