@@ -36,8 +36,8 @@ def main():
 
     ttl = rospy.get_param('~ttl', 1)
 
-    odometry_topic    = rospy.get_param('~odometry_subscriber',      "/hal/comm/data/odometry")
-    status_topic      = rospy.get_param('~uav_status_subscriber',    "/hal/comm/data/status")
+    odometry_topic    = rospy.get_param('~odometry_subscriber',      "/autopilot/status")
+    status_topic      = rospy.get_param('~status_subscriber',    "/autopilot/status")
     order_ack_topic   = rospy.get_param('~swarm_command_subscriber', "/hal/comm/data/order_ack")
 
     rospy.loginfo("Using multicast group: {}:{}".format(mcast_grp, mcast_port))
