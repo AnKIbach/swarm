@@ -13,6 +13,9 @@ from autopilot.msg import BoatOdometry
 from autopilot.msg import Position
 from autopilot.msg import Movement
 
+#find way to get dynamically from base
+BOAT_ID = 1
+
 class Talker:
     def __init__(self):
 
@@ -41,7 +44,7 @@ class Talker:
         self.time_now = rospy.get_rostime()
         self.autoData.header.secs    = self.time_now.secs
         self.autoData.header.nsecs   = self.time_now.nsecs
-        self.autoData.header.id      = bytes(1)
+        self.autoData.header.id      = BOAT_ID
 
         self.autoData.movement.velocity  = current_movement.magnitude
         self.autoData.movement.bearing   = current_movement.angle
@@ -57,7 +60,7 @@ class Talker:
 
         self.wanted_data.header.secs    = self.time_now.secs
         self.wanted_data.header.nsecs   = self.time_now.nsecs
-        self.wanted_data.header.id      = bytes(1)
+        self.wanted_data.header.id      = BOAT_ID
         
         self.wanted_data.movement.velocity  = movement_data.magnitude
         self.wanted_data.movement.bearing   = movement_data.angle
@@ -70,7 +73,7 @@ class Talker:
 
         self.change_data.header.secs    = self.time_now.secs
         self.change_data.header.nsecs   = self.time_now.nsecs
-        self.change_data.header.id      = bytes(1)
+        self.change_data.header.id      = BOAT_ID
 
         self.change_data.movement.velocity  = output_data.magnitude
         self.change_data.movement.bearing   = output_data.angle

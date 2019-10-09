@@ -49,7 +49,7 @@ class Arduino:
         # self.motor_left      = self.board.get_pin('d:10:s')
         # self.motor_right     = self.board.get_pin('d:9:s')
 
-    def __call__(self, motor = 5.0, rudder = 0.0):
+    def __call__(self, motor = 0.0, rudder = 0.0):
         self.rudder_wanted  = round(self.range_rudder.new(rudder), 3)
         self.motor_wanted   = round(self.range_motor.new(motor * self.speed_limt), 3)
 

@@ -2,6 +2,7 @@
 import time
 import sys
 import rospy
+import signal
 
 from GPS_class import GPS
 from PID_plotter import Plotter
@@ -27,7 +28,7 @@ def main():
 
     sOut, sAct, sWan, aOut, aAct, aWan = [], [], [], [], [], []
     wait_time, clicks = 0.0, 0
-    wanted_GPS = GPS(60.394217, 5.266299)
+    wanted_GPS = GPS(60.365625, 5.264544)
 
     while nav.is_ready() == False and arduino.is_ready() == False:
     #waits for both systems to connect
@@ -44,7 +45,7 @@ def main():
 
     print("entering autopilot loop...")
 
-    while True:
+    while not rospy.is_shutdown():
         try:
             wanted_GPS = new_gps(wanted_GPS)
 
@@ -80,8 +81,8 @@ def main():
 
             #presentation of current data after 20 clicks
             if clicks >= 20:
-                plt.present(sAct, sWan, sOut)
-                plt.present(aAct, aWan, aOut)
+                #plt.present(sAct, sWan, sOut)
+                #plt.present(aAct, aWan, aOut)
                 clicks = 0 
             else:
                 clicks += 1
@@ -90,9 +91,11 @@ def main():
             time.sleep(0.5)
 
         except rospy.ROSInterruptException():
+            arduino._start() 
             sys.exit()
         finally:
             pass
+    arduino()
 
 
 

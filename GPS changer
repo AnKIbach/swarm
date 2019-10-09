@@ -1,0 +1,1 @@
+rostopic pub -r /mavros/global_position/set_gp_origin geographic_msgs/GeoPointStamped '{position: {latitude: 60.5, longitude: 5.6}}'
