@@ -1,6 +1,5 @@
 import rospy
-
-#download psutil from python
+import psutil
 
 from autopilot.msg import Area
 from autopilot.msg import Movement
@@ -11,19 +10,8 @@ from autopilot.msg import SwarmOdometry
 from autopilot.msg import SwarmCommand
 from autopilot.msg import SwarmHeader
 from autopilot.msg import BoatStatus
-from autopilot.msg import BoatData
+from autopilot.msg import BoatOdometry
 from autopilot.msg import StateStatus
-from autopilot.msg import RuntimeData
-
-
-from nav_msgs.msg import Odometry
-
-#uncertain of value in code
-from geometry_msgs.msg import Point
-from geometry_msgs.msg import Quaternion
-from geometry_msgs.msg import Vector3
-
-
 
 
 def header2Json(header):
@@ -62,8 +50,8 @@ def json2Position(msg):
 
 def movement2Json(movement):
     msg = {}
-    msg["spd"] = movement.velocity
-    msg["hdn"] = movement.bearing
+    msg["speed"] = movement.velocity
+    msg["heading"] = movement.bearing
     return msg
 
 def json2Movement(msg):
@@ -72,37 +60,79 @@ def json2Movement(msg):
     movement.bearing  = msg["heading"]
     return movement
 
-def swarmOdometry2Json(swarmOdometry):
+def BoatOdometry2Json(BoatOdometry):
     msg = {}
-    msg["header"]   = header2Json(swarmOdometry.header)
-    msg["odometry"] = odometry2Json(swarmOdometry.odometry)
+    msg["header"]   = header2Json(BoatOdometry.header)
+    msg["position"] = position2Json(BoatOdometry.position)
+    msg["movement"] = movement2Json(BoatOdometry.movement)
+    return msg
+
+def json2BoatOdometry(msg):
+    odom = BoatOdometry()
+    odom.header   = json2Header(msg["header"])
+    odom.position = json2Position(msg["position"])
+    odom.movement = json2Movement(msg["movement"])
+    return odom
+
+def boatStatus2Json(status):
+    msg = {}
+    msg["fcu_mode"]                   = status.fcuMode
+    msg["fcu_status"]                 = status.fcuStatus
+    msg["time_since_launch"]          = status.timeSinceLaunch
+    msg["distance_from_launch"]       = status.distanceFromLaunch
+    msg["num_gps_satelites"]          = status.numGpsSatelites
+    msg["pixhawk_ready"]              = status.pixhawkReady 
+    msg["arduino_ready"]              = status.arduinoReady 
+    msg["has_gps_fix"]                = status.hasGPSFix
+    msg["has_wifi"]                   = status.hasWiFi
+    return msg
+
+def json2BoatStatus(msg):
+    status = BoatStatus()
+    status.fcuMode              = msg["fcu_mode"]
+    status.fcuStatus            = msg["fcu_status"] 
+    status.timeSinceLaunch      = msg["time_since_launch"]
+    status.distanceFromLaunch   = msg["distance_from_launch"] 
+    status.numGpsSatelites      = msg["num_gps_satelites"] 
+    status.pixhawkReady         = msg["pixhawk_ready"] 
+    status.arduinoReady         = msg["arduino_ready"] 
+    status.hasGPSFix            = msg["has_gps_fix"]
+    status.hasWiFi              = msg["has_wifi"] 
+    return status
+
+def swarmODometry2Json(SwarmOdometry):
+    msg = {}
+    msg["header"]   = header2Json(SwarmOdometry.header)
+    msg["position"] = position2Json(SwarmOdometry.position)
+    msg["movement"] = movement2Json(SwarmOdometry.movement)
     return msg
 
 def json2SwarmOdometry(msg):
-    swarmOdometry = SwarmOdometry()
-    swarmOdometry.header   = json2Header(msg["header"])
-    swarmOdometry.odometry = json2Odometry(msg["odometry"])
-    return swarmOdometry
+    odom = SwarmOdometry()
+    odom.header   = json2Header(msg["header"])
+    odom.position = json2Position(msg["position"])
+    odom.movement = json2Movement(msg["movement"])
+    return odom
 
-def odometry2Json(odometry): #not 100% on the definitons here
+def swarmStatus2Json(SwarmStatus):
     msg = {}
-    msg["position"]   = position2Json(odometry)
-    msg["movement"]   = movement2Json(odometry)
+    msg['header'] = header2Json(SwarmStatus.header)
+    msg['status'] = boatStatus2Json(SwarmStatus.boatStatus)
     return msg
 
-def json2Odometry(msg):
-    odometry = RuntimeData()
-    odometry.movement = json2Position(msg["position"])
-    odometry.position = json2Movement(msg["movement"])
-    return odometry
-
+def json2SwarmStatus(msg):
+    swarmstat = SwarmStatus()
+    swarmstat.header     = json2Header(msg['header'])
+    swarmstat.boatStatus = json2BoatStatus(msg['status'])
+    return swarmstat
+ 
 def swarmCommand2Json(swarmCommand):
     msg = {}
     msg['header']          = header2Json(swarmCommand.header)
     msg['tasktype']        = swarmCommand.taskType
     msg['headingMode']     = swarmCommand.headingMode
     msg['colavMode']       = swarmCommand.colavMode
-    msg['destination']     = position2Json( swarmCommand.destination)
+    msg['destination']     = position2Json(swarmCommand.destination)
     msg['speed']           = swarmCommand.speed
     msg['heading']         = swarmCommand.heading
     # msg['area']            = area2Json(swarmCommand.area)
@@ -116,40 +146,12 @@ def json2SwarmCommand(msg):
     cmd.taskType           = msg['tasktype']
     cmd.headingMode        = msg['headingMode']
     cmd.colavMode          = msg['colavMode']
-    cmd.destination        = json2Position( msg['destination'] )
+    cmd.destination        = json2Position(msg['destination'])
     cmd.speed              = msg['speed']
     cmd.heading            = msg['heading']
     # cmd.area               = json2Area( msg['area'])
     cmd.doImidiate         = msg['do_imediate']
     return cmd
-
-
-
-def boatStatus2Json(status):
-    msg = {}
-    msg["fcu_mode"]                   = status.fcuMode
-    msg["fcu_status"]                 = status.fcuStatus
-    msg["time_since_launch"]          = status.timeSinceLaunch
-    msg["distance_from_launch"]       = status.distanceFromLaunch
-    msg["num_gps_satelites"]          = status.numGpsSatelites
-    msg["pixhawk_ready"]              = status.pixhawkReady 
-    msg["arduino_ready"]              = status.arduinoReady 
-    msg["has_gps_fix"]                = status.hasGPSFix
-    msg["has_wifi"]                   = status.hasControllerSignal
-    return msg
-
-def json2BoatStatus(msg):
-    status = StateStatus()
-    status.fcuMode              = msg["fcu_mode"]
-    status.fcuStatus            = msg["fcu_status"] 
-    status.timeSinceLaunch      = msg["time_since_launch"]
-    status.distanceFromLaunch   = msg["distance_from_launch"] 
-    status.numGpsSatelites      = msg["num_gps_satelites"] 
-    status.pixhawkReady         = msg["pixhawk_ready"] 
-    status.arduinoReady         = msg["arduino_ready"] 
-    status.hasGPSFix            = msg["has_gps_fix"]
-    status.hasControllerSignal  = msg["has_wifi"] 
-    return status
 
 def cpuStatus2Json():
     msg = {}
@@ -167,6 +169,11 @@ def cpuStatus2Json():
     msg['time'] = {'secs': time_now.secs,
                    'nsecs': time_now.nsecs}
     return msg
+
+# #uncertain of value in code
+# from geometry_msgs.msg import Point
+# from geometry_msgs.msg import Quaternion
+# from geometry_msgs.msg import Vector3
 
 
 # def detection2Json(detection):
@@ -221,6 +228,17 @@ def cpuStatus2Json():
 #     pose.pose.orientation = json2Orientation(msg["ati"])
 #     return pose
 
+# def odometry2Json(odometry): #not 100% on the definitons here
+#     msg = {}
+#     msg["position"]   = position2Json(odometry)
+#     msg["movement"]   = movement2Json(odometry)
+#     return msg
+
+# def json2Odometry(msg):
+#     odometry = BoatOdometry()
+#     odometry.movement = json2Position(msg["position"])
+#     odometry.position = json2Movement(msg["movement"])
+#     return odometry
 
 # def linVel2Json(linVel):
 #     msg = {}

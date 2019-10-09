@@ -20,9 +20,8 @@ find_package(catkin REQUIRED COMPONENTS
 add_message_files(
         FILES
         Area.msg
-        BoatData.msg
+        BoatOdometry.msg
         BoatStatus.msg
-        RuntimeData.msg
         StateStatus.msg
         SwarmCommand.msg
         SwarmOdometry.msg
