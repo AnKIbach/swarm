@@ -60,7 +60,7 @@ def json2Movement(msg):
     movement.bearing  = msg["heading"]
     return movement
 
-def BoatOdometry2Json(BoatOdometry):
+def boatOdometry2Json(BoatOdometry):
     msg = {}
     msg["header"]   = header2Json(BoatOdometry.header)
     msg["position"] = position2Json(BoatOdometry.position)
