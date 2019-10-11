@@ -7,14 +7,14 @@ from  Vector_class import Vector
 
 class PID :
     def __init__(self): 
-        self.Kp=Vector(0.5,0.5)
-        self.Ki=Vector(0.1,0.1) #set for test
+        self.Kp=Vector(0.5,0.5) #mindre
+        self.Ki=Vector(0.0,0.0) #set for test
         self.Kd=Vector(0.0,0.0) #set for test
 
         self.Derivator=Vector()
         self.Integrator=Vector()
-        self.Integrator_max=Vector(500.0,360.0) #set for test
-        self.Integrator_min=Vector(-500.0,-360.0) #set for test
+        self.Integrator_max=Vector(500.0,45.0) #set for test
+        self.Integrator_min=Vector(-500.0,-45.0) #set for test
         self.pid_max = Vector(10.0, 45.0)  #TO DO: find a working convertion for meters to object to speed from 0-20
         self.wanted_vector=Vector()
         self.error=Vector()
@@ -29,7 +29,7 @@ class PID :
         self.D_value =  ( self.error - self.Derivator) * self.Kd 
         self.Derivator = self.error
 
-        self.Integrator = self.Integrator + self.error
+        self.Integrator = self.Integrator + self.error #look at what value we get
 
         if self.Integrator.magnitude > self.Integrator_max.magnitude or self.Integrator.angle > self.Integrator_max.angle:
             self.Integrator = self.Integrator_max
@@ -55,6 +55,7 @@ class PID :
     def set_wanted(self, wanted): 
         if isinstance(wanted, Vector) or isinstance(wanted, tuple):
             self.wanted_vector = wanted
+            self.Integrator.set(0.0,0.0) #For resetting
         if isinstance(wanted, list) or isinstance(wanted, float):
             self.wanted_vector.set(wanted[0], wanted[1])
 

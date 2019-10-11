@@ -4,4 +4,4 @@ int32 seq
 byte id
 byte msgType
 byte reTransmit
-byte requestAck
+byte Ack
