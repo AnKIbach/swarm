@@ -15,9 +15,9 @@ import os
 
 import rospy
 
-from Multicast.Multicaster import MulticastSender
-
 import Json
+
+from Multicast.Multicaster import MulticastSender
 
 HEADER_FMT = 'b'
 
@@ -52,7 +52,7 @@ class PositionPublisher(object):
         """
         Handle HAL callback
         """
-        self._msender.send_message( self._createboatState(boatStatus) )
+        self._msender.send_message( self._createBoatState(boatStatus) )
 
 
     def handle_swarm_command(self, swarmCommand):
@@ -70,6 +70,6 @@ class PositionPublisher(object):
         msg = Json.swarmCommand2Json(swarmCommand)
         return msg
   
-    def _createboatState(self, boatStatus):
+    def _createBoatState(self, boatStatus):
         msg = Json.boatStatus2Json(boatStatus)
         return msg

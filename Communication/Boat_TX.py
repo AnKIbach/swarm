@@ -14,9 +14,10 @@ import os
 
 import rospy
 
-from Listener import PositionPublisher
+from Publisher import PositionPublisher
 
-from autopilot.msg import SwarmOdometry
+from autopilot.msg import BoatOdometry
+from autopilot.msg import BoatStatus
 from autopilot.msg import SwarmCommand
 from autopilot.msg import SwarmStatus
 
@@ -36,9 +37,9 @@ def main():
 
     ttl = rospy.get_param('~ttl', 1)
 
-    odometry_topic    = rospy.get_param('~odometry_subscriber',      "/autopilot/status")
+    odometry_topic    = rospy.get_param('~odometry_subscriber',      "/autopilot/current")
     status_topic      = rospy.get_param('~status_subscriber',    "/autopilot/status")
-    order_ack_topic   = rospy.get_param('~swarm_command_subscriber', "/hal/comm/data/order_ack")
+    # order_ack_topic   = rospy.get_param('~swarm_command_subscriber', "/hal/comm/data/order_ack")
 
     rospy.loginfo("Using multicast group: {}:{}".format(mcast_grp, mcast_port))
     rospy.loginfo("Odometry subscription: {!s}".format(odometry_topic))
@@ -50,9 +51,9 @@ def main():
             ttl=ttl, compress=compress, nav_hz = nav_hz, state_hz=state_hz,
             cpu_hz=cpu_hz)
 
-    rospy.Subscriber(odometry_topic,  SwarmOdometry, listener.handle_odometry)
-    rospy.Subscriber(status_topic,    SwarmStatus,   listener.handle_uav_status)
-    rospy.Subscriber(order_ack_topic, SwarmCommand,  listener.handle_swarm_command)
+    rospy.Subscriber(odometry_topic,  BoatOdometry, listener.handle_odometry)
+    rospy.Subscriber(status_topic,    SwarmStatus,   listener.handle_boat_status)
+    # rospy.Subscriber(order_ack_topic, SwarmCommand,  listener.handle_swarm_command)
 
     #swarm_order_sub = rospy.get_param('~swarm_order_sub', "/hal/swarm/order_ack")
     #rospy.Subscriber(swarm_order_sub, SwarmCommand, listener.handle_swarm_command)
