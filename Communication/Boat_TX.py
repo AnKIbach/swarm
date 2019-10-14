@@ -14,7 +14,7 @@ import os
 
 import rospy
 
-from Publisher import PositionPublisher
+from Udp_Publisher import PositionPublisher
 
 from autopilot.msg import BoatOdometry
 from autopilot.msg import BoatStatus
