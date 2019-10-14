@@ -19,7 +19,6 @@ from Udp_Publisher import PositionPublisher
 from autopilot.msg import BoatOdometry
 from autopilot.msg import BoatStatus
 from autopilot.msg import SwarmCommand
-from autopilot.msg import SwarmStatus
 
 HEADER_FMT = 'b'
 
@@ -52,14 +51,14 @@ def main():
             cpu_hz=cpu_hz)
 
     rospy.Subscriber(odometry_topic,  BoatOdometry, listener.handle_odometry)
-    rospy.Subscriber(status_topic,    SwarmStatus,   listener.handle_boat_status)
+    rospy.Subscriber(status_topic,    BoatStatus,   listener.handle_boat_status)
     # rospy.Subscriber(order_ack_topic, SwarmCommand,  listener.handle_swarm_command)
 
     #swarm_order_sub = rospy.get_param('~swarm_order_sub', "/hal/swarm/order_ack")
     #rospy.Subscriber(swarm_order_sub, SwarmCommand, listener.handle_swarm_command)
     
     #Give control over to ROS so that Python doesn't exit
-    rospy.loginfo("Starting to listen")
+    rospy.loginfo("Starting to publish")
     rospy.spin()
     listener.shutdown()
     rospy.loginfo("Shutting down")
