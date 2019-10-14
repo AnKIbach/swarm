@@ -19,8 +19,8 @@ class Listener(object):
     def __init__(self, mcast_grp, mcast_port, timeout=1.0):
         self._listener = MulticastListener(mcast_grp, mcast_port,
                 timeout=timeout)
-        self._odometryPublisher     = rospy.Publisher("/swarm/comm/data/odometry",      SwarmOdometry,  queue_size = 50)
-        self._systemStatusPublisher = rospy.Publisher("/swarm/comm/data/status",        SwarmStatus,    queue_size = 20)
+        self._odometryPublisher     = rospy.Publisher("/swarm/comm/data/odometry",      BoatOdometry,  queue_size = 50)
+        self._systemStatusPublisher = rospy.Publisher("/swarm/comm/data/status",        BoatStatus,    queue_size = 20)
         self._swarmCommandPublisher = rospy.Publisher("/swarm/comm/data/order_ack",   SwarmCommand,  queue_size = 20)
 
     def _readHeader(self, msg):
