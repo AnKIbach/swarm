@@ -55,7 +55,7 @@ class Talker:
         self.current_data.position.latitude  = current_position.lat
         self.current_data.position.longitude = current_position.lon
 
-        self.pub_status.publish(self.current_data)
+        self.pub_current.publish(self.current_data)
         
         self._publish_wanted(wanted_movement, wanted_position)
         self._publish_change(change_movement)
