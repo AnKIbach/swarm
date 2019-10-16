@@ -15,9 +15,6 @@ import rospy
 
 from Udp_Listener import Listener
 
-from autopilot.msg import SwarmStatus
-from autopilot.msg import SwarmOdometry
-
 def main():
     rospy.init_node('uav_rx_node', anonymous=True)
     rospy.logdebug("Started udp_pos node")

@@ -6,10 +6,14 @@ import zlib
 
 import rospy
 
-import Msg_type
 import Json
 
+from Msg_type import MsgType
 from Multicast.Multicaster import MulticastListener
+
+from autopilot.msg import BoatStatus
+from autopilot.msg import BoatOdometry
+from autopilot.msg import SwarmCommand
 
 class Listener(object):
     """
@@ -17,11 +21,17 @@ class Listener(object):
     decoded UDP messages should be published to
     """
     def __init__(self, mcast_grp, mcast_port, timeout=1.0):
+
         self._listener = MulticastListener(mcast_grp, mcast_port,
                 timeout=timeout)
-        self._odometryPublisher     = rospy.Publisher("/swarm/comm/data/odometry",      BoatOdometry,  queue_size = 50)
-        self._systemStatusPublisher = rospy.Publisher("/swarm/comm/data/status",        BoatStatus,    queue_size = 20)
-        self._swarmCommandPublisher = rospy.Publisher("/swarm/comm/data/order_ack",   SwarmCommand,  queue_size = 20)
+
+        topic_odometry  = "/swarm/data/odom"
+        topic_status    = "/swarm/data/status"
+        topic_command   = "/swarm/com/command"
+
+        self._odometryPublisher     = rospy.Publisher(topic_odometry, BoatOdometry,  queue_size = 50)
+        self._statusPublisher       = rospy.Publisher(topic_status,  BoatStatus,    queue_size = 20)
+        self._swarmCommandPublisher = rospy.Publisher(topic_command, SwarmCommand,  queue_size = 20)
 
     def _readHeader(self, msg):
         return Json.json2Header(msg["header"])
@@ -39,7 +49,7 @@ class Listener(object):
         """
 
         uavStatusMsg = Json.json2SwarmStatus(json_msg)
-        self._systemStatusPublisher.publish(uavStatusMsg)
+        self._statusPublisher.publish(uavStatusMsg)
 
 
     def _publishSwarmCommand(self, json_msg):
@@ -57,11 +67,11 @@ class Listener(object):
                 msg = self._listener.listen()
                 header = self._readHeader(msg)
 
-                if header.msgType == msg_types.MsgType.ODOMETRY:
+                if header.msgType == MsgType.ODOMETRY:
                     self._publishOdometry(msg)
-                if header.msgType == msg_types.MsgType.UAVSTATUS:
+                if header.msgType == MsgType.BOAT_STATUS:
                     self._publishStatus(msg)
-                #if header.msgType == msg_types.MsgType.SWARM_COMMAND:
+                #if header.msgType == MsgType.SWARM_COMMAND:
                 #    self._publishSwarmCommand(msg)
             except socket.timeout:
                 #This is expected, we need to periodically check if ROS
