@@ -14,7 +14,7 @@ class Arduino:
         self.port = port
 
         #rangers for converting speed to output
-        self.range_motor  = autoRange(0.0,10.0,90,120) 
+        self.range_motor  = autoRange(0.0,5.0,90,180) 
         self.range_rudder = autoRange(-45.0, 45.0, 60, 120)
 
         self.speed_limt = speedLimit

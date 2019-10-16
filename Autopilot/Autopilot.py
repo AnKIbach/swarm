@@ -21,7 +21,7 @@ def main():
     autopilot = Autopilot()
     
     #uncomment for test
-    arduino = Arduino('/dev/ttyACM1', speedLimit = 0.6) #speed limiter for testing
+    arduino = Arduino('/dev/ttyACM1', speedLimit = 0.9) #speed limiter for testing
     
     #fix for test
     autopilot_talker = Talker()
