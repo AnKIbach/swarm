@@ -22,7 +22,7 @@ def header2Json(header):
     msg['id']         = header.id
     msg['msgType']    = header.msgType
     msg['reTransmit'] = header.reTransmit
-    msg['requestAck'] = header.requestAck
+    msg['Ack']        = header.Ack
     return msg
 
 def json2Header(msg):
@@ -33,7 +33,7 @@ def json2Header(msg):
     header.id         = msg['id']
     header.msgType    = msg['msgType']
     header.reTransmit = msg['reTransmit']
-    header.requestAck = msg['requestAck']
+    header.Ack        = msg['Ack']
     return header
 
 def position2Json(position):

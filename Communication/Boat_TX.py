@@ -26,7 +26,7 @@ def main():
     rospy.init_node('uav_tx_node', anonymous=True)
     rospy.logdebug("Started pos_udp node")
 
-    mcast_grp  = rospy.get_param('~mcast_addr', "192.160.139.255")
+    mcast_grp  = rospy.get_param('~mcast_addr', "225.0.0.25")
     mcast_port = rospy.get_param('~mcast_port', 4243)
     compress   = rospy.get_param('~compression', True)
     nav_hz     = rospy.get_param('~nav_hz', 10.0)

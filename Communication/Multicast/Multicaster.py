@@ -25,6 +25,7 @@ class AbstractMulticastHandler(object):
                 socket.IPPROTO_UDP)
         # Set reuse address in case someone else is using the same address
         self._sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self._sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
 
 class MulticastListener(AbstractMulticastHandler):
     def __init__(self, mcast_grp, mcast_port, timeout=None, num_recv=8192):

@@ -19,6 +19,9 @@ find_package(catkin REQUIRED COMPONENTS
 
 add_message_files(
         FILES
+        Position.msg
+        Movement.msg
+        
         Area.msg
         BoatOdometry.msg
         BoatStatus.msg
@@ -28,8 +31,7 @@ add_message_files(
         SwarmHeader.msg
         SwarmStatus.msg
 
-        Position.msg
-        Movement.msg
+
 )
 
 include_directories( ${catkin_INCLUDE_DIRS} )
