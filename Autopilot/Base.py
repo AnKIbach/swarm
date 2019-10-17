@@ -4,7 +4,7 @@ from Base_files.Command_class import Commands
 
 root = tkinter.Tk() # top-nivå vinduet
 root.title("Basestation")
-background = tkinter.PhotoImage(file = "Base_files/Pictures/map.PNG")
+background = tkinter.PhotoImage(file = "map.PNG")
 command = Commands()
 my_text = "dette er et experiment"
 root.geometry("1000x1000")

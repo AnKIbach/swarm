@@ -18,7 +18,7 @@ class navData:
         rospy.init_node('navigation', anonymous=True)
 
         statePX     = "/mavros/state" 
-        GPSPX       = "/mavros/global_position/raw/fix"
+        GPSPX       = "/mavros/global_position/odometry"
         compassPX   = "/mavros/vfr_hud"
         velocityPX  = "/mavros/global_position/raw/gps_vel"
 
@@ -94,30 +94,21 @@ class navData:
         else:
             return False
 
-#for testing of GPS
-class newGPS:
+class storeData:
     def __init__(self):
-        self.GPS = GPS()
-        #gps topic without publisher
-        GPS_adress = "/mavros/global_position/set_gp_origin"
+        self.current_data.header.secs    = self.time_now.secs
+        self.current_data.header.nsecs   = self.time_now.nsecs
+        self.current_data.header.id      = BOAT_ID
 
-        self.get_gps = rospy.Subscriber(GPS_adress, geographic_msgs.msg.GeoPointStamped, self._update_gps)
+        self.swarm_list []
 
-        self.GPS_received = False
+        topic_odom = "swarm/data/odom"
 
-    def __call__(self, current_wanted):
-        if self.GPS_received == True:
-            self.GPS_received = False
-            return self.GPS
-        else:
-            return current_wanted
+        rospy.Subscriber(topic_odom, BoatOdometry, self._update)
 
-    def _update_gps(self, msg):
-        lat = msg.position.latitude
-        lon = msg.position.longitude
-        self.GPS.set(lat,lon)
-        print(self.GPS_received)
-        if lat > 50.0:
-            self.GPS_received = True
+    def _update(self, data):
+        BOAT_ID = data.header.id
 
+        self.swarm_list[BOAT_ID] = data
 
+    
