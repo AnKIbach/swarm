@@ -10,7 +10,7 @@ class Boid():
         self.acceleration = Vector(*np.random.rand(2)) 
         self.maxForce = 0.3 # to control the magnitude of cohesion and separation
         self.maxSpeed = 15 
-        self.perception = 100 #max distance to scan for other boids
+        self.perception = 200 #max distance to scan for other boids
         self.width = width
         self.height = height
 

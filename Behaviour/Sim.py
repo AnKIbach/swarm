@@ -2,7 +2,7 @@
 
 from p5 import setup, draw, size, background, run
 import numpy as np
-from Behaviour import Boid
+from Boid import Boid
 
 width = 1000
 height = 1000
