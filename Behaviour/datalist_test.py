@@ -2,10 +2,10 @@
 import time
 import rospy
 
-import global_data
+from global_data import swarmData # maybe cause of error 
 
 def main():
-    data = global_data.swarmData()
+    data = swarmData()
 
     time.sleep(2)
 

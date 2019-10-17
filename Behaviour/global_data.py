@@ -3,8 +3,7 @@ import rospy
 
 from autopilot.msg import SwarmHeader
 from autopilot.msg import BoatOdometry
-from autopilot.msg import Position
-from autopilot.msg import Movement
+
 
 BOATS_IN_SWARM = 5
 
