@@ -110,5 +110,3 @@ class storeData:
         BOAT_ID = data.header.id
 
         self.swarm_list[BOAT_ID] = data
-
-    
