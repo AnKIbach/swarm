@@ -53,12 +53,12 @@ class Listener(object):
 
 
     def _publishSwarmCommand(self, json_msg):
-         """
-         Method for publishing a SwarmCommand ROS message
-         """
+        """
+        Method for publishing a SwarmCommand ROS message
+        """
 
-         msg = Json.json2SwarmCommand(json_msg)
-         self._swarmCommandPublisher.publish(msg)
+        msg = Json.json2SwarmCommand(json_msg)
+        self._swarmCommandPublisher.publish(msg)
 
 
     def run(self):

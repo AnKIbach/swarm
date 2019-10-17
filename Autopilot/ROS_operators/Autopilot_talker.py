@@ -49,6 +49,7 @@ class Talker:
         self.current_data.header.secs    = self.time_now.secs
         self.current_data.header.nsecs   = self.time_now.nsecs
         self.current_data.header.id      = BOAT_ID
+        self.current_data.header.msgType = 1
 
         self.current_data.movement.velocity  = current_movement.magnitude
         self.current_data.movement.bearing   = current_movement.angle
