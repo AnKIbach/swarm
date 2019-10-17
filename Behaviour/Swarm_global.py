@@ -99,7 +99,6 @@ class storeData:
         self.current_data.header.secs    = self.time_now.secs
         self.current_data.header.nsecs   = self.time_now.nsecs
         self.current_data.header.id      = BOAT_ID
-
         self.swarm_list []
 
         topic_odom = "swarm/data/odom"
