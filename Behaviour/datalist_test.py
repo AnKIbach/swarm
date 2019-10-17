@@ -1,23 +1,23 @@
-import sys
+#!/usr/bin/env python
 import time
-
 import rospy
 
-from global_data import swarmData
+import global_data
 
 def main():
-    data = swarmData()
+    data = global_data.swarmData()
 
     time.sleep(2)
 
     while not rospy.is_shutdown():
             try:
                 listest = data()
-
-                print(listest[1].movment.bearing)
+                p = listest[1].movement.bearing
+                print(p)
+                time.sleep(0.1)
 
             except rospy.ROSInterruptException():
-                sys.exit()
+                pass
 
 if __name__=="__main__":
     main()
