@@ -1,6 +1,6 @@
 
 
-class header(object):
+class Header(object):
     def __init__(self, msg):
         self.secs       = msg['secs']
         self.nsecs      = msg['nsecs']
@@ -10,9 +10,9 @@ class header(object):
         self.reTransmit = msg['reTransmit']
         self.Ack        = msg['Ack']
 
-class odometry(header):
+class Odometry(Header):
     def __init__(self, msg):
-        super(odometry, self).__init__(msg['header'])
+        super(Odometry, self).__init__(msg['header'])
         
         self._handle_position(msg["position"])
         self._handle_movement(msg["movement"])
@@ -34,9 +34,9 @@ class odometry(header):
     def get_bearing(self):
         return self.bearing
 
-class status(header):
+class Status(Header):
     def __init__(self, msg):
-        super(status, self).__init__(msg['header'])
+        super(Status, self).__init__(msg['header'])
 
         self.fcuMode              = msg["fcu_mode"]
         self.fcuStatus            = msg["fcu_status"] 
@@ -49,9 +49,9 @@ class status(header):
         self.hasWiFi              = msg["has_wifi"] 
 
 
-class command(header):    
+class Command(Header):    
     def __init__(self, msg):
-        super(command, self).__init__(msg['header'])
+        super(Command, self).__init__(msg['header'])
 
         pass
 

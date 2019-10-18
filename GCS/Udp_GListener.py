@@ -6,14 +6,11 @@ import zlib
 
 import rospy
 
-import Json
+import Interpreter
 
 from Msg_type import MsgType
 from Multicast.Multicaster import MulticastListener
 
-from autopilot.msg import BoatStatus
-from autopilot.msg import BoatOdometry
-from autopilot.msg import SwarmCommand
 
 class GCSListener(object): #fix publisher - no need to publish.
     """
@@ -24,53 +21,44 @@ class GCSListener(object): #fix publisher - no need to publish.
         self._listener = MulticastListener(mcast_grp, mcast_port,
                 timeout=timeout)
                 
-        self._odometryPublisher     = rospy.Publisher("/gcs/data/odometry",  BoatOdometry,  queue_size = 50)
-        self._systemStatusPublisher = rospy.Publisher("/gcs/data/status",    BoatStatus,    queue_size = 20)
-        self._swarmCommandPublisher = rospy.Publisher("/gcs/data/order_ack",  SwarmCommand,   queue_size = 20)
+    def _read_header(self, msg):
+        return Interpreter.header2GCS(msg["header"])
 
-    def _readHeader(self, msg):
-        return Json.json2Header(msg["header"])
-
-    def _publishPosition(self, json_msg):
+    def _handle_odometry(self, json_msg):
         """
         Helper method to publish decoded JSON messages
         """
-        odometryMsg = Json.json2BoatOdometry(json_msg)
+        odometryMsg = Interpreter.odometry2GCS(json_msg)
 
-        self._odometryPublisher.publish(odometryMsg)
+        #Some way to forward data to GCS
 
-    def _publishStatus(self, json_msg):
+    def _handle_status(self, json_msg):
         """
         Helper method to publish decoded JSON messages
         """
 
-        uavStatusMsg = Json.json2BoatStatus(json_msg)
+        uavStatusMsg = Interpreter.status2GCS(json_msg)
 
-        self._systemStatusPublisher.publish(uavStatusMsg)
-
-
-    def _publishSwarmCommand(self, json_msg):
+    def _send_swarmCommand(self, noe):
         """
         Method for publishing a SwarmCommand ROS message
         """
 
-        msg = Json.json2SwarmCommand(json_msg)
-
-        self._swarmCommandPublisher.publish(msg)
+        Interpreter.GCS2command(noe)
          
     def run(self):
         while not rospy.is_shutdown():
             try:
                 msg = self._listener.listen()
 
-                header = self._readHeader(msg)
+                header = self._read_header(msg)
                 #print (header)
                 if header.msgType == MsgType.ODOMETRY:
-                     self._publishPosition(msg)
+                     self._handle_odometry(msg)
                 if header.msgType == MsgType.BOAT_STATUS:
-                     self._publishStatus(msg)
+                     self._handle_status(msg)
                 if header.msgType == MsgType.SWARM_COMMAND:
-                     self._publishSwarmCommand(msg)
+                     self._send_swarmCommand(msg)
             except socket.timeout:
                 #This is expected, we need to periodically check if ROS
                 #is shutting down and we do this by way of timeout
