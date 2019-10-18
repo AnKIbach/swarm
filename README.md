@@ -4,13 +4,19 @@ Autopilot og kommunikasjon til bacheloroppgave med båter
 
 Hovedprogrammene er Autopilot.py, Behaviour.py og Communication.py
 
-'' Mappestruktur: Base_files - filer til GUI for base Multicast - filer til å sende og motta data med multicast, mest brukt av Communication.py ROS_operators - operatører og klasser for bruk av ROS, dvs innhenting og videresending av data. Source_pictures - kun bilder til bruk i testing av Tkinter og Pygame Old_files - filer som er brukt tidligere, men i nåverende utgivelse er "obsolete"
+''
+Mappestruktur: 4 hovedmapper for de aktuelle programmene som skal kjøre og deres undermoduler
 
-Mål - det skal kun være de tre hovedprogrammene som ligger i parent-directoriet Autopilot, mens alle filer ligger i mapper under. ''
+- Autopilot - inneholder alle moduler og ROS_operators for at Autopilot.py skal fungere og publisere (Bruker ROS)
+- Communication - inneholder alle moduler og Multicast for at Boat_TX og -RX skal fungere og caste (Bruker ROS)
+- Behaviour - inneholder alle moduler og ... for at Behaviour.py skal fungere og publisere (Bruker ROS)
 
-'' Arbeides med nå? På vei ut på vannet ''
+- GCS - inneholder alle moduler og mapper for at GroundControlStationen skal fungere (Work in progress uten ROS)
+''
 
-'' Setup på ny pc:
+'' Arbeides med nå? Test med flere båter samtidig''
+
+'' Setup på ny pc:''
 
 https://code.visualstudio.com/docs/python/python-tutorial !!!
 
