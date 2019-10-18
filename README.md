@@ -1,6 +1,6 @@
-# autopilot_ROSpkg
+# _Swarm
 
-Autopilot og kommunikasjon til bacheloroppgave med båter
+Autopilot, kommunikasjon og behaviour til bacheloroppgave med båter
 
 Hovedprogrammene er Autopilot.py, Behaviour.py og Communication.py
 
