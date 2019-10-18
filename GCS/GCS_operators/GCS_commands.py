@@ -6,18 +6,13 @@ class Commands:
         self.message = "Kommando sent"
         self.box_name = "Kommando sentral"
         self.count = 0
-        B01 = tkinter.IntVar()
-        B02 = tkinter.IntVar()
-        B03 = tkinter.IntVar()
-        B04 = tkinter.IntVar()
-        B05 = tkinter.IntVar()
 
         self.adress_list =[
-            ("192.168.139.30", B01),
-            ("192.168.139.31", B02),
-            ("192.168.139.32", B03),
-            ("192.168.139.33", B04),
-            ("192.168.139.34", B05)]
+            ("192.168.136.60", 1),
+            ("192.168.136.61", 2),
+            ("192.168.136.62", 3),
+            ("192.168.136.63", 4),
+            ("192.168.136.64", 5)]
 
     def Command1(self):
         messagebox.showinfo(self.box_name, self.message)

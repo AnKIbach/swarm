@@ -74,7 +74,7 @@ def main():
             ttl=ttl, compress=compress, state_hz=state_hz,
             cpu_hz=cpu_hz)
     
-    swarm_order_sub = rospy.get_param('~swarm_order_sub', "/gcs/comm/data/order")
+    swarm_order_sub = rospy.get_param('~swarm_order_sub', "/gcs/data/command")
     rospy.Subscriber(swarm_order_sub, SwarmCommand, publisher.handle_swarm_command)
    
     #Give control over to ROS so that Python doesn't exit
