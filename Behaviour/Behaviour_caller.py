@@ -10,7 +10,7 @@ from Behaviours import Boids
 from Behaviours import PSO
 
 class Behave: # funny :)
-    def __init__(self, use_behaviour = Boids):
+    def __init__(self, use_behaviour = "Boids"):
         self._handle_behaviour(use_behaviour)
 
         self.guided_velocity = 0.0
