@@ -1,5 +1,8 @@
 # _Swarm
 
+Når klar til å teste SVERM - lag en branch til hver båt, kall den B0.. og endre der lokalt lokale variabler som BOAT_ID
+
+
 Autopilot, kommunikasjon og behaviour til bacheloroppgave med båter
 
 Hovedprogrammene er Autopilot.py, Behaviour.py og Communication.py
