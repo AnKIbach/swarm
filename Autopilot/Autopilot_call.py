@@ -45,8 +45,8 @@ class Autopilot:
             return update
     
 
-    def show_history(self, *args):
-        ply = plot.plotter()
-        ply.present(args)
+    # def show_history(self, *args):
+    #     ply = plot.plotter()
+    #     ply.present(args)
         
 

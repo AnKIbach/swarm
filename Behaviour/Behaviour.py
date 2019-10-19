@@ -2,8 +2,9 @@
 import time
 import rospy
 
-from global_data import swarmData 
-from Behaviours.Boid import Boid
+from Behaviours.Boid import Boids
+from Classes.GPS_class import GPS
+from Classes.Vector_class import Vector
 
 def main():
     data = swarmData()
