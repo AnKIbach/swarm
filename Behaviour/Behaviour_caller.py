@@ -32,10 +32,10 @@ class Behave: # funny :)
         self.current_position.set(current.position.lat, current.position.lon)
 
         if self.behaviour == "BOIDS":
-            self.distances = self._calculate_distances(current['position'], global_list)
-            self._make_list(self.distances, global_list['movement']) 
+            self.distances      = self._get_distances(current['position'], global_list)
+            self.behaviour_data = self._make_list(self.distances, global_list['movement']) 
             
-            self.behaviour(current.position, current.movement, self.distances)
+            self.behaviour(current.position, current.movement, self.behaviour_data)
 
 
     def _handle_behaviour(self, behaviour):   
@@ -46,7 +46,7 @@ class Behave: # funny :)
         if behaviour == BehaviourType.PSO:
             self.behaviour_chosen = "PSO"
 
-    def _calculate_distances(self, current, global_list):
+    def _get_distances(self, current, global_list):
         other = GPS()
         distances = [] 
         
@@ -61,8 +61,22 @@ class Behave: # funny :)
 
         return distances
 
-    def _make_list(self, distances, velocities, bearings):
-        pass
+    def _make_list(self, movements, distances):
+        clist = [{ "speed" : 0.0,
+                "bearing": 0.0,
+                "distance" : 0.0,
+                "relative" : 0.0
+                }] * len(distances)
+
+        del movements[self.boat_id] #remove own speed and bearing
+
+        for i in distances:
+            clist[i] = {"speed"   : movements.velocity,
+                        "bearing" : movements.bearing,
+                        "distance": distances[i].magnitude,
+                        "relative": distances[i].angle }
+
+        return clist
 
 
 
