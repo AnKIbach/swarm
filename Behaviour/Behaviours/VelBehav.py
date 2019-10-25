@@ -1,11 +1,6 @@
 #!/usr/bin/env python
 import numpy as np
 
-from Communication import Communication
-from PID import PID
-from GPS_definition import GPS
-from Vector_definition import Vector
-from ROS_operators.Navigation_data import navData
 
 class VelocityBehavior:
 

@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 import numpy as np
 
-from Autopilot.Behaviour.BehaviourVelocity import BehaviourVelocity
+from velBehav import VelocityBehavior
 
-class BehaviorWaypoint(VelocityBehavior):
+class waypointBehaviour(VelocityBehavior):
 
     def __init__(self, waypoint, maxSpeed):
         VelocityBehavior.__init__(self, "Waypoint", maxSpeed, doSpeedRenormalization = True) #henter inn klassen fra BehaviourVelocity

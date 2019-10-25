@@ -6,14 +6,14 @@ from Classes.Vector_class import Vector
 
 class boidBehavior():
 
-    def __init__(self, current_position, current_movement, global_list, borders = []):
+    def __init__(self, borders = []):
         
         self.maxForce   = 0.3 # Magnitude of cohesion and separation
         self.maxSpeed   = 2.0 # Maximum speed in m/s
         self.perception = 200 # Max distance to ...
 
         self.position = GPS()
-        self.velocity = current_movement
+        # self.velocity = current_movement
         self.borders  = borders
         self.boats    = []
         self.acceleration = Vector(0.0, 0.0) # ncertain of usefulnes in code

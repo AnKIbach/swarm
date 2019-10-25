@@ -2,7 +2,7 @@
 import time
 import rospy
 
-from global_data import swarmData # maybe cause of error 
+from Global_data import swarmData # maybe cause of error 
 
 def main():
     data = swarmData()
