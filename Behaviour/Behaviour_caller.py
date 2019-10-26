@@ -18,7 +18,6 @@ class BehaviourType(IntEnum):
     OTHER    = 2
     SPECIALE = 3
 
-
 class Behave: # funny :)
     def __init__(self, ID, use_behaviour = 0):
         self.current_position = GPS()
@@ -51,7 +50,7 @@ class Behave: # funny :)
     def _update_current(self, data):
         self.current_position.set(data[self.boat_id].position.latitude, data[self.boat_id].position.longitude)
         self.current_movement.set(data[self.boat_id].movement.velocity, data[self.boat_id].movement.bearing)
-        
+          
         self.has_newSelf = True
 
     def _make_list(self, dataObj):

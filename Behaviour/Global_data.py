@@ -22,7 +22,6 @@ class swarmData:
         return self.list_global
 
     def _update(self, data):
-        print("fsaef")
         try:
             ID = data.header.id
 
