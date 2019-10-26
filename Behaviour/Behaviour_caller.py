@@ -84,11 +84,10 @@ class Behave: # funny :)
         del movements[self.boat_id] #remove own speed and bearing
 
         for i in range(len(distances)):
-            clist[i] = {"speed"   : movements[i].movement.velocity,
+            clist[i] = ({"speed"   : movements[i].movement.velocity,
                         "bearing" : movements[i].movement.bearing,
                         "distance": distances[i].magnitude,
-                        "relative": distances[i].angle }
-
+                        "relative": distances[i].angle })
         return clist
 
 
