@@ -18,7 +18,7 @@ def main():
     while not rospy.is_shutdown():
             try:
                 data_full = data()
-                
+                print(data_full)
                 print("|||||")
 
                 data_to_behav = behaviour(data_full)
