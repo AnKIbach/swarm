@@ -10,9 +10,11 @@ from Behaviour_caller import Behave
 from Behaviours.Classes.GPS_class import GPS
 from Behaviours.Classes.Vector_class import Vector
 
+BOAT_ID = 1
+
 def main():
     data = swarmData()
-    behaviour = Behave(1, 0)
+    behaviour = Behave(BOAT_ID, 0)
 
     time.sleep(2)
 
@@ -24,7 +26,7 @@ def main():
 
                 P = data_to_behav[0].speed
                 print(P)
-                
+
                 time.sleep(0.3)
 
             except rospy.ROSInterruptException():
