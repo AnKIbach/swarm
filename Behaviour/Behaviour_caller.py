@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 import time
-import numpy as np
-import math as m
 
 from enum import IntEnum
 
@@ -33,46 +31,42 @@ class Behave: # funny :)
     def __call__(self, global_list): # g_l is list of boatodom
         self._update_current(global_list)
 
-        print(self.behaviour_chosen)
-        print(self.has_newSelf)
-
         if self.behaviour_chosen == "BOIDS" and self.has_newSelf == True:
-            distances      = self._get_distances(global_list)
-            self.behaviour_data = self._make_list(distances, global_list) 
+            distance_data  = self._get_distances(global_list)
+            behaviour_data = self._make_list(distance_data, global_list) 
 
             self.has_newSelf = False
             #self.behaviour(self.current_position, self.current_movement, self.behaviour_data)
-            return self.behaviour_data
+            return behaviour_data
         
     def _handle_behaviour(self, behaviour):   
-
         if behaviour == BehaviourType.BOID:
             self.behaviour_chosen = "BOIDS"
-            self.behaviour = boidBehavior() #add borders
+            # self.behaviour = boidBehavior() #add borders
+            
         if behaviour == BehaviourType.PSO:
             self.behaviour_chosen = "PSO"
 
-    def _update_current(self, global_list):
-        self.current_position.set(global_list[self.boat_id].position.latitude, global_list[self.boat_id].position.longitude)
-        self.current_movement.set(global_list[self.boat_id].movement.velocity, global_list[self.boat_id].movement.bearing)
+    def _update_current(self, data):
+        self.current_position.set(data[self.boat_id].position.latitude, data[self.boat_id].position.longitude)
+        self.current_movement.set(data[self.boat_id].movement.velocity, data[self.boat_id].movement.bearing)
         
         self.has_newSelf = True
 
-    def _get_distances(self, global_list):
+    def _get_distances(self, data):
         other = GPS()
-        distances = [] 
+        dist = [] 
         
-        for i in range(len(global_list)):
+        for i in range(len(data)):
             if self.boat_id == i: #to not calculate distance to self
                 pass
             else: 
-                other.set(global_list[i].position.latitude, global_list[i].position.longitude)
+                other.set(data[i].position.latitude, data[i].position.longitude)
                 distance = self.current_position.calculate(other)
 
-                distances.append(distance) #list of vectors
+                dist.append(distance) #list of vectors
 
-        print(distances)
-        return distances
+        return dist
 
     def _make_list(self, distances, movements):
         clist = [{ "speed" : 0.0,
