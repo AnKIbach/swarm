@@ -4,20 +4,19 @@ import sys
 import rospy
 import signal
 
-from GPS_class import GPS
-from PID_plotter import Plotter
-from Vector_class import Vector
-from Arduino_data import Arduino
-from Autopilot_call import Autopilot
+from Classes.GPS_class import GPS
+from Classes.PID_plotter import Plotter
+from Classes.Vector_class import Vector
+from Classes.Arduino_data import Arduino
+from Autopilot_caller import Autopilot
+
 from ROS_operators.Navigation_data import navData
-from ROS_operators.Navigation_data import newGPS #newGPS for testing
 from ROS_operators.Autopilot_talker import Talker
 
 
 def main():
     nav = navData()
     plt = Plotter()
-    new_gps = newGPS() 
     autopilot = Autopilot()
     
     #uncomment for test
@@ -47,7 +46,7 @@ def main():
 
     while not rospy.is_shutdown():
         try:
-            wanted_GPS = new_gps(wanted_GPS)
+            # wanted_GPS = new_gps(wanted_GPS)
 
             current_GPS = nav.get_GPS()
             current_vector = nav.get_Vector()

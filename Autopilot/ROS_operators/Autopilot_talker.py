@@ -5,8 +5,8 @@ import math as m
 
 from std_msgs.msg import Header
 
-from GPS_class import GPS
-from Vector_class import Vector
+from Classes.GPS_class import GPS
+from Classes.Vector_class import Vector
 
 from autopilot.msg import SwarmHeader
 from autopilot.msg import BoatOdometry

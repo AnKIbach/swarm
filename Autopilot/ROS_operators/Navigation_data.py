@@ -7,11 +7,8 @@ import mavros_msgs.msg
 import sensor_msgs.msg 
 import geometry_msgs.msg
 
-#for GPS test 
-import geographic_msgs.msg 
-
-from GPS_class import GPS
-from Vector_class import Vector
+from Classes.GPS_class import GPS
+from Classes.Vector_class import Vector
 
 class navData:
     def __init__(self):
@@ -94,31 +91,5 @@ class navData:
         else:
             return False
 
-
-#for testing of GPS
-class newGPS:
-    def __init__(self):
-        self.GPS = GPS()
-        #gps topic without publisher
-        GPS_adress = "/mavros/global_position/set_gp_origin"
-
-        self.get_gps = rospy.Subscriber(GPS_adress, geographic_msgs.msg.GeoPointStamped, self._update_gps)
-
-        self.GPS_received = False
-
-    def __call__(self, current_wanted):
-        if self.GPS_received == True:
-            self.GPS_received = False
-            return self.GPS
-        else:
-            return current_wanted
-
-    def _update_gps(self, msg):
-        lat = msg.position.latitude
-        lon = msg.position.longitude
-        self.GPS.set(lat,lon)
-        print(self.GPS_received)
-        if lat > 50.0:
-            self.GPS_received = True
 
 

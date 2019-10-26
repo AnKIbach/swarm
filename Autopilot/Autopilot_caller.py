@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 import time
 
-from PID import PID
-import PID_plotter as plot
-from Vector_class import Vector
+
+from Classes.PID import PID
+from Classes.GPS_class import GPS
+from Classes.PID_plotter import Plotter
+from Classes.Vector_class import Vector
 
 class Autopilot:
     def __init__(self, use_guidance = True):
@@ -33,7 +35,6 @@ class Autopilot:
     def __call__(self, current):
         if isinstance(current, Vector):
             pass
-
 
         if self.use_guidance:
             update = self.controller.update(current)

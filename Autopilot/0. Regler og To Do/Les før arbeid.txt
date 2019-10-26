@@ -1,8 +1,0 @@
-Husk å:
-
-env\scripts\activate
-ctrl + shift + p : python:select interpreter for å starte virtuelt enviroment
-
-
-
-
