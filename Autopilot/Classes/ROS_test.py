@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 import time
 
-from PID import PID 
-from GPS_class import GPS
-from Ranger import autoRange
-from Vector_class import Vector
+from Classes.PID import PID 
+from Classes.GPS_class import GPS
+from Classes.Ranger import autoRange
+from Classes.Vector_class import Vector
 
 
 
