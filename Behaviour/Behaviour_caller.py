@@ -23,19 +23,32 @@ class BehaviourType(IntEnum):
 class Behave: # funny :)
     def __init__(self, ID, use_behaviour = 0):
         self.current_position = GPS()
+        self.current_movement = Vector()
         self.boat_id = ID
 
         self._handle_behaviour(use_behaviour)
+
+        self.has_newSelf = False
         
-    def __call__(self, current, global_list): # both is boatodom obejcts - g_l is list of those
+    def __call__(self, global_list): # g_l is list of boatodom
+        self._update_current(global_list)
 
-        self.current_position.set(current.position.lat, current.position.lon)
-
-        if self.behaviour == "BOIDS":
-            self.distances      = self._get_distances(current['position'], global_list)
-            self.behaviour_data = self._make_list(self.distances, global_list['movement']) 
+        if self.behaviour == "BOIDS" and self.has_newSelf == True:
+            distances      = self._get_distances(global_list)
+            self.behaviour_data = self._make_list(distances, global_list['movement']) 
             
-            self.behaviour(current.position, current.movement, self.behaviour_data)
+            #self.behaviour(self.current_position, self.current_movement, self.behaviour_data)
+            
+        
+        self.has_newSelf = False
+        
+        return self.behaviour_data
+
+    def _update_current(self, global_list):
+        self.current_position.set(global_list[self.boat_id].position.latitude, global_list[self.boat_id].position.longitude)
+        self.current_movement.set(global_list[self.boat_id].movmement.velocity, global_list[self.boat_id].movmement.angle)
+        
+        self.has_newSelf = True
 
 
     def _handle_behaviour(self, behaviour):   
@@ -46,7 +59,7 @@ class Behave: # funny :)
         if behaviour == BehaviourType.PSO:
             self.behaviour_chosen = "PSO"
 
-    def _get_distances(self, current, global_list):
+    def _get_distances(self, global_list):
         other = GPS()
         distances = [] 
         
@@ -61,7 +74,7 @@ class Behave: # funny :)
 
         return distances
 
-    def _make_list(self, movements, distances):
+    def _make_list(self, distances, movements):
         clist = [{ "speed" : 0.0,
                 "bearing": 0.0,
                 "distance" : 0.0,

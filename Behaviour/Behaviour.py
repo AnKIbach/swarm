@@ -12,17 +12,20 @@ from Behaviours.Classes.Vector_class import Vector
 
 def main():
     data = swarmData()
-    behaviour = Behave("Boids")
+    behaviour = Behave(1, 0)
 
     time.sleep(2)
 
     while not rospy.is_shutdown():
             try:
                 # do the thing here
-                listest = data()
-                p = listest[1].movement.bearing
+                data_full = data()
+                data_to_behav = behaviour(data_full)
 
-                time.sleep(0.1)
+                P = data_to_behav[0].speed
+                print(P)
+                
+                time.sleep(0.3)
 
             except rospy.ROSInterruptException():
                 pass

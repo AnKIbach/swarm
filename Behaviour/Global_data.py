@@ -33,3 +33,6 @@ class swarmData:
         pass
 
         
+class swarmOut():
+    def __init__(self):
+        pass

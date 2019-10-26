@@ -56,11 +56,11 @@ class boidBehavior():
         total = 0
         average_vector = Vector(0,0)
         for boid in boats:
-            if np.linalg.norm(boid.position - self.position) < self.perception:
+            if np.linalg.norm(boid.position - self.position) < self.perception: #finds distance to other boids
                 average_vector += boid.velocity
                 total += 1
         if total > 0:
-            average_vector = Vector(*average_vector/total)
+            average_vector = Vector(*average_vector/total) #uncertain of value
             average_vector = (average_vector / np.linalg.norm(average_vector)) * self.maxSpeed
             steering = average_vector - self.velocity
         return steering 

@@ -43,11 +43,6 @@ class Arduino:
             self.error = e
             print("could not start boat with error: ", e)
 
-        # self.rudder_left     = self.board.get_pin('d:6:s')
-        # self.rudder_right    = self.board.get_pin('d:5:s')
-        # self.motor_center    = self.board.get_pin('d:11:s')
-        # self.motor_left      = self.board.get_pin('d:10:s')
-        # self.motor_right     = self.board.get_pin('d:9:s')
 
     def __call__(self, motor = 0.0, rudder = 0.0):
         self.rudder_wanted  = round(self.range_rudder.new(rudder), 3)
