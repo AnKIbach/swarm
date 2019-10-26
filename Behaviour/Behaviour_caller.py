@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import time
+import rospy
 
 from enum import IntEnum
 
@@ -32,8 +33,8 @@ class Behave: # funny :)
         self._update_current(global_list)
 
         if self.behaviour_chosen == "BOIDS" and self.has_newSelf == True:
-            distance_data  = self._get_distances(global_list)
-            behaviour_data = self._make_list(distance_data, global_list) 
+            
+            behaviour_data = self._make_list(global_list) 
 
             self.has_newSelf = False
             #self.behaviour(self.current_position, self.current_movement, self.behaviour_data)
@@ -53,36 +54,31 @@ class Behave: # funny :)
         
         self.has_newSelf = True
 
-    def _get_distances(self, data):
-        other = GPS()
-        dist = [] 
-        
-        for i in range(len(data)):
-            if self.boat_id == i: #to not calculate distance to self
+    def _make_list(self, dataObj):
+        clist = [] 
+
+        for i in range(len(dataObj)):
+            if i == self.boat_id:
                 pass
-            else: 
-                other.set(data[i].position.latitude, data[i].position.longitude)
-                distance = self.current_position.calculate(other)
+            else:
+                print(i)
+                dist = self._get_distance(dataObj[i].position)
+                clist.append({"speed" : dataObj[i].movement.velocity,
+                            "bearing" : dataObj[i].movement.bearing,
+                            "distance": dist.magnitude,
+                            "relative": dist.angle })
 
-                dist.append(distance) #list of vectors
-
-        return dist
-
-    def _make_list(self, distances, movements):
-        clist = [{ "speed" : 0.0,
-                "bearing": 0.0,
-                "distance" : 0.0,
-                "relative" : 0.0
-                }] * len(distances)
-
-        del movements[self.boat_id] #remove own speed and bearing
-
-        for i in range(len(distances)):
-            clist[i] = ({"speed"   : movements[i].movement.velocity,
-                        "bearing" : movements[i].movement.bearing,
-                        "distance": distances[i].magnitude,
-                        "relative": distances[i].angle })
         return clist
+
+    def _get_distance(self, pos):
+        other = GPS()
+
+        other.set(pos.latitude, pos.longitude)
+        distance = self.current_position.calculate(other)
+
+        return distance
+
+
 
 
 

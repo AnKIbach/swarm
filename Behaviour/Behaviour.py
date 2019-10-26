@@ -8,7 +8,7 @@ from Global_data import swarmData
 from Behaviour_caller import Behave
 
 
-BOAT_ID = 0
+BOAT_ID = 2
 
 def main():
     behaviour = Behave(BOAT_ID)
@@ -18,12 +18,12 @@ def main():
     while not rospy.is_shutdown():
             try:
                 data_full = data()
-                print(data_full)
+                # print(data_full)
                 print("|||||")
 
-                data_to_behav = behaviour(data_full)
-
-                time.sleep(0.5)
+                da = behaviour(data_full)
+                print(da)
+                time.sleep(0.7)
 
             except rospy.ROSInterruptException():
                 pass

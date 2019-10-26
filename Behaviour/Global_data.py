@@ -19,7 +19,6 @@ class swarmData:
         rospy.Subscriber(topic_odometry, BoatOdometry, self._update)
     
     def __call__(self):
-        print(len(self.list_global))
         return self.list_global
 
     def _update(self, data):
