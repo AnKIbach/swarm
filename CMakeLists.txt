@@ -21,15 +21,17 @@ add_message_files(
         FILES
         Position.msg
         Movement.msg
-        
         Area.msg
-        BoatOdometry.msg
-        BoatStatus.msg
+
+        SwarmHeader.msg
         StateStatus.msg
         SwarmCommand.msg
         SwarmOdometry.msg
-        SwarmHeader.msg
         SwarmStatus.msg
+
+        BoatOdometry.msg
+        BoatStatus.msg
+
 
 
 )

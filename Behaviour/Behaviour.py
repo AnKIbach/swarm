@@ -7,10 +7,8 @@ import rospy
 from Global_data import swarmData
 from Behaviour_caller import Behave
 
-from Behaviours.Classes.GPS_class import GPS
-from Behaviours.Classes.Vector_class import Vector
 
-BOAT_ID = 1
+BOAT_ID = 2
 
 def main():
     data = swarmData()

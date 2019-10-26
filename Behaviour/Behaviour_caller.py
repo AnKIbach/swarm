@@ -9,7 +9,7 @@ from Behaviours.Classes.GPS_class import GPS
 from Behaviours.Classes.Vector_class import Vector
 
 from Behaviours.Boids import boidBehavior
-from Behaviours.PSO import waypointBehaviour
+# from Behaviours.PSO import waypointBehaviour
 
 from autopilot.msg import BoatOdometry
 
@@ -25,7 +25,8 @@ class Behave: # funny :)
         self.current_position = GPS()
         self.current_movement = Vector()
         self.boat_id = ID
-
+        self.behaviour_data = []
+        
         self._handle_behaviour(use_behaviour)
 
         self.has_newSelf = False
@@ -46,7 +47,7 @@ class Behave: # funny :)
 
     def _update_current(self, global_list):
         self.current_position.set(global_list[self.boat_id].position.latitude, global_list[self.boat_id].position.longitude)
-        self.current_movement.set(global_list[self.boat_id].movmement.velocity, global_list[self.boat_id].movmement.angle)
+        self.current_movement.set(global_list[self.boat_id].movement.velocity, global_list[self.boat_id].movement.bearing)
         
         self.has_newSelf = True
 

@@ -15,7 +15,7 @@ from autopilot.msg import Position
 from autopilot.msg import Movement
 
 #find way to get dynamically from base
-BOAT_ID = 1
+BOAT_ID = 2
 
 class Talker:
     def __init__(self):
