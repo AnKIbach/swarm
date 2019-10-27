@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 import time
 import rospy
+import socket
 import math as m
 
 from std_msgs.msg import Header
 
+from Boat_ID import get_ID
 from Classes.GPS_class import GPS
 from Classes.Vector_class import Vector
 
@@ -14,8 +16,6 @@ from autopilot.msg import BoatStatus
 from autopilot.msg import Position
 from autopilot.msg import Movement
 
-#find way to get dynamically from base
-BOAT_ID = 2
 
 class Talker:
     def __init__(self):
@@ -38,6 +38,8 @@ class Talker:
         self.wanted_data        = BoatOdometry()
         self.change_data        = BoatOdometry()
 
+        self.BOAT_ID = get_ID()
+
     def __call__(self, 
                 current_movement, 
                 current_position, 
@@ -48,7 +50,7 @@ class Talker:
         self.time_now = rospy.get_rostime()
         self.current_data.header.secs    = self.time_now.secs
         self.current_data.header.nsecs   = self.time_now.nsecs
-        self.current_data.header.id      = BOAT_ID
+        self.current_data.header.id      = self.BOAT_ID
         self.current_data.header.msgType = 1
 
         self.current_data.movement.velocity  = current_movement.magnitude

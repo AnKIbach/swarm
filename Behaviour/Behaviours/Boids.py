@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import numpy as np
 import math as m
 
@@ -48,7 +49,7 @@ class boidBehavior():
         self.has_newCurr = True
 
     def _handle_borders(self): #fix
-        pass
+        pass 
         # if self.position > self.borders[]:
         #     self.position.lat = 0
         # elif self.position.lat < 0:
@@ -67,15 +68,17 @@ class boidBehavior():
         center_of_mass = Vector()
         for boid in boats:
             if boid['distance'] < self.perception:
-                center_of_mass += boid.position
+                center_of_mass.magnitude += boid['distance']
+                center_of_mass.angle     += boid['relative']
                 total += 1
         if total > 0:
             center_of_mass /= total
             center_of_mass = Vector(*center_of_mass)
-            vec_to_com = center_of_mass - self.position
-            if np.linalg.norm(vec_to_com) > 0:
-                vec_to_com = (vec_to_com / np.linalg.norm(vec_to_com)) * self.maxSpeed
-            steering = vec_to_com - self.velocity
+            vec_to_com = center_of_mass - self.position #distance from boid to com - needs fix
+            if vec_to_com.magnitude > 0:
+                vec_to_com = vec_to_com.magnitude / self.maxSpeed
+            steering = vec_to_com - self.movement
+            #stopped here
             if np.linalg.norm(steering)> self.maxForce:
                 steering = (steering /np.linalg.norm(steering)) * self.maxForce
         return steering
@@ -95,7 +98,7 @@ class boidBehavior():
             average_vector = Vector(*average_vector/total)
             if np.linalg.norm(steering) > 0:
                 average_vector = (average_vector / np.linalg.norm(steering)) * self.maxSpeed
-            steering = average_vector - self.velocity
+            steering = average_vector - self.movement
             if np.linalg.norm(steering) > self.maxForce:
                 steering = (steering /np.linalg.norm(steering)) * self.maxForce
         return steering
@@ -110,7 +113,7 @@ class boidBehavior():
                 total_vector.angle += boid['bearing']
                 total += 1
         if total > 0:
-            average_vector = total_vector / total #uncertain of value
+            average_vector /= total #uncertain of value
             average_vector = (average_vector / np.linalg.norm(average_vector)) * self.maxSpeed
-            steering = average_vector - self.velocity
+            steering = average_vector - self.movement
         return steering 
