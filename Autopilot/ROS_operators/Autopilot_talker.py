@@ -1,14 +1,6 @@
 #!/usr/bin/env python
 import time
 import rospy
-import socket
-import math as m
-
-from std_msgs.msg import Header
-
-from Boat_ID import get_ID
-from Classes.GPS_class import GPS
-from Classes.Vector_class import Vector
 
 from autopilot.msg import SwarmHeader
 from autopilot.msg import BoatOdometry
@@ -16,8 +8,12 @@ from autopilot.msg import BoatStatus
 from autopilot.msg import Position
 from autopilot.msg import Movement
 
+from Boat_ID import get_ID
+# from Classes.GPS_class import GPS
+# from Classes.Vector_class import Vector
 
 class Talker:
+    '''Sends data from autopilot to ROS topics'''
     def __init__(self):
 
         topic_status  = "autopilot/status"

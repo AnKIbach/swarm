@@ -1,0 +1,11 @@
+<!-- Launch file for udp data reciever -->
+<launch>
+
+<node name="boat_tx_node" type="Boat_TX.py" pkg="autopilot" output="screen" respawn="true">
+    <!-- Information to program -->
+    <!-- multicast port to use -->
+    <param name="mcast_port" type="int" value="4243"/>
+    <!-- multicast adress to use -->
+    <param name="mcast_addr" type="string" value="225.0.0.25"/>
+</node>
+</launch>

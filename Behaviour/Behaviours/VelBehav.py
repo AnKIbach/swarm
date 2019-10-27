@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import numpy as np
 
-
 class VelocityBehavior:
 
     def __init__(self, name, maxSpeed, doSpeedRenormalization = False):

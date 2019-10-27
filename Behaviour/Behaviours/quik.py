@@ -61,9 +61,9 @@ class Boid():
         return steering
 
     def separation(self, boids):
-        steering = Vector(0,0)
+        steering = Vector()
         total = 0
-        average_vector = Vector(0,0)
+        average_vector = Vector()
         for boid in boids:
             distance = np.linalg.norm(boid.position - self.position)
             if self.position != boid.position and distance < self.perception:

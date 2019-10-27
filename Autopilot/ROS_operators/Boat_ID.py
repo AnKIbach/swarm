@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 import socket
-from enum import Enum
 
 def get_ID():
+    '''Finds current IP from socket host name and translates to ID'''
     IDs = {"192.168.136.61" : 1,
             "192.168.136.62" : 2,
             "192.168.136.63" : 3,
@@ -18,5 +18,3 @@ def get_ID():
     
     except KeyError:
         return 5
-
-

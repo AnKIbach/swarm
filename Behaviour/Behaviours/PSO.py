@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 import numpy as np
 
+from Classes.GPS_class import GPS
+
 from velBehav import VelocityBehavior
 
 class waypointBehaviour(VelocityBehavior):

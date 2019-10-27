@@ -1,0 +1,9 @@
+<!-- Launch file for udp data sender -->
+<launch>
+
+<node name="autopilot_node" type="Autopilot.py" pkg="autopilot" output="screen" respawn="true">
+    <!-- Information to program -->
+    <!-- multicast port to use -->
+
+</node>
+</launch>
