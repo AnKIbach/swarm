@@ -43,5 +43,13 @@ class Vector:
         else:
             return NotImplemented
 
+    def __truediv__(self, other):
+        if isinstance(other, Vector):
+            return Vector(self.magnitude / other.magnitude, self.angle / other.angle)
+        elif isinstance(other, int) or isinstance(other, float):
+            return Vector(self.magnitude / other, self.angle / other)
+        else:
+            return NotImplemented
+
     def showVector(self):
         print ("Magnitude: " , round(self.magnitude, 3) , " Angle: " , round(self.angle, 3))
