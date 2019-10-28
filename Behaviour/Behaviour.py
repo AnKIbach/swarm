@@ -11,7 +11,7 @@ from ROS_operators.Global_data import swarmData
 
 def main():
     BOAT_ID = get_ID()
-    
+    print(BOAT_ID)
     data = swarmData()
 
     behaviour = Behave(BOAT_ID) #argument for behaviour type 

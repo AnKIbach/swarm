@@ -9,8 +9,6 @@ class swarmData:
     def __init__(self):
         self.list_global = [BoatOdometry()] * BOATS_IN_SWARM
 
-        # for i in range(BOATS_IN_SWARM):
-        #     self.list_global.append(BoatOdometry())
 
         rospy.init_node('behaviour', anonymous=True)
 
@@ -27,7 +25,7 @@ class swarmData:
 
             self.list_global[ID] = data
 
-            self._get_time_since(data.header,ID)
+            self._get_time_since(data.header, ID)
         except:
             pass
 

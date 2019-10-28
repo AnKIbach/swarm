@@ -6,7 +6,7 @@ from ROS_operators.Autopilot_sub import swarmWanted
 from ROS_operators.Navigation_data import navData
 
 def main():
-    nav = navData()
+    #nav = navData()
     wanted = swarmWanted()
 
     while not rospy.is_shutdown():

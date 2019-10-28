@@ -12,9 +12,9 @@ def get_ID():
 
     hostname = socket.gethostname()
     IP       = socket.gethostbyname(hostname)
-    
+    print(IP)
     try:
         return IDs[IP]
     
     except KeyError:
-        return 5
+        return 0
