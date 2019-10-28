@@ -62,8 +62,8 @@ class Talker:
 
         self.wanted_data.header = self.current_data.header
         
-        self.wanted_data.movement.velocity  = movement_data.magnitude
-        self.wanted_data.movement.bearing   = movement_data.angle
+        self.wanted_data.movement.velocity = movement_data.magnitude
+        self.wanted_data.movement.bearing  = movement_data.angle
 
         self.pub_wanted.publish(self.wanted_data)
 

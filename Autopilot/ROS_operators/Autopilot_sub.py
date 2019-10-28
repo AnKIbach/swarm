@@ -17,6 +17,7 @@ class swarmWanted():
         rospy.Subscriber(topic_movement, Movement, self._update_movement)
         rospy.Subscriber(topic_position, Movement, self._update_position)
         
+        self.time_since = 0
         self.last_receive = rospy.get_rostime().secs
         self.newest = ''
         self.recieving_data = False
@@ -41,7 +42,8 @@ class swarmWanted():
         self.newest = 'position'
 
     def is_recieving(self):
-        if (rospy.get_rostime().secs-self.last_receive) < 2.0 and self.newest != '':
+        self.time_since = rospy.get_rostime().secs-self.last_receive
+        if self.time_since < 2 and self.newest != '':
             self.recieving_data = True
         
         return self.recieving_data

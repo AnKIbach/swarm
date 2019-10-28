@@ -15,11 +15,10 @@ from ROS_operators.Autopilot_talker import Talker
 
 def main():
     nav = navData()
-    behaviour = swarmWanted()
     autopilot = Autopilot()
     autopilot_talker = Talker()
     arduino = Arduino('/dev/ttyACM1', speedLimit = 0.9) #speed limiter for testing
-    
+    behaviour = swarmWanted()
 
     wait_time, clicks = 0.0, 0
 

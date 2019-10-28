@@ -60,7 +60,6 @@ class Behave: # funny :)
             if i == self.boat_id:
                 pass
             else:
-                print(i)
                 dist = self._get_distance(dataObj[i].position)
                 clist.append({"speed" : dataObj[i].movement.velocity,
                             "bearing" : dataObj[i].movement.bearing,
