@@ -2,11 +2,11 @@
 import time
 import rospy
 
-from autopilot.msg import SwarmHeader
-from autopilot.msg import BoatOdometry
-from autopilot.msg import BoatStatus
-from autopilot.msg import Position
-from autopilot.msg import Movement
+from swarm.msg import SwarmHeader
+from swarm.msg import BoatOdometry
+from swarm.msg import BoatStatus
+from swarm.msg import Position
+from swarm.msg import Movement
 
 from Boat_ID import get_ID
 # from Classes.GPS_class import GPS

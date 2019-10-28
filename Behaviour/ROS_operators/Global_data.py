@@ -1,7 +1,7 @@
 import rospy
 
-from autopilot.msg import SwarmHeader
-from autopilot.msg import BoatOdometry
+from swarm.msg import SwarmHeader
+from swarm.msg import BoatOdometry
 
 BOATS_IN_SWARM = 5
 

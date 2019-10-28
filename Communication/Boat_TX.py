@@ -16,9 +16,9 @@ import rospy
 
 from Udp_Publisher import PositionPublisher
 
-from autopilot.msg import BoatOdometry
-from autopilot.msg import BoatStatus
-from autopilot.msg import SwarmCommand
+from swarm.msg import BoatOdometry
+from swarm.msg import BoatStatus
+from swarm.msg import SwarmCommand
 
 HEADER_FMT = 'b'
 

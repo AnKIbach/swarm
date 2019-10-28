@@ -1,17 +1,17 @@
 import rospy
 import psutil
 
-from autopilot.msg import Area
-from autopilot.msg import Movement
-from autopilot.msg import Position
+from swarm.msg import Area
+from swarm.msg import Movement
+from swarm.msg import Position
 
-from autopilot.msg import SwarmStatus
-from autopilot.msg import SwarmOdometry
-from autopilot.msg import SwarmCommand
-from autopilot.msg import SwarmHeader
-from autopilot.msg import BoatStatus
-from autopilot.msg import BoatOdometry
-from autopilot.msg import StateStatus
+from swarm.msg import SwarmStatus
+from swarm.msg import SwarmOdometry
+from swarm.msg import SwarmCommand
+from swarm.msg import SwarmHeader
+from swarm.msg import BoatStatus
+from swarm.msg import BoatOdometry
+from swarm.msg import StateStatus
 
 
 def header2Json(header):

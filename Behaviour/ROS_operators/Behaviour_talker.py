@@ -1,26 +1,21 @@
 #!/usr/bin/env python
-import time
 import rospy
-import math as m
 
-from std_msgs.msg import Header
-
-from autopilot.msg import SwarmHeader
-from autopilot.msg import BoatOdometry
-from autopilot.msg import Movement
+from swarm.msg import Movement
+from swarm.msg import Position
 
 class Talker:
     def __init__(self):
-        topic_wanted  = "/swarm/behaviour/wanted"
+        topic_movement  = "/swarm/behaviour/movement"
+        topic_position  = "/swarm/behaviour/position"
 
-        self.pub_wanted  = rospy.Publisher(topic_wanted, BoatOdometry, queue_size=10)
+        self.pub_movement = rospy.Publisher(topic_movement, Movement, queue_size=10)
+        self.pub_position = rospy.Publisher(topic_position, Movement, queue_size=10)
+        
+        self.wanted_movement = Movement()
+        self.wanted_position = Position()
 
-        self.wanted_data = BoatOdometry()
-
-
-    def __call__(self, 
-                wanted_velocity,
-                wanted_bearing):
+    def __call__(self, typ = 'movement', *args):
         
         # if there is need to use headers
         # self.time_now = rospy.get_rostime()
@@ -30,8 +25,16 @@ class Talker:
         # self.current_data.header.msgType = 1
 
         # self.wanted_data.header = self.current_data.header
-        
-        self.wanted_data.movement.velocity  = wanted_velocity
-        self.wanted_data.movement.bearing   = wanted_bearing
+        if typ == 'movement': #probably pretty shady way to do it
+            self.wanted_movement.velocity = args[0]
+            self.wanted_movement.bearing  = args[1]
+            
+            self.pub_movement.publish(self.wanted_movement)
 
-        self.pub_wanted.publish(self.wanted_data)
+        elif typ == 'position': 
+            self.wanted_position.latitude = args[0]
+            self.wanted_position.latitude = args[1]
+
+            self.pub_position.publish(self.wanted_position)
+
+       

@@ -10,7 +10,7 @@ from Behaviours.Classes.Vector_class import Vector
 from Behaviours.Boids import boidBehavior
 # from Behaviours.PSO import waypointBehaviour
 
-from autopilot.msg import BoatOdometry
+from swarm.msg import BoatOdometry
 
 class BehaviourType(IntEnum):
     BOID     = 0

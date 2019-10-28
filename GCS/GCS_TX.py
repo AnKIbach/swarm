@@ -14,9 +14,9 @@ import os
 import rospy
 
 from Multicast.Multicaster import MulticastSender
-import Json
+import Interpreter
 
-from autopilot.msg import SwarmCommand
+from swarm.msg import SwarmCommand
 
 HEADER_FMT = 'b'
 
@@ -48,7 +48,7 @@ class CommandPublisher(object):
         Handles SwarmCommand callback
         """
 
-        msg = Json.swarmCommand2Json(swarmCommand)
+        msg = Interpreter.swarmCommand2Interpreter(swarmCommand)
         self._msender.send_message(msg)
 
         
