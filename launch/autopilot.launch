@@ -1,7 +1,7 @@
 <!-- Launch file for udp data sender -->
 <launch>
 
-<node name="autopilot_node" type="Autopilot.py" pkg="autopilot" output="screen" launch-prefix="xterm -e" respawn="true">
+<node name="autopilot_node" type="Autopilot.py" pkg="swarm" output="screen" respawn="true">
     <!-- Information to program -->
     <!-- multicast port to use -->
 

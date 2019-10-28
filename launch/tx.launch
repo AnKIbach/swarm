@@ -1,7 +1,7 @@
 <!-- Launch file for udp data reciever -->
 <launch>
 
-<node name="boat_tx_node" type="Boat_TX.py" pkg="autopilot" output="screen" respawn="true">
+<node name="boat_tx_node" type="Boat_TX.py" pkg="swarm" output="screen" respawn="true">
     <!-- Information to program -->
     <!-- multicast port to use -->
     <param name="mcast_port" type="int" value="4243"/>

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import sys, getopt
 import rosbag
 import numpy as np
 import matplotlib.pyplot as plt
@@ -13,6 +14,13 @@ class plotter():
 		self.time = []
 		self.gps_lat = []
 		self.gps_lon = []
+		
+		self.wanted_speed = []
+		self.wanted_angle = []
+		self.current_speed = []
+		self.current_angle = []
+		self.change_speed = []
+		self.change_angle = []
 		# set a flag
 		self.Iter = 0
 	# read messages 
@@ -45,11 +53,25 @@ class plotter():
 		gmap.draw("/home/bach/my_map.html")
 
 
-def main():
+def main(argv):
+
+	topic = ''
+	
+	try:
+		opts, args = getopt.geotpt(argv,"hi:o:",["type=", "topic1=", "topic2=", "topic3="])
+	except getopt.GetoptError:
+		print('Plot.py -p <plot> -t <topic1> <topic2> <topic3>')
+	
+	for opt, arg in opts:
+
+
+	for args in argv:
+		if args == 'position':
+			pass
 	# choose one topic  
 	gm = plotter()
 
-	topic_name = '/autopilot/current' #/position
+	 #/position
 	#topic_name = '/mavros/global_position/raw/fix'
 
 	# choose a function
