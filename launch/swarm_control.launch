@@ -1,7 +1,7 @@
 <!-- Launch file for udp data sender -->
 <launch>
 
-<node name="swarm_behaviour_node" type="Behaviour.py" pkg="autopilot" output="screen" respawn="true">
+<node name="swarm_behaviour_node" type="Behaviour.py" pkg="autopilot" output="screen" launch-prefix="xterm -e" respawn="true">
     <!-- Information to program -->
 
 </node>
