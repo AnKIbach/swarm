@@ -79,7 +79,7 @@ def main():
                 clicks += 1
 
             #comment out for full test
-            time.sleep(0.2)
+            time.sleep(0.5)
 
         except rospy.ROSInterruptException():
             arduino() 
