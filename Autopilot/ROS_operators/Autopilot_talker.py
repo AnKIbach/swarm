@@ -40,7 +40,6 @@ class Talker:
                 current_movement, 
                 current_position, 
                 wanted_movement,
-                wanted_position,
                 change_movement):
 
         self.time_now = rospy.get_rostime()
@@ -56,17 +55,15 @@ class Talker:
 
         self.pub_current.publish(self.current_data)
         
-        self._publish_wanted(wanted_movement, wanted_position)
+        self._publish_wanted(wanted_movement)
         self._publish_change(change_movement)
 
-    def _publish_wanted(self, movement_data, position_data):
+    def _publish_wanted(self, movement_data):
 
         self.wanted_data.header = self.current_data.header
         
         self.wanted_data.movement.velocity  = movement_data.magnitude
         self.wanted_data.movement.bearing   = movement_data.angle
-        self.wanted_data.position.latitude  = position_data.lat
-        self.wanted_data.position.longitude = position_data.lon
 
         self.pub_wanted.publish(self.wanted_data)
 

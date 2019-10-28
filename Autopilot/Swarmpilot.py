@@ -71,7 +71,6 @@ def main():
             autopilot_talker(current_vector, 
                             current_GPS,
                             wanted_vector,
-                            wanted_GPS, #change for behaviour
                             change_vector)
 
             #publish data after x number of clicks
