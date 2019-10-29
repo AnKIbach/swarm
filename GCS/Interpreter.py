@@ -1,10 +1,10 @@
 import psutil
 import json
 
-from objects import Header
-from objects import Odometry
-from objects import Status
-from objects import Command
+from Classes.Objects import Header
+from Classes.Objects import Odometry
+from Classes.Objects import Status
+from Classes.Objects import Command
 
 def header2GCS(msg):
     header = Header(msg)
@@ -19,4 +19,4 @@ def status2GCS(msg):
     return status
 
 def GCS2command(noe): 
-    pass
+    return noe

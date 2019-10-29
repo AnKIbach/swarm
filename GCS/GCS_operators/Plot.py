@@ -8,7 +8,7 @@ from gmplot import gmplot
 
 class plotter():
 	def __init__(self):
-		self.bag  = rosbag.Bag('/home/bach/test.bag')
+		self.bag  = ''
 
 		self.numTopics = 1
 		# set arrays to store data

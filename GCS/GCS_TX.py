@@ -48,7 +48,7 @@ class CommandPublisher(object):
         Handles SwarmCommand callback
         """
 
-        msg = Interpreter.swarmCommand2Interpreter(swarmCommand)
+        msg = Interpreter.GCS2command(swarmCommand)
         self._msender.send_message(msg)
 
         
