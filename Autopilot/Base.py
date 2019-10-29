@@ -1,4 +1,4 @@
-#!/usr/bin/python
+
 import tkinter
 from Base_files.Command_class import Commands
 
@@ -50,7 +50,7 @@ for val, alternative in enumerate(buttons):
 scale_speed = tkinter.IntVar()
 def show_value():
     print(scale_speed.get())
-scale_speed = tkinter.Scale(root, from_=0, to=100).grid(row=10 , column=10)
+# scale_speed = tkinter.Scale(root, from_=0, to=100).grid(row=10 , column=10)
 
 
 
