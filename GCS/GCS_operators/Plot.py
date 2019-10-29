@@ -85,7 +85,7 @@ class plotter():
 		
 		print("made")
 		# Draw
-		gmap.draw("/home/bach/my_map.html")
+		gmap.draw("my_map.html")
 
 def main(argv):
 
