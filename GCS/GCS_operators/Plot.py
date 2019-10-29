@@ -35,7 +35,7 @@ class plotter():
 		self.Iter = 0
 
 	def set_bag(self, bag):
-		self.bag  = rosbag.Bag(bag)
+		self.bag = rosbag.Bag(bag)
 
 	def set_numTopics(self, topics):
 		self.numTopics = topics
@@ -43,55 +43,52 @@ class plotter():
 	def readPosmsg(self, topic_name):
 		# loop over the topic to read evey message
 		for topic, msg, t in self.bag.read_messages(topics=topic_name):
-			sec         = t.to_nsec() 
+			sec = t.to_nsec() 
 			self.time.append((sec-1508618888979416609)*1e-9)
 
 			self.gps_lat.append(msg.position.latitude)
 			self.gps_lon.append(msg.position.longitude)
 
-			self.Iter       += 1
+			self.Iter += 1
 
 		self.bag.close()
 
 	def readVelAngmsg(self, topic_name, num):
 		# loop over the topic to read evey message
 		for topic, msg, t in self.bag.read_messages(topics=topic_name):
-			sec         = t.to_nsec() 
+			sec = t.to_nsec() 
 			self.time.append((sec-1508618888979416609)*1e-9)
 
 			self.topics_speed[num].append(msg.movement.velocity)
 			self.topics_angle[num].append(msg.movement.bearing)
 
-			self.Iter       += 1
+			self.Iter += 1
 
-		
-
-	def speed_plot(self):
+	def speed_plot(self, topic):
 		print(self.topics_speed[0])
 		for i in range(self.numTopics):
-			plt.plot(self.topics_speed[i])
-		
+			plt.plot(self.topics_speed[i], label=str(topic[i]))
+		plt.legend()
 		plt.show()
 
-	def angle_plot(self):
-		print(self.topics_angle[0])
+	def angle_plot(self, topic):
 		for i in range(self.numTopics):
-			plt.plot(self.topics_angle[i])
-		
+			plt.plot(self.topics_angle[i], label=str(topic[i]))
+		plt.legend()
 		plt.show()	
 
 	# google map plotting
-	def gmap_plot(self):
+	def gmap_plot(self, topic):
 		# Place map
 		gmap = gmplot.GoogleMapPlotter(60.365791, 5.264471, 10)
-		gmap.plot(self.gps_lat, self.gps_lon, 'test', edge_width=10)
+		gmap.plot(self.gps_lat, self.gps_lon, title=str(topic), edge_width=10)
 		
 		print("made")
 		# Draw
 		gmap.draw("/home/bach/my_map.html")
 
-
 def main(argv):
+
 	print(argv)
 	topics = []
 	
@@ -124,20 +121,20 @@ def main(argv):
 		if pltType == 'position':
 			print("Topic: ", topics[0])
 			gm.readPosmsg(topics[0])
-			gm.gmap_plot()
+			gm.gmap_plot(topics[0])
 			print("done")
 
 		elif pltType == 'speed':
 			for i in range(len(topics)):
 				gm.readVelAngmsg(topics[i], i)
-			gm.speed_plot()
+			gm.speed_plot(topics)
 			gm.bag.close
 			print("done")
 
 		elif pltType == 'angle':
 			for i in range(len(topics)):
 				gm.readVelAngmsg(topics[i], i)
-			gm.angle_plot()
+			gm.angle_plot(topics)
 			gm.bag.close
 			print("done")
 		else:
