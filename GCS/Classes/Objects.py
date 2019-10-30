@@ -3,9 +3,9 @@ class Header(object):
         self.secs       = 0
         self.nsecs      = 0
         self.seq        = 0
-        self.id         = 0
-        self.reTransmit = 0
-        self.Ack        = 0
+        self.id         = bytes(0)
+        self.reTransmit = bytes(0)
+        self.Ack        = bytes(0)
 
     def set(self, msg):
         self.secs       = msg['secs']
@@ -47,8 +47,21 @@ class Odometry(Header):
         return self.bearing
 
 class Status(Header):
-    def __init__(self, msg):
-        super(Status, self).__init__(msg['header'])
+    def __init__(self):
+        super(Status, self).__init__()
+
+        self.fcuMode              = 0
+        self.fcuStatus            = 0
+        self.timeSinceLaunch      = 0.0
+        self.distanceFromLaunch   = 0.0
+        self.numGpsSatelites      = 0
+        self.pixhawkReady         = False
+        self.arduinoReady         = False 
+        self.hasGPSFix            = False
+        self.hasWiFi              = False
+
+    def set(self, msg):
+        super().set(msg['header'])
 
         self.fcuMode              = msg["fcu_mode"]
         self.fcuStatus            = msg["fcu_status"] 
@@ -59,7 +72,6 @@ class Status(Header):
         self.arduinoReady         = msg["arduino_ready"] 
         self.hasGPSFix            = msg["has_gps_fix"]
         self.hasWiFi              = msg["has_wifi"] 
-
 
 class Command(Header):    
     def __init__(self, msg):

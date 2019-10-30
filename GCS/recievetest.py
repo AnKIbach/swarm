@@ -6,6 +6,7 @@ import Interpreter
 
 from Classes.Msg_type import MsgType
 from Classes.Objects import Odometry
+from Classes.Objects import Status
 from Multicast.Multicaster import MulticastListener
 
     # mcast_grp  = "225.0.0.25"
@@ -23,6 +24,7 @@ class GCSListener(object): #fix publisher - no need to publish.
                 timeout=timeout)
 
         self.odometry = Odometry()
+        self.status = Status()
    
     def _read_header(self, msg):
         return Interpreter.header2GCS(msg["header"])
@@ -39,8 +41,8 @@ class GCSListener(object): #fix publisher - no need to publish.
         """
         Helper method to publish decoded JSON messages
         """
-
         uavStatusMsg = Interpreter.status2GCS(json_msg)
+        return uavStatusMsg
 
     def _send_swarmCommand(self, noe):
         """
@@ -63,7 +65,7 @@ class GCSListener(object): #fix publisher - no need to publish.
                 if header.msgType == MsgType.SWARM_COMMAND:
                     self._send_swarmCommand(msg)
             except socket.timeout:
-                #This is expected, we need to periodically check if ROS
+                #This is expected, we need to periodically check if it
                 #is shutting down and we do this by way of timeout
                 pass
             except KeyboardInterrupt as e:
