@@ -4,6 +4,7 @@ class Header(object):
         self.nsecs      = 0
         self.seq        = 0
         self.id         = 0
+        self.msgType    = 1
         self.reTransmit = 0
         self.Ack        = 0
 
