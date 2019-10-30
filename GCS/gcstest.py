@@ -69,7 +69,7 @@ class GUI:
         self.subFrame3 = Frame(self.master, bg="#3C3F41", height="300", width=self.hxw / 2 - 5, relief=RAISED)
         self.subFrame3.place(x=3*300, y=5)
         #add more for more baots
-        self.subFrameBottom = Frame(master, bg="#3C3F41", height="300", width=self.hxw)
+        self.subFrameBottom = Frame(self.master, bg="#3C3F41", height="300", width=self.hxw)
         self.subFrameBottom.place(x=300, y=self.hxw - 285)
 
 class threadClient:
