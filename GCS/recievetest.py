@@ -1,6 +1,8 @@
 import sys
 import socket
 import zlib
+import queue
+from threading import Thread, Lock
 
 import Interpreter
 
@@ -8,9 +10,6 @@ from Classes.Msg_type import MsgType
 from Classes.Objects import Odometry
 from Classes.Objects import Status
 from Multicast.Multicaster import MulticastListener
-
-    # mcast_grp  = "225.0.0.25"
-    # mcast_port = 4243
 
 class GCSListener(object): #fix publisher - no need to publish.
     """

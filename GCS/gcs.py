@@ -64,107 +64,6 @@ def visu():
         has_aborted = False  # has the process been aborted?
         
 
-        # ========== LABELS ========== #
-        # # Abort Mission Label
-        # abortLabel = Label(subFrameBottom, text="Abort Mission:", bg=bgColor, fg="white")
-        # abortLabel.place(x=10, y=55)
-        #
-        # # Verify Launch Label
-        # verifyLabel = Label(subFrameBottom, text="Verify Launch:", bg=bgColor, fg="white")
-        # verifyLabel.place(x=10, y=125)
-
-        # # Status Label to show real time status
-
-
-
-
-        Bearing_01Label = Label(subFrameLeft, text="Bearing ", fg="white", bg=bgColor, width=standardTextWidth)
-        Bearing_01Label.place(x=10, y=80)
-        Bearing_01DataLabel = Label(subFrameLeft, text=Bearing_01, fg="white", bg=bgColor, width=standardDataWidth)
-        Bearing_01DataLabel.place(x=160, y=80)
-
-        Long_01Label = Label(subFrameLeft, text="Longitude: ", fg="white", bg=bgColor, width=standardTextWidth)
-        Long_01Label.place(x=10, y=120)
-        Long_01DataLabel = Label(subFrameLeft, text=Long_01, fg="white", bg=bgColor, width=standardDataWidth)
-        Long_01DataLabel.place(x=160, y=120)
-
-        Lat_01Label = Label(subFrameLeft, text="Latitude: ", fg="white", bg=bgColor, width=standardTextWidth)
-        Lat_01Label.place(x=10, y=160)
-        Lat_01DataLabel = Label(subFrameLeft, text=Lat_01, fg="white", bg=bgColor, width=standardDataWidth)
-        Lat_01DataLabel.place(x=160, y=160)
-
-        #-----------SubFrameLeft Label: B02--------------#
-        frameMiddle1 = Label(subFrameMiddle1, text="B02", fg="white", bg=subFrameColor)
-        frameMiddle1.place(x=(hxw / 2) / 4 + 15, y=5)
-
-        Velocity_02Label = Label(subFrameMiddle1, text="Velocity (m/s) ", fg="white", bg=bgColor, width=standardTextWidth)
-        Velocity_02Label.place(x=10, y=40)
-        Velocity_02DataLabel = Label(subFrameMiddle1, text=Velocity_02, fg="white", bg=bgColor, width=standardDataWidth)
-        Velocity_02DataLabel.place(x=160, y=40)
-
-        Bearing_02Label = Label(subFrameMiddle1, text="Bearing ", fg="white", bg=bgColor, width=standardTextWidth)
-        Bearing_02Label.place(x=10, y=80)
-        Bearing_02DataLabel = Label(subFrameMiddle1, text=Bearing_02, fg="white", bg=bgColor, width=standardDataWidth)
-        Bearing_02DataLabel.place(x=160, y=80)
-
-        Long_02Label = Label(subFrameMiddle1, text="Longitude: ", fg="white", bg=bgColor, width=standardTextWidth)
-        Long_02Label.place(x=10, y=120)
-        Long_02DataLabel = Label(subFrameMiddle1, text=Long_02, fg="white", bg=bgColor, width=standardDataWidth)
-        Long_02DataLabel.place(x=160, y=120)
-
-        Lat_02Label = Label(subFrameMiddle1, text="Latitude: ", fg="white", bg=bgColor, width=standardTextWidth)
-        Lat_02Label.place(x=10, y=160)
-        Lat_02DataLabel = Label(subFrameMiddle1, text=Lat_02, fg="white", bg=bgColor, width=standardDataWidth)
-        Lat_02DataLabel.place(x=160, y=160)
-
-        #-------SubFrameLeft Label: B03--------------#
-        frameRightLabel = Label(subFrameMiddle2, text="B04", fg="white", bg=subFrameColor)
-        frameRightLabel.place(x=(hxw / 2) / 4 + 20, y=5)
-
-        Velocity_03Label = Label(subFrameMiddle2, text="Velocity (m/s) ", fg="white", bg=bgColor, width=standardTextWidth)
-        Velocity_03Label.place(x=10, y=40)
-        Velocity_03DataLabel = Label(subFrameMiddle2, text=Velocity_03, fg="white", bg=bgColor, width=standardDataWidth)
-        Velocity_03DataLabel.place(x=160, y=40)
-
-        Bearing_03Label = Label(subFrameMiddle2, text="Bearing ", fg="white", bg=bgColor, width=standardTextWidth)
-        Bearing_03Label.place(x=10, y=80)
-        Bearing_03DataLabel = Label(subFrameMiddle2, text=Bearing_03, fg="white", bg=bgColor, width=standardDataWidth)
-        Bearing_03DataLabel.place(x=160, y=80)
-
-        Long_03Label = Label(subFrameMiddle2, text="Longitude: ", fg="white", bg=bgColor, width=standardTextWidth)
-        Long_03Label.place(x=10, y=120)
-        Long_03DataLabel = Label(subFrameMiddle2, text=Long_03, fg="white", bg=bgColor, width=standardDataWidth)
-        Long_03DataLabel.place(x=160, y=120)
-
-        Lat_03Label = Label(subFrameMiddle2, text="Latitude: ", fg="white", bg=bgColor, width=standardTextWidth)
-        Lat_03Label.place(x=10, y=160)
-        Lat_03DataLabel = Label(subFrameMiddle2, text=Lat_03, fg="white", bg=bgColor, width=standardDataWidth)
-        Lat_03DataLabel.place(x=160, y=160)
-
-        #---------SubFrameLeft Label: B04---------#
-        frameRightLabel = Label(subFrameRight, text="B04", fg="white", bg=subFrameColor)
-        frameRightLabel.place(x=(hxw / 2) / 4 + 20, y=5)
-
-        Velocity_04Label = Label(subFrameRight, text="Velocity (m/s) ", fg="white", bg=bgColor, width=standardTextWidth)
-        Velocity_04Label.place(x=10, y=40)
-        Velocity_04DataLabel = Label(subFrameRight, text=Velocity_04, fg="white", bg=bgColor, width=standardDataWidth)
-        Velocity_04DataLabel.place(x=160, y=40)
-
-        Bearing_04Label = Label(subFrameRight, text="Bearing ", fg="white", bg=bgColor, width=standardTextWidth)
-        Bearing_04Label.place(x=10, y=80)
-        Bearing_04DataLabel = Label(subFrameRight, text=Bearing_04, fg="white", bg=bgColor, width=standardDataWidth)
-        Bearing_04DataLabel.place(x=160, y=80)
-
-        Long_04Label = Label(subFrameRight, text="Longitude: ", fg="white", bg=bgColor, width=standardTextWidth)
-        Long_04Label.place(x=10, y=120)
-        Long_04DataLabel = Label(subFrameRight, text=Long_04, fg="white", bg=bgColor, width=standardDataWidth)
-        Long_04DataLabel.place(x=160, y=120)
-
-        Lat_04Label = Label(subFrameRight, text="Latitude: ", fg="white", bg=bgColor, width=standardTextWidth)
-        Lat_04Label.place(x=10, y=160)
-        Lat_04DataLabel = Label(subFrameRight, text=Lat_04, fg="white", bg=bgColor, width=standardDataWidth)
-        Lat_04DataLabel.place(x=160, y=160)
-
         #-----------Velocity Entry Label---------------------#
         VelocityEntryLabel = Label(subFrameBottom, text="Positive speed (0-10)", fg="white", bg=subFrameColor,width=26)
         VelocityEntryLabel.place(x=40, y=130)
@@ -175,7 +74,7 @@ def visu():
             global Velocity
             Velocity = VelocityEntry.get()
             if 0 < float(Velocity) < 10:
-                Velocity_01DataLabel.config(text=Velocity)
+                
                 Velocity_02DataLabel.config(text=Velocity)
                 Velocity_03DataLabel.config(text=Velocity)
                 Velocity_04DataLabel.config(text=Velocity)

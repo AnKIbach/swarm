@@ -31,8 +31,11 @@ class GUI:
 
         self._place_div(endCommand)
         self._place_subFrames()
-        self._place_subLabels()
+        self._place_velLabels()
+        self._place_berLabels()
+        self._place_posLabels()
         self._place_frameLabels()
+        self._place_dataLabels()
 
         self.statusLabel = Label(self.subFrameBottom, text="NOT VERIFIED", fg="orange", bg="#808080", width="20", height="2")
         self.statusLabel.place(x=self.hxw / 2 + self.hxw / 8, y=80)
@@ -46,17 +49,29 @@ class GUI:
             try:
                 msg = self.queue.get(0)
                 if msg.id == 0:
-                    Velocity1_DataLabel = Label(self.subFrame0, text=msg.velocity, fg="white", bg=BACKGROUND_COLOR, width=STAND_DATA_WIDTH)
-                    Velocity1_DataLabel.place(x=160, y=40)
+                    self.velData0.config(text=msg.velocity)
+                    self.berData0.config(text=msg.bearing)
+                    self.latData0.config(text=msg.latitude)
+                    self.lonData0.config(text=msg.longitude)
+
                 if msg.id == 1:
-                    Velocity1_DataLabel = Label(self.subFrame1, text=msg.velocity, fg="white", bg=BACKGROUND_COLOR, width=STAND_DATA_WIDTH)
-                    Velocity1_DataLabel.place(x=160, y=40)                    
+                    self.velData0.config(text=msg.velocity)
+                    self.berData1.config(text=msg.bearing)
+                    self.latData2.config(text=msg.latitude)
+                    self.lonData3.config(text=msg.longitude)
+
                 if msg.id == 2:
-                    Velocity1_DataLabel = Label(self.subFrame2, text=msg.velocity, fg="white", bg=BACKGROUND_COLOR, width=STAND_DATA_WIDTH)
-                    Velocity1_DataLabel.place(x=160, y=40)
+                    self.velData0.config(text=msg.velocity)
+                    self.berData1.config(text=msg.bearing)
+                    self.latData2.config(text=msg.latitude)
+                    self.lonData3.config(text=msg.longitude)
+
                 if msg.id == 3:
-                    Velocity1_DataLabel = Label(self.subFrame3, text=msg.velocity, fg="white", bg=BACKGROUND_COLOR, width=STAND_DATA_WIDTH)
-                    Velocity1_DataLabel.place(x=160, y=40)
+                    self.velData0.config(text=msg.velocity)
+                    self.berData1.config(text=msg.bearing)
+                    self.latData2.config(text=msg.latitude)
+                    self.lonData3.config(text=msg.longitude)
+
             except queue.Empty:
                 pass
 
@@ -78,24 +93,95 @@ class GUI:
         self.subFrameBottom.place(x=300, y=self.hxw - 285)
 
     def _place_frameLabels(self):
-        self.frameLabel0 = Label(self.subFrame0, text="BOAT_ID 01", fg="white", bg=SUB_FRAME_COLOR)
-        self.frameLabel0.place(x=(self.hxw / 2) / 4 + 15, y=5)
-        self.frameLabel1 = Label(self.subFrame1, text="BOAT_ID 02", fg="white", bg=SUB_FRAME_COLOR)
-        self.frameLabel1.place(x=(self.hxw / 2) / 4 + 15, y=5)
-        self.frameLabel2 = Label(self.subFrame2, text="BOAT_ID 03", fg="white", bg=SUB_FRAME_COLOR)
-        self.frameLabel2.place(x=(self.hxw / 2) / 4 + 15, y=5)
-        self.frameLabel3 = Label(self.subFrame3, text="BOAT_ID 04", fg="white", bg=SUB_FRAME_COLOR)
-        self.frameLabel3.place(x=(self.hxw / 2) / 4 + 15, y=5)
+        frameLabel0 = Label(self.subFrame0, text="BOAT_ID 01", fg="white", bg=SUB_FRAME_COLOR)
+        frameLabel0.place(x=(self.hxw / 2) / 4 + 15, y=5)
+        frameLabel1 = Label(self.subFrame1, text="BOAT_ID 02", fg="white", bg=SUB_FRAME_COLOR)
+        frameLabel1.place(x=(self.hxw / 2) / 4 + 15, y=5)
+        frameLabel2 = Label(self.subFrame2, text="BOAT_ID 03", fg="white", bg=SUB_FRAME_COLOR)
+        frameLabel2.place(x=(self.hxw / 2) / 4 + 15, y=5)
+        frameLabel3 = Label(self.subFrame3, text="BOAT_ID 04", fg="white", bg=SUB_FRAME_COLOR)
+        frameLabel3.place(x=(self.hxw / 2) / 4 + 15, y=5)
 
-    def _place_subLabels(self):
-        self.Velocity0 = Label(self.subFrame0, text="Velocity (m/s) ", fg="white", bg=BACKGROUND_COLOR, width=STAND_TEXT_WIDTH)
-        self.Velocity0.place(x=10, y=40)
-        self.Velocity1 = Label(self.subFrame1, text="Velocity (m/s) ", fg="white", bg=BACKGROUND_COLOR, width=STAND_TEXT_WIDTH)
-        self.Velocity1.place(x=10, y=40)
-        self.Velocity2 = Label(self.subFrame2, text="Velocity (m/s) ", fg="white", bg=BACKGROUND_COLOR, width=STAND_TEXT_WIDTH)
-        self.Velocity2.place(x=10, y=40)
-        self.Velocity3 = Label(self.subFrame3, text="Velocity (m/s) ", fg="white", bg=BACKGROUND_COLOR, width=STAND_TEXT_WIDTH)
-        self.Velocity3.place(x=10, y=40)
+    def _place_velLabels(self):
+        Velocity0 = Label(self.subFrame0, text="Velocity (m/s) ", fg="white", bg=BACKGROUND_COLOR, width=STAND_TEXT_WIDTH)
+        Velocity0.place(x=10, y=40)
+        Velocity1 = Label(self.subFrame1, text="Velocity (m/s) ", fg="white", bg=BACKGROUND_COLOR, width=STAND_TEXT_WIDTH)
+        Velocity1.place(x=10, y=40)
+        Velocity2 = Label(self.subFrame2, text="Velocity (m/s) ", fg="white", bg=BACKGROUND_COLOR, width=STAND_TEXT_WIDTH)
+        Velocity2.place(x=10, y=40)
+        Velocity3 = Label(self.subFrame3, text="Velocity (m/s) ", fg="white", bg=BACKGROUND_COLOR, width=STAND_TEXT_WIDTH)
+        Velocity3.place(x=10, y=40)
+
+    def _place_berLabels(self):
+        Bearing0 = Label(self.subFrame0, text="Bearing ", fg="white", bg=BACKGROUND_COLOR, width=STAND_TEXT_WIDTH)
+        Bearing0.place(x=10, y=80)
+        Bearing1 = Label(self.subFrame1, text="Bearing ", fg="white", bg=BACKGROUND_COLOR, width=STAND_TEXT_WIDTH)
+        Bearing1.place(x=10, y=80)
+        Bearing2 = Label(self.subFrame2, text="Bearing ", fg="white", bg=BACKGROUND_COLOR, width=STAND_TEXT_WIDTH)
+        Bearing2.place(x=10, y=80)
+        Bearing3 = Label(self.subFrame3, text="Bearing ", fg="white", bg=BACKGROUND_COLOR, width=STAND_TEXT_WIDTH)
+        Bearing3.place(x=10, y=80)
+
+    def _place_posLabels(self):
+        Lat0 = Label(self.subFrame0, text="Latitude: ", fg="white", bg=BACKGROUND_COLOR, width=STAND_TEXT_WIDTH)
+        Lat0.place(x=10, y=160)
+        Lat1 = Label(self.subFrame1, text="Latitude: ", fg="white", bg=BACKGROUND_COLOR, width=STAND_TEXT_WIDTH)
+        Lat1.place(x=10, y=160)
+        Lat2 = Label(self.subFrame2, text="Latitude: ", fg="white", bg=BACKGROUND_COLOR, width=STAND_TEXT_WIDTH)
+        Lat2.place(x=10, y=160)
+        Lat3 = Label(self.subFrame3, text="Latitude: ", fg="white", bg=BACKGROUND_COLOR, width=STAND_TEXT_WIDTH)
+        Lat3.place(x=10, y=160)
+
+        Lon0 = Label(self.subFrame0, text="Longitude: ", fg="white", bg=BACKGROUND_COLOR, width=STAND_TEXT_WIDTH)
+        Lon0.place(x=10, y=120)
+        Lon1 = Label(self.subFrame1, text="Longitude: ", fg="white", bg=BACKGROUND_COLOR, width=STAND_TEXT_WIDTH)
+        Lon1.place(x=10, y=120)
+        Lon2 = Label(self.subFrame2, text="Longitude: ", fg="white", bg=BACKGROUND_COLOR, width=STAND_TEXT_WIDTH)
+        Lon2.place(x=10, y=120)
+        Lon3 = Label(self.subFrame3, text="Longitude: ", fg="white", bg=BACKGROUND_COLOR, width=STAND_TEXT_WIDTH)
+        Lon3.place(x=10, y=120)
+
+    def _place_dataLabelsVel(self):
+        self.velData0 = Label(self.subFrame0, text=0.0, fg="white", bg=BACKGROUND_COLOR, width=STAND_DATA_WIDTH)
+        self.velData0.place(x=160, y=40)
+        self.velData1 = Label(self.subFrame1, text=0.0, fg="white", bg=BACKGROUND_COLOR, width=STAND_DATA_WIDTH)
+        self.velData1.place(x=160, y=40)
+        self.velData2 = Label(self.subFrame2, text=0.0, fg="white", bg=BACKGROUND_COLOR, width=STAND_DATA_WIDTH)
+        self.velData2.place(x=160, y=40)
+        self.velData3 = Label(self.subFrame3, text=0.0, fg="white", bg=BACKGROUND_COLOR, width=STAND_DATA_WIDTH)
+        self.velData3.place(x=160, y=40)
+
+    def _place_dataLabelsBer(self):
+        self.berData0 = Label(self.subFrame0, text=0.0, fg="white", bg=BACKGROUND_COLOR, width=STAND_DATA_WIDTH)
+        self.berData0.place(x=160, y=80)
+        self.berData1 = Label(self.subFrame1, text=0.0, fg="white", bg=BACKGROUND_COLOR, width=STAND_DATA_WIDTH)
+        self.berData1.place(x=160, y=80)
+        self.berData2 = Label(self.subFrame2, text=0.0, fg="white", bg=BACKGROUND_COLOR, width=STAND_DATA_WIDTH)
+        self.berData2.place(x=160, y=80)
+        self.berData3 = Label(self.subFrame3, text=0.0, fg="white", bg=BACKGROUND_COLOR, width=STAND_DATA_WIDTH)
+        self.berData3.place(x=160, y=80)
+
+    def _place_dataLabelsLat(self):
+        self.latData0 = Label(self.subFrame0, text=0.0, fg="white", bg=BACKGROUND_COLOR, width=STAND_DATA_WIDTH)
+        self.latData0.place(x=160, y=120)
+        self.latData1 = Label(self.subFrame1, text=0.0, fg="white", bg=BACKGROUND_COLOR, width=STAND_DATA_WIDTH)
+        self.latData1.place(x=160, y=120)
+        self.latData2 = Label(self.subFrame2, text=0.0, fg="white", bg=BACKGROUND_COLOR, width=STAND_DATA_WIDTH)
+        self.latData2.place(x=160, y=120)
+        self.latData3 = Label(self.subFrame3, text=0.0, fg="white", bg=BACKGROUND_COLOR, width=STAND_DATA_WIDTH)
+        self.latData3.place(x=160, y=120)
+
+
+    def _place_dataLabelsLon(self):
+        self.lonData0 = Label(self.subFrame0, text=0.0, fg="white", bg=BACKGROUND_COLOR, width=STAND_DATA_WIDTH)
+        self.lonData0.place(x=160, y=160)
+        self.lonData1 = Label(self.subFrame1, text=0.0, fg="white", bg=BACKGROUND_COLOR, width=STAND_DATA_WIDTH)
+        self.lonData1.place(x=160, y=160)
+        self.lonData2 = Label(self.subFrame2, text=0.0, fg="white", bg=BACKGROUND_COLOR, width=STAND_DATA_WIDTH)
+        self.lonData2.place(x=160, y=160)
+        self.lonData3 = Label(self.subFrame3, text=0.0, fg="white", bg=BACKGROUND_COLOR, width=STAND_DATA_WIDTH)
+        self.lonData3.place(x=160, y=160)
+
 
 class threadClient:
     '''responsible for threading, launch of GUI an workers'''
@@ -110,7 +196,7 @@ class threadClient:
         self.running = 1
         self.thread1 = threading.Thread(target=self._workerThread1)
         self.thread2 = threading.Thread(target=self._workerThread2)
-        self.thread1.start()
+        #self.thread1.start()
         self.thread2.start()
 
         self._periodicCall()
@@ -133,8 +219,8 @@ class threadClient:
         while self.running:
             #add fetch of data here
             time.sleep(0.7)
-            msg = reciever.odometry
-            # msg = {'boat_id': rand.randrange(4), 'speed': rand.random()}
+            #msg = reciever.odometry
+            msg = {'boat_id': rand.randrange(4), 'speed': rand.random(), 'bearing': rand.random(), 'lat': rand.random(), 'lon': rand.random()}
             self.queue.put(msg)
 
     def _endApplication(self):
