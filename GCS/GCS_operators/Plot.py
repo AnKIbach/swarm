@@ -81,6 +81,7 @@ class plotter():
 	def gmap_plot(self, topic):
 		# Place map
 		gmap = gmplot.GoogleMapPlotter(60.365791, 5.264471, 10)
+		gmap.apikey="AIzaSyBABJmXdbga-WjzxSTycegI68rWjXIKFVk"
 		gmap.plot(self.gps_lat, self.gps_lon, title=str(topic), edge_width=10)
 		
 		print("made")
