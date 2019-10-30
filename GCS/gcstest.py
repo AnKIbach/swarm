@@ -35,7 +35,10 @@ class GUI:
         self._place_berLabels()
         self._place_posLabels()
         self._place_frameLabels()
-        self._place_dataLabels()
+        self._place_dataLabelsVel()
+        self._place_dataLabelsBer()
+        self._place_dataLabelsLat()
+        self._place_dataLabelsLon()
 
         self.statusLabel = Label(self.subFrameBottom, text="NOT VERIFIED", fg="orange", bg="#808080", width="20", height="2")
         self.statusLabel.place(x=self.hxw / 2 + self.hxw / 8, y=80)
@@ -48,29 +51,30 @@ class GUI:
         while self.queue.qsize():
             try:
                 msg = self.queue.get(0)
-                if msg.id == 0:
-                    self.velData0.config(text=msg.velocity)
-                    self.berData0.config(text=msg.bearing)
-                    self.latData0.config(text=msg.latitude)
-                    self.lonData0.config(text=msg.longitude)
+                print(msg)
+                if msg['id'] == 0:
+                    self.velData0.config(text=msg['velocity'])
+                    self.berData0.config(text=msg['bearing'])
+                    self.latData0.config(text=msg['latitude'])
+                    self.lonData0.config(text=msg['longitude'])
 
-                if msg.id == 1:
-                    self.velData0.config(text=msg.velocity)
-                    self.berData1.config(text=msg.bearing)
-                    self.latData2.config(text=msg.latitude)
-                    self.lonData3.config(text=msg.longitude)
+                if msg['id'] == 1:
+                    self.velData1.config(text=msg['velocity'])
+                    self.berData1.config(text=msg['bearing'])
+                    self.latData1.config(text=msg['latitude'])
+                    self.lonData1.config(text=msg['longitude'])
 
-                if msg.id == 2:
-                    self.velData0.config(text=msg.velocity)
-                    self.berData1.config(text=msg.bearing)
-                    self.latData2.config(text=msg.latitude)
-                    self.lonData3.config(text=msg.longitude)
+                if msg['id'] == 2:
+                    self.velData2.config(text=msg['velocity'])
+                    self.berData2.config(text=msg['bearing'])
+                    self.latData2.config(text=msg['latitude'])
+                    self.lonData2.config(text=msg['longitude'])
 
-                if msg.id == 3:
-                    self.velData0.config(text=msg.velocity)
-                    self.berData1.config(text=msg.bearing)
-                    self.latData2.config(text=msg.latitude)
-                    self.lonData3.config(text=msg.longitude)
+                if msg['id'] == 3:
+                    self.velData3.config(text=msg['velocity'])
+                    self.berData3.config(text=msg['bearing'])
+                    self.latData3.config(text=msg['latitude'])
+                    self.lonData3.config(text=msg['longitude'])
 
             except queue.Empty:
                 pass
@@ -194,7 +198,7 @@ class threadClient:
         self.gui = GUI(master, self.queue, self._endApplication)
 
         self.running = 1
-        self.thread1 = threading.Thread(target=self._workerThread1)
+        #self.thread1 = threading.Thread(target=self._workerThread1)
         self.thread2 = threading.Thread(target=self._workerThread2)
         #self.thread1.start()
         self.thread2.start()
@@ -209,18 +213,18 @@ class threadClient:
             sys.exit(1)
         self.master.after(100, self._periodicCall)
 
-    def _workerThread1(self):
-        '''starts Udp Multicast listener'''
-        while self.running:
-            reciever.run()
+    # def _workerThread1(self):
+    #     '''starts Udp Multicast listener'''
+    #     while self.running:
+    #         reciever.run()
 
     def _workerThread2(self):
         '''Handles asynchronous I/O ''' 
         while self.running:
             #add fetch of data here
-            time.sleep(0.7)
+            time.sleep(0.3)
             #msg = reciever.odometry
-            msg = {'boat_id': rand.randrange(4), 'speed': rand.random(), 'bearing': rand.random(), 'lat': rand.random(), 'lon': rand.random()}
+            msg = {'id': rand.randrange(4), 'velocity': rand.random(), 'bearing': rand.random(), 'latitude': rand.random(), 'longitude': rand.random()}
             self.queue.put(msg)
 
     def _endApplication(self):
@@ -228,7 +232,7 @@ class threadClient:
 
 rand = random.Random()
 root = tkinter.Tk()
-reciever = GCSListener("225.0.0.25", 4243)
+#reciever = GCSListener("225.0.0.25", 4243)
 
 def main():
 
