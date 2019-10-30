@@ -30,11 +30,7 @@ def visu():
     Long=0,0
     Lat=0,0
 
-    # Variables B01
-    Velocity_01 = 26.6
-    Bearing_01 = 200
-    Long_01 = 67.2
-    Lat_01 = 123123.123
+
 
     # Variables B02
     Velocity_02 = 1
@@ -57,27 +53,7 @@ def visu():
     # Set window options
     top = Tk()
     top.geometry("1200x600")
-    hxw = 600  # height and width of top frame
-    top.title("Ground Control Station - SVERM")
 
-    # ========== FRAMES ========== #
-    # Initialize uppermost frame
-    frame = Frame(top, width=hxw, height=hxw, bg="#333333")
-    frame.pack(fill='both', expand='yes')
-
-        # Initialize and place subFrameLeft
-    subFrameLeft = Frame(top, bg="#3C3F41", height="300", width=hxw / 2 - 5, relief=RAISED)
-    subFrameLeft.place(x=0, y=5)
-
-    # Initialize and place Frames
-    subFrameRight = Frame(top, bg="#3C3F41", height="300", width=hxw / 2 - 5, relief=RAISED)
-    subFrameRight.place(x=900, y=5)
-    subFrameMiddle1 = Frame(top, bg="#3C3F41", height="300", width=hxw / 2 - 5, relief=RAISED)
-    subFrameMiddle1.place(x=300, y=5)
-    subFrameMiddle2 = Frame(top, bg="#3C3F41", height="300", width=hxw / 2 - 5, relief=RAISED)
-    subFrameMiddle2.place(x=600 , y=5)
-    subFrameBottom = Frame(top, bg="#3C3F41", height="300", width=hxw, relief=RAISED)
-    subFrameBottom.place(x=300, y=hxw - 285)
 
 
     while True:
@@ -88,10 +64,7 @@ def visu():
         # ===== GLOBAL VARIABLES ===== #
         is_launched = False  # has the rocket launched?
         has_aborted = False  # has the process been aborted?
-        bgColor = "#333333"  # background color
-        subFrameColor = "#3C3F41"  # sub frame background color
-        standardTextWidth = 18  # standard text width
-        standardDataWidth = 10  # standard data width
+        
 
         # ========== LABELS ========== #
         # # Abort Mission Label
@@ -103,20 +76,9 @@ def visu():
         # verifyLabel.place(x=10, y=125)
 
         # # Status Label to show real time status
-        statusLabel = Label(subFrameBottom, text="NOT VERIFIED", fg="orange", bg="#808080", width="20", height="2")
-        statusLabel.place(x=hxw / 2 + hxw / 8, y=80)
-        # Label to mark status
-        statusTextLabel = Label(subFrameBottom, text="Current Status:", fg="white", bg=bgColor)
-        statusTextLabel.place(x=hxw / 2 + hxw / 8 + 30, y=50)
 
-        #----------SubFrameLeft Label: B01------------#
-        frameLeftLabel = Label(subFrameLeft, text="B01", fg="white", bg=subFrameColor)
-        frameLeftLabel.place(x=(hxw / 2) / 4 + 15, y=5)
 
-        Velocity_01Label = Label(subFrameLeft, text="Velocity (m/s) ", fg="white", bg=bgColor, width=standardTextWidth)
-        Velocity_01Label.place(x=10, y=40)
-        Velocity_01DataLabel = Label(subFrameLeft, text=Velocity_01, fg="white", bg=bgColor, width=standardDataWidth)
-        Velocity_01DataLabel.place(x=160, y=40)
+
 
         Bearing_01Label = Label(subFrameLeft, text="Bearing ", fg="white", bg=bgColor, width=standardTextWidth)
         Bearing_01Label.place(x=10, y=80)
