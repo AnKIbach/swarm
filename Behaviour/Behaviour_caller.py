@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import time
 import rospy
+import math as m
 
 from enum import IntEnum
 
@@ -36,13 +37,14 @@ class Behave: # funny :)
             behaviour_data = self._make_list(global_list) 
 
             self.has_newSelf = False
-            #self.behaviour(self.current_position, self.current_movement, self.behaviour_data)
-            return behaviour_data
+            behaviourXY = self.behaviour(self.current_position, self.current_movement, behaviour_data)
+            
+            return self._get_vec(behaviourXY)
         
     def _handle_behaviour(self, behaviour):   
         if behaviour == BehaviourType.BOID:
             self.behaviour_chosen = "BOIDS"
-            # self.behaviour = boidBehavior() #add borders
+            self.behaviour = boidBehavior() #add borders
             
         if behaviour == BehaviourType.PSO:
             self.behaviour_chosen = "PSO"
@@ -61,10 +63,13 @@ class Behave: # funny :)
                 pass
             else:
                 dist = self._get_distance(dataObj[i].position)
+                x, y = self._get_xy(dist)
                 clist.append({"speed" : dataObj[i].movement.velocity,
                             "bearing" : dataObj[i].movement.bearing,
                             "distance": dist.magnitude,
-                            "relative": dist.angle })
+                            "relative": dist.angle,
+                            "x"       : x,
+                            "y"       : y})
 
         return clist
 
@@ -77,6 +82,23 @@ class Behave: # funny :)
         return distance
 
 
+    def _get_xy(self, vector):
+        dx = vector.magnitude * m.sin(vector.angle)
+        dy = vector.magnitude * m.cos(vector.angle)
 
+        return dx, dy
+
+    def _get_vec(self, XY):
+        vec = Vector()
+        if XY.magnitude != 0.0 and XY.angle != 0.0:
+            magnitude = m.sqrt(m.pow(XY.magnitude, 2) + m.pow(XY.angle, 2))
+            angle = m.atan(XY.magnitude/XY.angle) #magn = x, angle = y
+
+            vec.set(magnitude, angle)
+
+        else: 
+            vec.set(0.0, 0.0)
+
+        return vec
 
 

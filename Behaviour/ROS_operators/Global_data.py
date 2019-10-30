@@ -3,7 +3,7 @@ import rospy
 from swarm.msg import SwarmHeader
 from swarm.msg import BoatOdometry
 
-BOATS_IN_SWARM = 5
+BOATS_IN_SWARM = 4  
 
 class swarmData:
     def __init__(self):
