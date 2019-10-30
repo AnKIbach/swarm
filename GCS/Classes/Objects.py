@@ -1,7 +1,13 @@
-
-
 class Header(object):
-    def __init__(self, msg):
+    def __init__(self):
+        self.secs       = 0
+        self.nsecs      = 0
+        self.seq        = 0
+        self.id         = 0
+        self.reTransmit = 0
+        self.Ack        = 0
+
+    def set(self, msg):
         self.secs       = msg['secs']
         self.nsecs      = msg['nsecs']
         self.seq        = msg['seq']
@@ -11,9 +17,15 @@ class Header(object):
         self.Ack        = msg['Ack']
 
 class Odometry(Header):
-    def __init__(self, msg):
-        super(Odometry, self).__init__(msg['header'])
-        
+    def __init__(self):
+        super(Odometry, self).__init__()
+        self.latitude = 0.0
+        self.longitude = 0.0
+        self.velocity = 0.0
+        self.bearing = 0.0
+
+    def set(self, msg):      
+        super().set(msg['header'])
         self._handle_position(msg["position"])
         self._handle_movement(msg["movement"])
 

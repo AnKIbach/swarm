@@ -1,5 +1,4 @@
 import psutil
-import json
 
 from Classes.Objects import Header
 from Classes.Objects import Odometry
@@ -7,8 +6,8 @@ from Classes.Objects import Status
 from Classes.Objects import Command
 
 def header2GCS(msg):
-    header = Header(msg)
-    return header
+    msgType = msg['msgType']
+    return msgType
 
 def odometry2GCS(msg):
     odometry = Odometry(msg)

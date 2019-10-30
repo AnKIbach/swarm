@@ -54,8 +54,6 @@ def visu():
     top = Tk()
     top.geometry("1200x600")
 
-
-
     while True:
         # Close menu window method
         def close_window(window):

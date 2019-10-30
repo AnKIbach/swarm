@@ -1,14 +1,15 @@
 import sys
-# import os
-
 import socket
 import zlib
 
 import Interpreter
 
 from Classes.Msg_type import MsgType
+from Classes.Objects import Odometry
 from Multicast.Multicaster import MulticastListener
 
+    # mcast_grp  = "225.0.0.25"
+    # mcast_port = 4243
 
 class GCSListener(object): #fix publisher - no need to publish.
     """
@@ -16,9 +17,13 @@ class GCSListener(object): #fix publisher - no need to publish.
     decoded UDP messages should be published to
     """
     def __init__(self, mcast_grp, mcast_port, timeout=1.0):
+        print("Using multicast group: {}:{}".format(mcast_grp, mcast_port))
+
         self._listener = MulticastListener(mcast_grp, mcast_port,
                 timeout=timeout)
-                
+
+        self.odometry = Odometry()
+   
     def _read_header(self, msg):
         return Interpreter.header2GCS(msg["header"])
 
@@ -48,12 +53,11 @@ class GCSListener(object): #fix publisher - no need to publish.
         while True:
             try:
                 msg = self._listener.listen()
-
+                print(msg)
                 header = self._read_header(msg)
                 #print (header)
                 if header.msgType == MsgType.ODOMETRY:
-                    odometry = self._handle_odometry(msg)
-                    return odometry
+                    self.odometry = self._handle_odometry(msg)
                 if header.msgType == MsgType.BOAT_STATUS:
                     self._handle_status(msg)
                 if header.msgType == MsgType.SWARM_COMMAND:
@@ -62,3 +66,6 @@ class GCSListener(object): #fix publisher - no need to publish.
                 #This is expected, we need to periodically check if ROS
                 #is shutting down and we do this by way of timeout
                 pass
+            except KeyboardInterrupt as e:
+                print("Exiting with error: {}".format(e))
+                sys.exit()
