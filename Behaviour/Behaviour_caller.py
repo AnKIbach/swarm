@@ -50,16 +50,23 @@ class Behave: # funny :)
             self.behaviour_chosen = "PSO"
 
     def _update_current(self, data):
-        self.current_position.set(data[self.boat_id].position.latitude, data[self.boat_id].position.longitude)
-        self.current_movement.set(data[self.boat_id].movement.velocity, data[self.boat_id].movement.bearing)
+        try:
+            self.current_position.set(data[self.boat_id].position.latitude, data[self.boat_id].position.longitude)
+            self.current_movement.set(data[self.boat_id].movement.velocity, data[self.boat_id].movement.bearing)
           
-        self.has_newSelf = True
+            self.has_newSelf = True
+
+        except IndexError as e:
+            self.has_newSelf = False
+            print("could not update current position with erorr: {s}", format(e))
 
     def _make_list(self, dataObj):
         clist = [] 
 
         for i in range(len(dataObj)):
-            if i == self.boat_id:
+            if i == self.boat_id: #removes unwanted elements from list - i.e own boat and empty elements
+                pass
+            elif dataObj[i].position.latitude == 0.0 and dataObj[i].position.longitude == 0.0:
                 pass
             else:
                 dist = self._get_distance(dataObj[i].position)

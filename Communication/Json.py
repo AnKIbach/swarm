@@ -95,7 +95,7 @@ def json2BoatStatus(msg):
     status.distanceFromLaunch   = msg["distance_from_launch"] 
     status.numGpsSatelites      = msg["num_gps_satelites"] 
     status.pixhawkReady         = msg["pixhawk_ready"] 
-    status.arduinoReady         = msg["arduino_ready"] 
+    status.arduinoReady         = msg[while not rospy.is_shutdown():"arduino_ready"] 
     status.hasGPSFix            = msg["has_gps_fix"]
     status.hasWiFi              = msg["has_wifi"] 
     return status

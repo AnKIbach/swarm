@@ -9,7 +9,6 @@ from ROS_operators.Boat_ID import get_ID
 from ROS_operators.Global_data import swarmData
 from ROS_operators.Behaviour_talker import Talker
 
-
 def main():
     BOAT_ID = get_ID()
 

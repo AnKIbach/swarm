@@ -3,11 +3,11 @@ import rospy
 from swarm.msg import SwarmHeader
 from swarm.msg import BoatOdometry
 
-BOATS_IN_SWARM = 4  
+BOATS_IN_SWARM = 10  
 
 class swarmData:
     def __init__(self):
-        self.list_global = [BoatOdometry()] * (BOATS_IN_SWARM + 1)
+        self.list_global = [BoatOdometry()] * (BOATS_IN_SWARM)
 
 
         rospy.init_node('behaviour', anonymous=True)
