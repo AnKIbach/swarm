@@ -7,7 +7,7 @@ from Boid import Boid
 width = 1000
 height = 1000
 
-flock = [Boid(*np.random.rand(2)*1000, width, height) for _ in range(20)] #creating 50 boids randomly around the map
+flock = [Boid(*np.random.rand(2)*1000, width, height) for _ in range(15)] #creating 50 boids randomly around the map
 
 def setup():
     size(width, height) #setup map
@@ -20,5 +20,4 @@ def draw():
         boid.apply_behaviour(flock) 
         boid.update()
         boid.show()
-
 run()
