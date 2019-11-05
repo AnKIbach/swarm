@@ -22,17 +22,17 @@ def main():
     behaviour = Behave(BOAT_ID, fence_active) #argument for behaviour type
 
     while not rospy.is_shutdown():
-            try:
-                data_full = data()
-                
-                wanted = behaviour(data_full)
-                print(wanted)
-                behaviour_out(wanted)
+        try:
+            data_full = data()
+            
+            wanted = behaviour(data_full)
+            print(wanted)
+            behaviour_out(wanted)
 
-                time.sleep(0.7)
+            time.sleep(0.7)
 
-            except rospy.ROSInterruptException():
-                pass
+        except rospy.ROSInterruptException():
+            pass
 
 if __name__=="__main__":
     main()
