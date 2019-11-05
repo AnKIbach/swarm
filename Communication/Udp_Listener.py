@@ -71,22 +71,14 @@ class Listener(object):
                     self._publishOdometry(msg)
                 if header.msgType == MsgType.BOAT_STATUS:
                     self._publishStatus(msg)
-                #if header.msgType == MsgType.SWARM_COMMAND:
-                #    self._publishSwarmCommand(msg)
+                if header.msgType == MsgType.SWARM_COMMAND:
+                   self._publishSwarmCommand(msg)
             except socket.timeout:
                 #This is expected, we need to periodically check if ROS
                 #is shutting down and we do this by way of timeout
                 pass
             except zlib.error as e:
                 rospy.logwarn("Zlib error while decoding {!s}".format(e))
-            # except socket.error, e:
-            #     if not rospy.is_shutdown():
-            #         #We are not shutting down which means this is most likely
-            #         #not caused by ROS
-            #         rospy.logerr("Got general socket error: {!s}".format(e))
-            # except (KeyError, ValueError, TypeError), e:
-            #     rospy.logerr("Could not convert JSON to Odometry:\
-            #             Error: {!s}"
-            #             .format(e))
+
             except IOError as e:
                 rospy.logwarn(e)

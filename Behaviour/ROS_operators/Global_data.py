@@ -31,8 +31,3 @@ class swarmData:
 
     def _get_time_since(self, header, id): #for use of Ack from GCS
         pass
-
-        
-class swarmOut():
-    def __init__(self):
-        pass
