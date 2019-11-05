@@ -1,14 +1,23 @@
+import sys
+import socket
 import tkinter
 from tkinter import Frame, Label, Button, RAISED
 import time
 import threading
 import queue
-
 import random
 
-from recievetest import GCSListener
+import Interpreter
+
+from Classes.Msg_type import MsgType
+from Classes.Objects import Odometry
+from Classes.Objects import Status
+from Multicast.Multicaster import MulticastListener
 
 BOATS_IN_SWARM = 4
+MCAST_GROUP = '225.0.0.25'
+MCAST_PORT = 4243
+TIMEOUT = 1.0
 BACKGROUND_COLOR = "#333333" 
 SUB_FRAME_COLOR = "#3C3F41"  
 STAND_TEXT_WIDTH = 18  
@@ -195,6 +204,8 @@ class threadClient:
 
         self.queue = queue.Queue() 
 
+        self.lock = threading.Lock()
+
         self.gui = GUI(master, self.queue, self._endApplication)
 
         self.running = 1
@@ -220,19 +231,32 @@ class threadClient:
 
     def _workerThread2(self):
         '''Handles asynchronous I/O ''' 
+        print("Using multicast group: {}:{}".format(MCAST_GROUP, MCAST_PORT))
+        listener = MulticastListener(MCAST_GROUP, MCAST_PORT, timeout=TIMEOUT)
+        
         while self.running:
-            #add fetch of data here
-            time.sleep(0.3)
-            #msg = reciever.odometry
-            msg = {'id': rand.randrange(4), 'velocity': rand.random(), 'bearing': rand.random(), 'latitude': rand.random(), 'longitude': rand.random()}
-            self.queue.put(msg)
+            try:
+                msg = listener.listen()
+                print(msg)
+                msgType = Interpreter.header2GCS(msg)
+                print(msgType)
+                if msgType == MsgType.ODOMETRY:
+                    data = Interpreter.odometry2GCS(msg)
+                    self.queue.put(data)
+                # if msgType == MsgType.BOAT_STATUS:
+                #     command = Interpreter.status2GCS
+                #add fetch of data here
+                time.sleep(0.3)
+                #msg = {'id': rand.randrange(4), 'velocity': rand.random(), 'bearing': rand.random(), 'latitude': rand.random(), 'longitude': rand.random()}
+            except KeyboardInterrupt as e:
+                print("Exiting with error: {}".format(e))
+                self._endApplication()
 
     def _endApplication(self):
         self.running = 0
 
 rand = random.Random()
 root = tkinter.Tk()
-#reciever = GCSListener("225.0.0.25", 4243)
 
 def main():
 
