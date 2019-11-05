@@ -16,6 +16,7 @@ class swarmWanted():
         try:
             rospy.Subscriber(topic_movement, Movement, self._update_movement)
             rospy.Subscriber(topic_position, Position, self._update_position)
+            
         except rospy.exceptions.ROSException as e:
             print("could not subscribe to topic with error: {s}", format(e))
         

@@ -6,7 +6,7 @@ import rospy
 from Classes.GPS_class import GPS
 from Classes.Vector_class import Vector
 from Classes.Arduino_data import Arduino
-from Autopilot_caller import Autopilot
+from Swarmpilot_caller import Autopilot
 
 from ROS_operators.Autopilot_sub import swarmWanted
 from ROS_operators.Navigation_data import navData
