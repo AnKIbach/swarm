@@ -15,7 +15,7 @@ class swarmWanted():
         topic_position = "/swarm/behaviour/position"
 
         rospy.Subscriber(topic_movement, Movement, self._update_movement)
-        rospy.Subscriber(topic_position, Movement, self._update_position)
+        rospy.Subscriber(topic_position, Position, self._update_position)
         
         self.time_since = 0
         self.last_receive = rospy.get_rostime().secs
