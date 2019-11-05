@@ -2,7 +2,6 @@
 import time
 import sys
 import rospy
-import signal
 
 from Classes.GPS_class import GPS
 from Classes.PID_plotter import Plotter
