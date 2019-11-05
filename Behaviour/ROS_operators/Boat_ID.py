@@ -15,6 +15,7 @@ def get_ID():
     IP = _get_ip()
     print(IP)
     try:
+        print(IDs[IP])
         return IDs[IP]
     
     except KeyError:
