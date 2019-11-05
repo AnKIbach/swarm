@@ -4,7 +4,6 @@ import time
 
 from Classes.PID import PID
 from Classes.GPS_class import GPS
-from Classes.PID_plotter import Plotter
 from Classes.Vector_class import Vector
 
 class Autopilot:
@@ -44,10 +43,3 @@ class Autopilot:
             #change vector type magnitude/angle to XY
             update = self.controller.update(current)
             return update
-    
-
-    # def show_history(self, *args):
-    #     ply = plot.plotter()
-    #     ply.present(args)
-        
-
