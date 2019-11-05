@@ -34,8 +34,9 @@ class Behave: # funny :)
         
     def __call__(self, global_list): # g_l is list of boatodom
         self._update_current(global_list)
-        self._check_fence()
+        toFence = self._check_fence()
         if self.inside_fence == True:
+            
             if self.behaviour_chosen == "BOIDS" and self.has_newSelf == True:
                 behaviour_data = self._make_list(global_list) 
 
@@ -44,7 +45,7 @@ class Behave: # funny :)
                 
                 return self._get_vec(behaviourXY)
         else:
-            return Vector(1.0,180.0) #Turns boat around if its outside the fence - probably wont work
+            return toFence #Turns boat around if its outside the fence - probably wont work
         
     def _handle_behaviour(self, behaviour):   
         if behaviour == BehaviourType.BOID:
@@ -95,10 +96,12 @@ class Behave: # funny :)
 
     def _check_fence(self):
         distFence = self.current_position.calculate(self.fence_center)   
-        if distFence >= self.fence_radius:
+        if distFence.magnitude >= self.fence_radius:
             self.inside_fence = False
+            return distFence
         else:
             self.inside_fence = True
+            return 0.0
 
     def _get_xy(self, vector):
         dx = vector.magnitude * m.sin(vector.angle)

@@ -7,7 +7,7 @@ from Classes.Vector_class import Vector
 
 class boidBehavior():
 
-    def __init__(self, borders = []):
+    def __init__(self):
 
         self.Ka = 1.0
         self.Kc = 1.0
@@ -19,15 +19,13 @@ class boidBehavior():
 
         self.position = GPS()
         self.movement = Vector()
-        self.borders  = borders
 
         self.has_newCurr = False
 
     def __call__(self, position, movement, global_list):
 
         self._handle_current(position, movement)
-        self._handle_borders()
-
+        
         # if self.movement.velocity > self.maxSpeed: #adjusting current speed to not exceed max
         #     self.movement.velocity = self.maxSpeed * 0.7
 
@@ -44,17 +42,6 @@ class boidBehavior():
         self.movement = current_movement
 
         self.has_newCurr = True
-
-    def _handle_borders(self): #fix
-        pass
-        # if self.position > self.borders[]:
-        #     self.position.lat = 0
-        # elif self.position.lat < 0:
-        #     self.position.lat = self.borders[]
-        # if self.position.lon > self.borders[]:
-        #     self.position.lon = 0
-        # elif self.position.lon < 0:
-        #     self.position.lon = self.borders[]
 
     def _calculate_cohesion(self, boats):
         cohesion = Vector()
