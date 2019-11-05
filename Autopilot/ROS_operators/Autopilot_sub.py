@@ -3,6 +3,9 @@ import rospy
 
 from swarm.msg import Movement
 from swarm.msg import Position
+from Classes.GPS_class import GPS
+from Classes.Vector_class import Vector
+
 
 BOATS_IN_SWARM = 5
 
@@ -16,10 +19,13 @@ class swarmWanted():
         try:
             rospy.Subscriber(topic_movement, Movement, self._update_movement)
             rospy.Subscriber(topic_position, Position, self._update_position)
-            
+
         except rospy.exceptions.ROSException as e:
             print("could not subscribe to topic with error: {s}", format(e))
         
+        self.swarm_movement = Vector()
+        self.swarm_position = GPS()
+
         self.time_since = 0
         self.last_receive = rospy.get_rostime().secs
         self.newest = ''
@@ -33,13 +39,13 @@ class swarmWanted():
             return self.swarm_position
 
     def _update_movement(self, data):
-        self.swarm_movement = data
+        self.swarm_movement.set(data.velocity, data.bearing)
 
         self.last_receive = rospy.get_rostime().secs
         self.newest = 'movement'
 
     def _update_position(self, data):
-        self.swarm_position = data
+        self.swarm_position.set(data.latitude, data.longitude)
 
         self.last_receive = rospy.get_rostime().secs
         self.newest = 'position'
