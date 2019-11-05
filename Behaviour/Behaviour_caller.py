@@ -20,26 +20,31 @@ class BehaviourType(IntEnum):
     SPECIALE = 3
 
 class Behave: # funny :)
-    def __init__(self, ID, use_behaviour = 0):
+    def __init__(self, ID, fencePOS, use_behaviour = 0):
         self.current_position = GPS()
         self.current_movement = Vector()
         self.boat_id = ID
+        self.fence_center = fencePOS #could insert GPS point here for test
+        self.fence_radius = 75.0
 
         self._handle_behaviour(use_behaviour)
 
         self.has_newSelf = False
+        self.inside_fence = True
         
     def __call__(self, global_list): # g_l is list of boatodom
         self._update_current(global_list)
+        self._check_fence()
+        if self.inside_fence == True:
+            if self.behaviour_chosen == "BOIDS" and self.has_newSelf == True:
+                behaviour_data = self._make_list(global_list) 
 
-        if self.behaviour_chosen == "BOIDS" and self.has_newSelf == True:
-            
-            behaviour_data = self._make_list(global_list) 
-
-            self.has_newSelf = False
-            behaviourXY = self.behaviour(self.current_position, self.current_movement, behaviour_data)
-            
-            return self._get_vec(behaviourXY)
+                self.has_newSelf = False
+                behaviourXY = self.behaviour(self.current_position, self.current_movement, behaviour_data)
+                
+                return self._get_vec(behaviourXY)
+        else:
+            return Vector(1.0,180.0) #Turns boat around if its outside the fence - probably wont work
         
     def _handle_behaviour(self, behaviour):   
         if behaviour == BehaviourType.BOID:
@@ -88,6 +93,12 @@ class Behave: # funny :)
 
         return distance
 
+    def _check_fence(self):
+        distFence = self.current_position.calculate(self.fence_center)   
+        if distFence >= self.fence_radius:
+            self.inside_fence = False
+        else:
+            self.inside_fence = True
 
     def _get_xy(self, vector):
         dx = vector.magnitude * m.sin(vector.angle)
@@ -107,5 +118,3 @@ class Behave: # funny :)
             vec.set(0.0, 0.0)
 
         return vec
-
-

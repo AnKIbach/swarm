@@ -4,11 +4,10 @@ from swarm.msg import SwarmHeader
 from swarm.msg import SwarmCommand
 from swarm.msg import Position
 
-BOATS_IN_SWARM = 10  
-
-class swarmData:
+class Fence:
+    '''Reads and forwards fence for swarm, position gives centre for geofence circle'''
     def __init__(self):
-        self.fence = [Position(), Position()]
+        self.fence = [Position()]
 
         rospy.init_node('behaviour', anonymous=True)
 
