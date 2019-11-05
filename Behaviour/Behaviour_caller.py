@@ -95,13 +95,16 @@ class Behave: # funny :)
         return distance
 
     def _check_fence(self):
-        distFence = self.current_position.calculate(self.fence_center)   
-        if distFence.magnitude >= self.fence_radius:
-            self.inside_fence = False
-            return distFence
-        else:
-            self.inside_fence = True
-            return 0.0
+        try:
+            distFence = self.current_position.calculate(self.fence_center)   
+            if distFence.magnitude >= self.fence_radius:
+                self.inside_fence = False
+                return distFence
+            else:
+                self.inside_fence = True
+                return 0.0
+        except:
+            print("no fence recieved")
 
     def _get_xy(self, vector):
         dx = vector.magnitude * m.sin(vector.angle)
