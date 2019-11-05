@@ -34,13 +34,13 @@ class swarmWanted():
     def _update_movement(self, data):
         self.swarm_movement = data
 
-        self.last_receive = rospy.get_rostime()
+        self.last_receive = rospy.get_rostime().secs
         self.newest = 'movement'
 
     def _update_position(self, data):
         self.swarm_position = data
 
-        self.last_receive = rospy.get_rostime()
+        self.last_receive = rospy.get_rostime().secs
         self.newest = 'position'
 
     def is_recieving(self):
