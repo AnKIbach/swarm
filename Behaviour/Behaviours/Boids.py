@@ -60,7 +60,7 @@ class boidBehavior():
             cohesion_tot = m.sqrt(m.pow(cohesion.magnitude, 2)+m.pow(cohesion.angle, 2))
 
             if cohesion_tot > 0.0: #Makes the vector wanted in proportion with maxSpeed
-                cohesion = (cohesion / cohesion_tot) * self.maxSpeed
+                cohesion = (cohesion.__truediv__(cohesion_tot)) * self.maxSpeed
 
         return cohesion # vector dowards center of mass
 
@@ -71,7 +71,7 @@ class boidBehavior():
         for boid in boats:
             if boid['distance'] < self.perception and boid['distance'] != 0.0:
                 diff = Vector(-boid['x'], -boid['y'])
-                diff /= boid['distance']
+                diff = diff.__truediv__(boid['distance'])
                 average_vector += diff
                 total += 1.0
         if total > 0.0 and average_vector.magnitude != 0.0 and average_vector.angle != 0.0:
@@ -82,7 +82,7 @@ class boidBehavior():
             separation_tot = m.sqrt(m.pow(separation.magnitude, 2)+m.pow(separation.angle, 2))
 
             if separation_tot > 0.0:
-                separation = (separation / separation_tot) * self.maxForce
+                separation = (separation.__truediv__(separation_tot)) * self.maxForce
         return separation
 
     def _calculate_alignment(self, boats): #maybe working
@@ -95,7 +95,6 @@ class boidBehavior():
                 average_vector.angle     += boid['bearing']
                 total += 1.0
         if total > 0.0 and average_vector.magnitude != 0.0 and average_vector.angle != 0.0:
-            alignment.magnitude = average_vector.magnitude / total
-            alignment.angle = average_vector.angle / total  
+            alignment = average_vector.__truediv__(total) 
 
         return alignment
