@@ -10,7 +10,7 @@ class Talker:
         topic_position  = "/swarm/behaviour/position"
 
         self.pub_movement = rospy.Publisher(topic_movement, Movement, queue_size=10)
-        self.pub_position = rospy.Publisher(topic_position, Movement, queue_size=10)
+        self.pub_position = rospy.Publisher(topic_position, Position, queue_size=10)
         
         self.wanted_movement = Movement()
         self.wanted_position = Position()

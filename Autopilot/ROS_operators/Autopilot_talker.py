@@ -2,11 +2,11 @@
 import time
 import rospy
 
-from swarm.msg import SwarmHeader
+# from swarm.msg import SwarmHeader
 from swarm.msg import BoatOdometry
 from swarm.msg import BoatStatus
-from swarm.msg import Position
-from swarm.msg import Movement
+# from swarm.msg import Position
+# from swarm.msg import Movement
 
 from Boat_ID import get_ID
 # from Classes.GPS_class import GPS
@@ -76,5 +76,19 @@ class Talker:
 
         self.pub_change.publish(self.change_data)
 
-    def _publish_status(self, status):
-        pass
+    def publish_status(self, status):
+        '''Publishes status of boat to ROS topic given'''
+        self.current_status.header = self.current_data.header
+
+        self.current_status.fcuMode            = 0
+        self.current_status.fcuStatus          = True
+        self.current_status.timeSinceLaunch    = 0.0
+        self.current_status.distanceFromLaunch = 0.0
+        self.current_status.numGpsSatelites    = 10
+
+        self.current_status.pixhawkReady = status['pixhawk']
+        self.current_status.arduinoReady = status['arduino']
+        self.current_status.hasGPSFix    = status['fix']
+        self.current_status.hasWiFi      = status['wifi']
+
+        self.pub_status.publish(self.current_status)

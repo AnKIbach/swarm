@@ -14,11 +14,15 @@ from ROS_operators.Autopilot_talker import Talker
 
 
 def main():
+    status = {'pixhawk': False, 
+                'arduino': False, 
+                'fix': False, 
+                'wifi': False}
+
     nav = navData()
-    time.sleep(0.2)
     autopilot = Autopilot()
     time.sleep(0.2)
-    autopilot_talker = Talker()
+    talker = Talker()
     time.sleep(0.2)
     arduino = Arduino('/dev/Arduino', speedLimit = 0.9) #speed limiter for testing
     time.sleep(0.2)
@@ -27,7 +31,7 @@ def main():
 
     wait_time, clicks = 0.0, 0
 
-    while nav.is_ready() == False and arduino.is_ready() == False:
+    while not nav.is_ready() and not arduino.is_ready():
     #waits for both systems to connect
         wait_time += 0.1
         time.sleep(0.1)
@@ -37,6 +41,10 @@ def main():
     print("Pixhawk is connected and ready at: ", nav.mode)
     print("Arduino is connected and started at: ", arduino.port)
     print("Behaviour is publishing data at: ", behaviour.topic_main)
+    status = {'pixhawk': True,
+                'arduino': True,
+                'fix': False,
+                'wifi': False}
 
     print("entering loop...")
 
@@ -53,36 +61,30 @@ def main():
                     wanted_vector = wanted
 
             else: #if not recieving from behaviour stop boat
-                wanted_vector = Vector(0.0,0.0)
+                wanted_vector = Vector(0.0, 0.0)
 
             autopilot.set_wanted_vector(wanted_vector)
 
             change_vector = autopilot(current_vector)
-
-            print("current vector: ")
-            current_vector.showVector()
-            print("")
-            print("wanted vector: ")
-            wanted_vector.showVector()
-            print("")
+            # print("current vector: ")
+            # current_vector.showVector()
+            # print("")
+            # print("wanted vector: ")
+            # wanted_vector.showVector()
+            # print("")
             print("change vector: ")
             change_vector.showVector()
             print("")
             
-            arduino(change_vector.magnitude, change_vector.angle) #possible addition of another dampening for angle
-            
-            #publishing to ROS
-            autopilot_talker(current_vector, 
-                            current_GPS,
-                            wanted_vector,
-                            change_vector)
+            arduino(change_vector.magnitude, change_vector.angle) #possible addition
 
-            #publish data after x number of clicks
+            talker(current_vector, current_GPS, wanted_vector, change_vector)
+
             if clicks >= 20:
-                clicks = 0 
+                talker.publish_status(status)
+                clicks = 0
             else:
                 clicks += 1
-
             #comment out for full test
             time.sleep(0.5)
 
@@ -93,8 +95,5 @@ def main():
             pass
     arduino()
 
-
-
 if __name__ == "__main__":
     main()
-
