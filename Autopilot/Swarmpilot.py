@@ -20,7 +20,7 @@ def main():
     time.sleep(0.2)
     autopilot_talker = Talker()
     time.sleep(0.2)
-    arduino = Arduino('/dev/ttyACM1', speedLimit = 0.9) #speed limiter for testing
+    arduino = Arduino('Arduino', speedLimit = 0.9) #speed limiter for testing
     time.sleep(0.2)
     behaviour = swarmWanted()
     time.sleep(0.2)
