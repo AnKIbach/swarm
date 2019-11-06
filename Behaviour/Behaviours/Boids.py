@@ -56,7 +56,7 @@ class boidBehavior():
             # center_of_mass = Vector(*center_of_mass)
             print("com: ")
             center_of_mass.showVector()
-            cohesion = center_of_mass / total #- self.position
+            cohesion = center_of_mass.__truediv__(total) #- self.position
             cohesion_tot = m.sqrt(m.pow(cohesion.magnitude, 2)+m.pow(cohesion.angle, 2))
 
             if cohesion_tot > 0.0: #Makes the vector wanted in proportion with maxSpeed
@@ -78,7 +78,7 @@ class boidBehavior():
             # average_vector = average_vector / total            
             print("com: ")
             average_vector.showVector()
-            separation = average_vector / total#- self.movement
+            separation = average_vector.__truediv__(total)#- self.movement
             separation_tot = m.sqrt(m.pow(separation.magnitude, 2)+m.pow(separation.angle, 2))
 
             if separation_tot > 0.0:
