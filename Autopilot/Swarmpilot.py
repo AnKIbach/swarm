@@ -75,9 +75,9 @@ def main():
             print("wanted vector: ")
             wanted_vector.showVector()
             # print("")
-            print("change vector: ")
-            change_vector.showVector()
-            print("")
+            # print("change vector: ")
+            # change_vector.showVector()
+            # print("")
 
             arduino(change_vector.magnitude, change_vector.angle) #possible addition
 
