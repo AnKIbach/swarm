@@ -106,6 +106,7 @@ class Behave: # funny :)
                 self.inside_fence = True
                 return 0.0
         except:
+            pass
             # print("no fence recieved")
 
     def _get_xy(self, vector):
