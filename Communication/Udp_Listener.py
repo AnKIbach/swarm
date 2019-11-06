@@ -32,7 +32,6 @@ class Listener(object):
         self._swarmCommandPublisher = rospy.Publisher(topic_command, SwarmCommand,  queue_size = 20)
 
     def _readHeader(self, msg):
-        print(msg)
         return Json.json2Header(msg['header'])
 
     def _publishOdometry(self, json_msg):

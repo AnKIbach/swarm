@@ -93,6 +93,4 @@ class Talker:
         self.current_status.hasGPSFix    = status['fix']
         self.current_status.hasWiFi      = status['wifi']
 
-        print(self.current_status)
-
         self.pub_status.publish(self.current_status)
