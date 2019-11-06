@@ -123,7 +123,8 @@ class Behave: # funny :)
             angle = m.atan(XY.magnitude/XY.angle) #magn = x, angle = y
 
             vec.set(magnitude, angle)
-
+            print("vec to autop:")
+            vec.showVector()
         else:
             vec.set(0.0, 0.0)
 

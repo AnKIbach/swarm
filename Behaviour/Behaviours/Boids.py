@@ -34,6 +34,9 @@ class boidBehavior():
 
         wantedXY = alignment * self.Ka + cohesion * self.Kc + separation * self.Ks
 
+        print("wanted:")
+        wantedXY.showVector()
+        
         return wantedXY
 
     def _handle_current(self, current_movement, current_position):
@@ -54,8 +57,6 @@ class boidBehavior():
         if total > 0.0 and center_of_mass.magnitude != 0.0 and center_of_mass.angle != 0.0:
             # center_of_mass = center_of_mass / total
             # center_of_mass = Vector(*center_of_mass)
-            print("com: ")
-            center_of_mass.showVector()
             cohesion = center_of_mass.__truediv__(total) #- self.position
             cohesion_tot = m.sqrt(m.pow(cohesion.magnitude, 2)+m.pow(cohesion.angle, 2))
 
@@ -76,8 +77,6 @@ class boidBehavior():
                 total += 1.0
         if total > 0.0 and average_vector.magnitude != 0.0 and average_vector.angle != 0.0:
             # average_vector = average_vector / total            
-            print("com: ")
-            average_vector.showVector()
             separation = average_vector.__truediv__(total)#- self.movement
             separation_tot = m.sqrt(m.pow(separation.magnitude, 2)+m.pow(separation.angle, 2))
 

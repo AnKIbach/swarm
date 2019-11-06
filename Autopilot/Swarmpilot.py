@@ -24,7 +24,7 @@ def main():
     time.sleep(0.2)
     talker = Talker()
     time.sleep(0.2)
-    arduino = Arduino('/dev/Arduino', speedLimit = 0.9) #speed limiter for testing
+    arduino = Arduino('/dev/Arduino', speedLimit = 0.5) #speed limiter for testing
     time.sleep(0.2)
     behaviour = swarmWanted()
     time.sleep(0.2)
