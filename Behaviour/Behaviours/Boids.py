@@ -39,7 +39,7 @@ class boidBehavior():
         wantedXY = alignment * self.Ka + cohesion * self.Kc + separation * self.Ks
         print("wantedXY: ")
         wantedXY.showVector()
-        
+
         return wantedXY
 
     def _handle_current(self, current_movement, current_position):
@@ -95,10 +95,16 @@ class boidBehavior():
         average_vector = Vector(0.0, 0.0)
         for boid in boats:
             if boid['distance'] < self.perception and boid['distance'] != 0.0: #finds number of boids within perception
+                #omforme for vinkel i X Y
                 average_vector.magnitude += boid['speed']
                 average_vector.angle     += boid['bearing']
                 total += 1.0
         if total > 0.0 and average_vector.magnitude != 0.0 and average_vector.angle != 0.0:
             alignment = average_vector.__truediv__(total) 
+
+            dx = average_vector.magnitude * m.sin(average_vector.angle)
+            dy = average_vector.magnitude * m.cos(average_vector.angle)
+
+            alignment.set(dx,dy)
 
         return alignment
