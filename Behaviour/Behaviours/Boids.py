@@ -84,14 +84,16 @@ class boidBehavior():
 
     def _calculate_alignment(self, boats): #maybe working
         alignment = Vector()
-        total = 0
+        total = 0.0
         average_vector = Vector(0.0, 0.0)
         for boid in boats:
             if boid['distance'] < self.perception and boid['distance'] != 0.0: #finds number of boids within perception
                 average_vector.magnitude += boid['speed']
                 average_vector.angle     += boid['bearing']
-                total += 1
-        if total > 0 and average_vector.magnitude != 0.0 and average_vector.angle != 0.0:
+                total += 1.0
+        if total > 0.0 and average_vector.magnitude != 0.0 and average_vector.angle != 0.0:
+            print(alignment.magnitude)
+            print(alignment.angle)
             alignment.magnitude = average_vector.magnitude / total
             alignment.angle = average_vector.angle / total  
             alignment_tot = m.sqrt(m.pow(alignment.magnitude, 2)+m.pow(alignment.angle, 2))

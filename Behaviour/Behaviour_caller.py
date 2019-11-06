@@ -85,7 +85,7 @@ class Behave: # funny :)
                             "relative": dist.angle,
                             "x"       : x,
                             "y"       : y})
-
+        print(clist)
         return clist
 
     def _get_distance(self, pos):
@@ -106,7 +106,7 @@ class Behave: # funny :)
                 self.inside_fence = True
                 return 0.0
         except:
-            print("no fence recieved")
+            # print("no fence recieved")
 
     def _get_xy(self, vector):
         dx = vector.magnitude * m.sin(vector.angle)
