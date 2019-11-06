@@ -133,11 +133,11 @@ def swarmCommand2Json(swarmCommand):
     msg['headingMode']     = swarmCommand.headingMode
     msg['colavMode']       = swarmCommand.colavMode
     msg['destination']     = position2Json(swarmCommand.destination)
+    msg['fence']           = position2Json(swarmCommand.fence)
     msg['speed']           = swarmCommand.speed
     msg['heading']         = swarmCommand.heading
     # msg['area']            = area2Json(swarmCommand.area)
     msg['do_imediate']     = swarmCommand.doImidiate
-    #msg['id']              = swarmCommand.id #uncertain of value
     return msg
 
 def json2SwarmCommand(msg):
@@ -147,6 +147,7 @@ def json2SwarmCommand(msg):
     cmd.headingMode        = msg['headingMode']
     cmd.colavMode          = msg['colavMode']
     cmd.destination        = json2Position(msg['destination'])
+    cmd.fence              = json2Position(msg['fence'])
     cmd.speed              = msg['speed']
     cmd.heading            = msg['heading']
     # cmd.area               = json2Area( msg['area'])

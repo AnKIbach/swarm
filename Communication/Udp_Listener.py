@@ -16,10 +16,8 @@ from swarm.msg import BoatOdometry
 from swarm.msg import SwarmCommand
 
 class Listener(object):
-    """
-    This class should be instantiated with a list of topics that
-    decoded UDP messages should be published to
-    """
+    '''This class should be instantiated with a list of topics that
+    decoded UDP messages should be published to'''
     def __init__(self, mcast_grp, mcast_port, timeout=1.0):
 
         self._listener = MulticastListener(mcast_grp, mcast_port,
@@ -37,31 +35,27 @@ class Listener(object):
         return Json.json2Header(msg["header"])
 
     def _publishOdometry(self, json_msg):
-        """
-        Helper method to publish decoded JSON messages
-        """
+        '''Helper method to publish decoded JSON messages'''
+
         odometryMsg = Json.json2SwarmOdometry(json_msg)
         self._odometryPublisher.publish(odometryMsg)
     
     def _publishStatus(self, json_msg):
-        """
-        Helper method to publish decoded JSON messages
-        """
+        '''Helper method to publish decoded JSON messages'''
 
         uavStatusMsg = Json.json2SwarmStatus(json_msg)
         self._statusPublisher.publish(uavStatusMsg)
 
 
     def _publishSwarmCommand(self, json_msg):
-        """
-        Method for publishing a SwarmCommand ROS message
-        """
+        '''Method for publishing a SwarmCommand ROS message'''
 
         msg = Json.json2SwarmCommand(json_msg)
         self._swarmCommandPublisher.publish(msg)
 
 
     def run(self):
+        '''Continuos run process for Udp listener on multicast'''
         while not rospy.is_shutdown():
             try:
                 msg = self._listener.listen()
@@ -72,7 +66,7 @@ class Listener(object):
                 if header.msgType == MsgType.BOAT_STATUS:
                     self._publishStatus(msg)
                 if header.msgType == MsgType.SWARM_COMMAND:
-                   self._publishSwarmCommand(msg)
+                    self._publishSwarmCommand(msg)
             except socket.timeout:
                 #This is expected, we need to periodically check if ROS
                 #is shutting down and we do this by way of timeout

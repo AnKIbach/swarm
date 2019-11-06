@@ -48,9 +48,6 @@ class Arduino:
         self.rudder_wanted  = round(self.range_rudder.new(rudder), 3)
         self.motor_wanted   = round(self.range_motor.new(motor * self.speed_limt), 3)
 
-        print("motor out: ", self.motor_wanted)
-        print("rudder out: ", self.rudder_wanted)
-
         try:
             for i in range(0,1): #write for rudders
                 self.pins[i].write(self.rudder_wanted)
