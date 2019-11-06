@@ -46,6 +46,8 @@ def main():
                 'fix': False,
                 'wifi': False}
 
+    talker.publish_status(status)
+    
     print("entering loop...")
 
     while not rospy.is_shutdown():
@@ -75,7 +77,7 @@ def main():
             print("change vector: ")
             change_vector.showVector()
             print("")
-            
+
             arduino(change_vector.magnitude, change_vector.angle) #possible addition
 
             talker(current_vector, current_GPS, wanted_vector, change_vector)

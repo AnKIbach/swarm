@@ -28,9 +28,6 @@ class Talker:
 
         self.current_status     = BoatStatus()
         self.current_data       = BoatOdometry()
-        # self.current_data.header    = SwarmHeader()
-        # self.current_data.position  = Position()
-        # self.current_data.movement  = Movement()
         self.wanted_data        = BoatOdometry()
         self.change_data        = BoatOdometry()
 

@@ -1,14 +1,14 @@
 import rospy
 
-from swarm.msg import SwarmHeader
+# from swarm.msg import SwarmHeader
 from swarm.msg import BoatOdometry
 
-BOATS_IN_SWARM = 10  
+BOATS_IN_SWARM = 10 
 
 class swarmData:
+    ''' Updates continously the list of boats currently in swarm'''
     def __init__(self):
         self.list_global = [BoatOdometry()] * (BOATS_IN_SWARM)
-
 
         rospy.init_node('behaviour', anonymous=True)
 
@@ -26,7 +26,8 @@ class swarmData:
             self.list_global[ID] = data
 
             self._get_time_since(data.header, ID)
-        except:
+
+        except IndexError:
             pass
 
     def _get_time_since(self, header, id): #for use of Ack from GCS

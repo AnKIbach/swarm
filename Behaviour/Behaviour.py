@@ -6,18 +6,18 @@ import rospy
 
 from Behaviour_caller import Behave
 from ROS_operators.Boat_ID import get_ID
-from ROS_operators.Geofencer import Fence
 from ROS_operators.Global_data import swarmData
+from ROS_operators.Behaviour_sub import Subscriber
 from ROS_operators.Behaviour_talker import Talker
 
 def main():
     BOAT_ID = get_ID()
 
     data = swarmData()
-    behaviour_out = Talker()
+    command = Subscriber() #defines a static fence for now
+    fence_active = command.fence
 
-    fence = Fence() #defines a static fence for now
-    fence_active = fence()
+    behaviour_out = Talker()
 
     behaviour = Behave(BOAT_ID, fence_active) #argument for behaviour type
 
@@ -26,10 +26,10 @@ def main():
             data_full = data()
             
             wanted = behaviour(data_full)
-            print(wanted)
+
             behaviour_out(wanted)
 
-            time.sleep(0.7)
+            time.sleep(0.5)
 
         except rospy.ROSInterruptException():
             pass
