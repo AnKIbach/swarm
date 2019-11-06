@@ -32,8 +32,14 @@ class boidBehavior():
         cohesion = self._calculate_cohesion(global_list)
         separation = self._calculate_separation(global_list)
 
-        wantedXY = alignment * self.Ka + cohesion * self.Kc + separation * self.Ks
+        print("alignment: ", alignment.showVector())
+        print("cohesion: ", cohesion.showVector())
+        print("separation: ", separation.showVector())
 
+        wantedXY = alignment * self.Ka + cohesion * self.Kc + separation * self.Ks
+        print("wantedXY: ")
+        wantedXY.showVector()
+        
         return wantedXY
 
     def _handle_current(self, current_movement, current_position):
@@ -55,7 +61,7 @@ class boidBehavior():
             # center_of_mass = center_of_mass / total
             # center_of_mass = Vector(*center_of_mass)
             cohesion = center_of_mass.__truediv__(total) #- self.position
-            cohesion_tot = m.sqrt(m.pow(cohesion.magnitude, 2)+m.pow(cohesion.angle, 2))
+            cohesion_tot = m.sqrt(m.pow(cohesion.magnitude, 2.0)+m.pow(cohesion.angle, 2.0))
 
             if cohesion_tot > 0.0: #Makes the vector wanted in proportion with maxSpeed
                 cohesion = (cohesion.__truediv__(cohesion_tot)) * self.maxSpeed
@@ -75,7 +81,7 @@ class boidBehavior():
         if total > 0.0 and average_vector.magnitude != 0.0 and average_vector.angle != 0.0:
             # average_vector = average_vector / total            
             separation = average_vector.__truediv__(total)#- self.movement
-            separation_tot = m.sqrt(m.pow(separation.magnitude, 2)+m.pow(separation.angle, 2))
+            separation_tot = m.sqrt(m.pow(separation.magnitude, 2.0)+m.pow(separation.angle, 2.0))
 
             print("separation: {} : {} tot: {}", separation.magnitude, separation.angle, separation_tot)
 
