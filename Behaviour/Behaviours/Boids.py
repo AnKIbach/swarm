@@ -25,7 +25,6 @@ class boidBehavior():
     def __call__(self, position, movement, global_list):
 
         self._handle_current(position, movement)
-        
         # if self.movement.velocity > self.maxSpeed: #adjusting current speed to not exceed max
         #     self.movement.velocity = self.maxSpeed * 0.7
 

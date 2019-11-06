@@ -85,7 +85,8 @@ class Behave: # funny :)
                             "relative": dist.angle,
                             "x"       : x,
                             "y"       : y})
-        print(clist)
+            
+        print("clist: ", clist)
         return clist
 
     def _get_distance(self, pos):
