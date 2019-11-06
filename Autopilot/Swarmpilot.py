@@ -38,15 +38,16 @@ def main():
         if wait_time > 10.0: #exit if timeout is over 10s
             sys.exit(0)
 
-    print("Pixhawk is connected and ready at: ", nav.mode)
+    print("Pixhawk is connected and ready and: ", nav.mode)
     print("Arduino is connected and started at: ", arduino.port)
     print("Behaviour is publishing data at: ", behaviour.topic_main)
+    
     status = {'pixhawk': True,
                 'arduino': True,
                 'fix': False,
                 'wifi': False}
 
-    talker.publish_status(status)
+    # talker.publish_status(status) Not working
     
     print("entering loop...")
 
@@ -83,7 +84,7 @@ def main():
             talker(current_vector, current_GPS, wanted_vector, change_vector)
 
             if clicks >= 20:
-                talker.publish_status(status)
+                # talker.publish_status(status) not working
                 clicks = 0
             else:
                 clicks += 1

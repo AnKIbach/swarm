@@ -17,11 +17,17 @@ class Subscriber:
         self.wanted_pos = Position()
         self.fence      = Position()
 
+        self.standard_fence = Position()
+        self.standard_fence.latitude  = 60.394100
+        self.standard_fence.longitude = 5.266171
+
         self.new_command = False
 
     def _handle_command(self, command):
         self.command = command
         self._handle_specifics(command)
+
+        self.new_command = True
 
     def _handle_specifics(self, data):
         self.wanted_mov.velocity = data.speed
@@ -48,7 +54,10 @@ class Subscriber:
     def get_wantedPos(self):
         return self.wanted_pos
 
-    def stop_command(self):
+    def stop(self):
         return self.command.doImidiate
+
+    def has_new(self):
+        return self.new_command
 
     

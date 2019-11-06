@@ -2,7 +2,7 @@
 import time
 import rospy
 
-# from swarm.msg import SwarmHeader
+from swarm.msg import SwarmHeader
 from swarm.msg import BoatOdometry
 from swarm.msg import BoatStatus
 # from swarm.msg import Position
@@ -21,11 +21,12 @@ class Talker:
         topic_wanted  = "autopilot/wanted"
         topic_change  = "autopilot/change"
 
-        self.pub_status  = rospy.Publisher(topic_status, BoatStatus, queue_size=10)
+        self.pub_status  = rospy.Publisher(topic_status, BoatStatus, queue_size=100)
         self.pub_current = rospy.Publisher(topic_current, BoatOdometry, queue_size=10)
         self.pub_wanted  = rospy.Publisher(topic_wanted, BoatOdometry, queue_size=10)
         self.pub_change  = rospy.Publisher(topic_change, BoatOdometry, queue_size=10)
 
+        self.header             = SwarmHeader()
         self.current_status     = BoatStatus()
         self.current_data       = BoatOdometry()
         self.wanted_data        = BoatOdometry()
@@ -39,12 +40,7 @@ class Talker:
                 wanted_movement,
                 change_movement):
 
-        self.time_now = rospy.get_rostime()
-        self.current_data.header.secs    = self.time_now.secs
-        self.current_data.header.nsecs   = self.time_now.nsecs
-        self.current_data.header.id      = self.BOAT_ID
-        self.current_data.header.msgType = 1
-
+        self.current_data.header = self._get_header()
         self.current_data.movement.velocity  = current_movement.magnitude
         self.current_data.movement.bearing   = current_movement.angle
         self.current_data.position.latitude  = current_position.lat
@@ -55,10 +51,18 @@ class Talker:
         self._publish_wanted(wanted_movement)
         self._publish_change(change_movement)
 
+    def _get_header(self, msgtype = 1):
+        time_now = rospy.get_rostime()
+        self.header.secs    = time_now.secs
+        self.header.nsecs   = time_now.nsecs
+        self.header.id      = self.BOAT_ID
+        self.header.msgType = msgtype
+
+        return self.header
+
     def _publish_wanted(self, movement_data):
 
         self.wanted_data.header = self.current_data.header
-        
         self.wanted_data.movement.velocity = movement_data.magnitude
         self.wanted_data.movement.bearing  = movement_data.angle
 
@@ -75,7 +79,8 @@ class Talker:
 
     def publish_status(self, status):
         '''Publishes status of boat to ROS topic given'''
-        self.current_status.header = self.current_data.header
+
+        self.current_status.header = self._get_header(msgtype=2)
 
         self.current_status.fcuMode            = 0
         self.current_status.fcuStatus          = True
@@ -87,5 +92,7 @@ class Talker:
         self.current_status.arduinoReady = status['arduino']
         self.current_status.hasGPSFix    = status['fix']
         self.current_status.hasWiFi      = status['wifi']
+
+        print(self.current_status)
 
         self.pub_status.publish(self.current_status)

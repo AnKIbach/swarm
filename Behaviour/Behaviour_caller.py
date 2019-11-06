@@ -60,7 +60,7 @@ class Behave: # funny :)
             self.current_position.set(data[self.boat_id-1].position.latitude, data[self.boat_id].position.longitude)
             self.current_movement.set(data[self.boat_id-1].movement.velocity, data[self.boat_id].movement.bearing)
 
-            print(self.current_movement)
+            print(self.current_movement.magnitude)
 
             self.has_newSelf = True
 
@@ -122,7 +122,7 @@ class Behave: # funny :)
 
             vec.set(magnitude, angle)
 
-        else: 
+        else:
             vec.set(0.0, 0.0)
 
         return vec

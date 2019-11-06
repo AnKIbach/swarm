@@ -32,7 +32,8 @@ class Listener(object):
         self._swarmCommandPublisher = rospy.Publisher(topic_command, SwarmCommand,  queue_size = 20)
 
     def _readHeader(self, msg):
-        return Json.json2Header(msg["header"])
+        print(msg)
+        return Json.json2Header(msg['header'])
 
     def _publishOdometry(self, json_msg):
         '''Helper method to publish decoded JSON messages'''
@@ -46,13 +47,11 @@ class Listener(object):
         uavStatusMsg = Json.json2SwarmStatus(json_msg)
         self._statusPublisher.publish(uavStatusMsg)
 
-
     def _publishSwarmCommand(self, json_msg):
         '''Method for publishing a SwarmCommand ROS message'''
 
         msg = Json.json2SwarmCommand(json_msg)
         self._swarmCommandPublisher.publish(msg)
-
 
     def run(self):
         '''Continuos run process for Udp listener on multicast'''
