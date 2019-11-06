@@ -92,7 +92,8 @@ class boidBehavior():
                 average_vector.angle     += boid['bearing']
                 total += 1
         if total > 0 and average_vector.magnitude != 0.0 and average_vector.angle != 0.0:
-            alignment = average_vector / total #uncertain of value
+            alignment.magnitude = average_vector.magnitude / total
+            alignment.angle = average_vector.angle / total  
             alignment_tot = m.sqrt(m.pow(alignment.magnitude, 2)+m.pow(alignment.angle, 2))
 
             alignment = (alignment / alignment_tot) * self.maxSpeed
