@@ -45,40 +45,40 @@ class boidBehavior():
 
     def _calculate_cohesion(self, boats):
         cohesion = Vector()
-        total = 0
+        total = 0.0
         center_of_mass = Vector()
         for boid in boats:
             if boid['distance'] < self.perception and boid['distance'] != 0.0:
                 center_of_mass.magnitude += boid['x']
                 center_of_mass.angle     += boid['y']
-                total += 1
-        if total > 0 and center_of_mass.magnitude != 0.0 and center_of_mass.angle != 0.0:
+                total += 1.0
+        if total > 0.0 and center_of_mass.magnitude != 0.0 and center_of_mass.angle != 0.0:
             center_of_mass /= total
             # center_of_mass = Vector(*center_of_mass)
             cohesion = center_of_mass #- self.position
             cohesion_tot = m.sqrt(m.pow(cohesion.magnitude, 2)+m.pow(cohesion.angle, 2))
 
-            if cohesion_tot > 0: #Makes the vector wanted in proportion with maxSpeed
+            if cohesion_tot > 0.0: #Makes the vector wanted in proportion with maxSpeed
                 cohesion = (cohesion / cohesion_tot) * self.maxSpeed
 
         return cohesion # vector dowards center of mass
 
     def _calculate_separation(self, boats):
         separation = Vector()
-        total = 0
+        total = 0.0
         average_vector = Vector()
         for boid in boats:
             if boid['distance'] < self.perception and boid['distance'] != 0.0:
                 diff = Vector(-boid['x'], -boid['y'])
                 diff /= boid['distance']
                 average_vector += diff
-                total += 1
-        if total > 0 and average_vector.magnitude != 0.0 and average_vector.angle != 0.0:
+                total += 1.0
+        if total > 0.0 and average_vector.magnitude != 0.0 and average_vector.angle != 0.0:
             average_vector /= total
             separation = average_vector #- self.movement
             separation_tot = m.sqrt(m.pow(separation.magnitude, 2)+m.pow(separation.angle, 2))
 
-            if separation_tot > 0:
+            if separation_tot > 0.0:
                 separation = (separation / separation_tot) * self.maxForce
         return separation
 

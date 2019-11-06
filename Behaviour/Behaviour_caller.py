@@ -57,8 +57,8 @@ class Behave: # funny :)
 
     def _update_current(self, data):
         try:
-            self.current_position.set(data[self.boat_id-1].position.latitude, data[self.boat_id].position.longitude)
-            self.current_movement.set(data[self.boat_id-1].movement.velocity, data[self.boat_id].movement.bearing)
+            self.current_position.set(data[self.boat_id].position.latitude, data[self.boat_id].position.longitude)
+            self.current_movement.set(data[self.boat_id].movement.velocity, data[self.boat_id].movement.bearing)
 
             print(self.current_movement.magnitude)
 
