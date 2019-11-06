@@ -122,7 +122,7 @@ class Behave: # funny :)
             magnitude = m.sqrt(m.pow(XY.magnitude, 2) + m.pow(XY.angle, 2))
             angle = m.atan(XY.magnitude/XY.angle) #magn = x, angle = y
 
-            vec.set(magnitude, angle)
+            vec.set(magnitude * 0.01, angle)
             print("vec to autop:")
             vec.showVector()
         else:

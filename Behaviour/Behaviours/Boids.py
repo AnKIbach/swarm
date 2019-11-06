@@ -34,9 +34,6 @@ class boidBehavior():
 
         wantedXY = alignment * self.Ka + cohesion * self.Kc + separation * self.Ks
 
-        print("wanted:")
-        wantedXY.showVector()
-        
         return wantedXY
 
     def _handle_current(self, current_movement, current_position):
@@ -80,6 +77,7 @@ class boidBehavior():
             separation = average_vector.__truediv__(total)#- self.movement
             separation_tot = m.sqrt(m.pow(separation.magnitude, 2)+m.pow(separation.angle, 2))
 
+            print("separation: {} : {} tot: {}", format(separation.magnitude, separation.angle, separation_tot)
             if separation_tot > 0.0:
                 separation = (separation.__truediv__(separation_tot)) * self.maxForce
         return separation
