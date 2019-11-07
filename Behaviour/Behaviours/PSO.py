@@ -64,12 +64,13 @@ class psoBehaviour():
     def _check_pBest(self):
         self.wanted.show()
         dist = self.position.calculate(self.wanted)
-        current_self = self.noise_function(dist)
+        current_self = self.noise_function(dist.magnitude)
         if current_self > self.best_self['value']:
             self.best_self['position'] = self.position
             self.best_self['value']    = current_self
 
     def noise_function(self, distance):
+        print("distance", distance)
         if distance != 0.0:
             noise = random.randrange(0, 100) /100
             value = float(noise) + (self.perception / (distance**2.0)) # function 1/r^2 with noise and perception
