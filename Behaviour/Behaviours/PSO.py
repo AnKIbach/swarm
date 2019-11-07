@@ -56,6 +56,8 @@ class psoBehaviour():
                 self.best_global['value']    = boatVal
 
     def _check_pBest(self, position):
+        position.show()
+        self.wanted.show()
         dist = position.calculate(self.wanted)
         current_self = self.noise_function(dist)
         if current_self > self.best_self['value']:
