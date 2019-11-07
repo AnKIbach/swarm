@@ -116,6 +116,7 @@ class Behave: # funny :)
                 self.inside_fence = True
                 return 0.0
         except ValueError as e:
+            pass
             # print(e)
             # return 0.0
             # print("no fence recieved")
