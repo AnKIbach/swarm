@@ -24,7 +24,7 @@ def main():
     time.sleep(0.2)
     talker = Talker()
     time.sleep(0.2)
-    arduino = Arduino('/dev/Arduino', speedLimit = 0.5) #speed limiter for testing
+    arduino = Arduino('/dev/Arduino', speedLimit = 0.8) #speed limiter for testing
     time.sleep(0.2)
     behaviour = swarmWanted()
     time.sleep(0.2)
@@ -71,13 +71,13 @@ def main():
             change_vector = autopilot(current_vector)
             # print("current vector: ")
             # current_vector.showVector()
+            # print("")
+            # print("wanted vector: ")
+            # wanted_vector.showVector()
+            # print("")
+            print("change vector: ")
+            change_vector.showVector()
             print("")
-            print("wanted vector: ")
-            wanted_vector.showVector()
-            # print("")
-            # print("change vector: ")
-            # change_vector.showVector()
-            # print("")
 
             arduino(change_vector.magnitude, change_vector.angle) #possible addition
 

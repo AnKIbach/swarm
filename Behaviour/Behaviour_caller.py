@@ -95,7 +95,6 @@ class Behave: # funny :)
                             "y"       : y})
 
         print("elements in list: ", len(clist))    
-        print("clist: ", clist)
         return clist
 
     def _get_distance(self, pos):
@@ -134,10 +133,12 @@ class Behave: # funny :)
             magnitude = m.sqrt(m.pow(XY.magnitude, 2) + m.pow(XY.angle, 2))
             angle = m.atan(XY.magnitude/XY.angle) #magn = x, angle = y
 
-            vec.set(magnitude * 0.1, angle)
+            vec.set(magnitude * 0.8, angle)
         else:
             vec.set(0.0, 0.0)
 
+        print("vec to pilot: ")
+        vec.showVector()
         return vec
 
     def _make_PSO_list(self, dataObj):
