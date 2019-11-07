@@ -12,6 +12,7 @@ class boidBehavior():
         self.Ka = 1.0
         self.Kc = 1.0
         self.Ks = 1.0
+        self.tick = 0
 
         self.maxForce   = 0.3 # Magnitude of cohesion and separation
         self.maxSpeed   = 2.0 # Maximum speed in m/s
@@ -39,7 +40,8 @@ class boidBehavior():
         wantedXY = alignment * self.Ka + cohesion * self.Kc + separation * self.Ks
         print("wantedXY: ")
         wantedXY.showVector()
-
+        self.tick +=1
+        print("tid:", self.tick)
         return wantedXY
 
     def _handle_current(self, current_movement, current_position):
@@ -65,6 +67,8 @@ class boidBehavior():
 
             if cohesion_tot > 0.0: #Makes the vector wanted in proportion with maxSpeed
                 cohesion = (cohesion.__truediv__(cohesion_tot)) * self.maxSpeed
+            if cohesion_tot > self.maxForce:
+                cohesion = (cohesion.__truediv__(cohesion_tot)) * self.maxForce
 
         return cohesion # vector dowards center of mass
 
@@ -86,6 +90,8 @@ class boidBehavior():
             print("separation: {} : {} tot: {}", separation.magnitude, separation.angle, separation_tot)
 
             if separation_tot > 0.0:
+                separation = (separation.__truediv__(separation_tot)) * self.maxSpeed
+            if separation_tot > self.maxForce:
                 separation = (separation.__truediv__(separation_tot)) * self.maxForce
         return separation
 
@@ -100,11 +106,12 @@ class boidBehavior():
                 average_vector.angle     += boid['bearing']
                 total += 1.0
         if total > 0.0 and average_vector.magnitude != 0.0 and average_vector.angle != 0.0:
-            alignment = average_vector.__truediv__(total) 
-
+            average_vector = average_vector.__truediv__(total)
+            average_vector_tot = m.sqrt(m.pow(average_vector.magnitude, 2.0)+m.pow(average_vector.angle, 2.0))
+            if average_vector_tot > 0.0:
+                average_vector=(average_vector.__truediv__(average_vector_tot)) * self.maxSpeed
             dx = average_vector.magnitude * m.sin(average_vector.angle)
             dy = average_vector.magnitude * m.cos(average_vector.angle)
 
             alignment.set(dx,dy)
-
         return alignment
