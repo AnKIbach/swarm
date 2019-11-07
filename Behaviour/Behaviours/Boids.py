@@ -65,7 +65,7 @@ class boidBehavior():
 
             if cohesion_tot > 0.0: #Makes the vector wanted in proportion with maxSpeed
                 cohesion = (cohesion.__truediv__(cohesion_tot)) * self.maxSpeed
-            if cohesion_tot > self.maxForce
+            if cohesion_tot > self.maxForce:
                 cohesion = (cohesion.__truediv__(cohesion_tot)) * self.maxForce
 
         return cohesion # vector dowards center of mass
@@ -89,7 +89,7 @@ class boidBehavior():
 
             if separation_tot > 0.0:
                 separation = (separation.__truediv__(separation_tot)) * self.maxSpeed
-            if separation_tot > self.maxForce
+            if separation_tot > self.maxForce:
                 separation = (separation.__truediv__(separation_tot)) * self.maxForce
         return separation
 
