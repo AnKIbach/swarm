@@ -17,7 +17,7 @@ class Subscriber:
         self.wanted_pos = Position()
         self.fence      = Position()
 
-        self.static_fence = Position
+        self.static_fence = Position()
         self.static_fence.latitude  = 60.366034
         self.static_fence.longitude = 5.264511
 
