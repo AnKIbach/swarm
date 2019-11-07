@@ -70,9 +70,12 @@ class psoBehaviour():
             self.best_self['value']    = current_self
 
     def noise_function(self, distance):
-        noise = random.randrange(0, 100) /100
-        value = float(noise) + (self.perception / (distance**2.0)) # function 1/r^2 with noise and perception
-        return value
+        if distance != 0.0:
+            noise = random.randrange(0, 100) /100
+            value = float(noise) + (self.perception / (distance**2.0)) # function 1/r^2 with noise and perception
+            return value
+        else:
+            return 0.0
 
     def _calculate(self, boats):
         boatPos = GPS()
