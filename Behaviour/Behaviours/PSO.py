@@ -29,7 +29,7 @@ class psoBehaviour():
         self.has_newCurr = False
 
     def __call__(self, position, movement, global_list):
-        self._handle_current(position, movement)
+        self._handle_current(movement, position)
 
         self.fitness(global_list)
 
@@ -37,8 +37,8 @@ class psoBehaviour():
         return wanted
 
     def _handle_current(self, current_movement, current_position):
-        self.position = current_position
         self.movement = current_movement
+        self.position = current_position
 
         self.has_newCurr = True
 
