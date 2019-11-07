@@ -136,7 +136,7 @@ class Behave: # funny :)
         vec = Vector()
         if XY.magnitude != 0.0 and XY.angle != 0.0:
             magnitude = m.sqrt(m.pow(XY.magnitude, 2) + m.pow(XY.angle, 2))
-            angle = m.atan(XY.magnitude/XY.angle) + 
+            angle = m.atan(XY.magnitude/XY.angle) 
             print('angle: ', angle)
 
             angle = angle + self.current_movement.angle #magn = x, angle = y
