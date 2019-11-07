@@ -6,9 +6,8 @@ from Classes.GPS_class import GPS
 from Classes.Vector_class import Vector
 
 class psoBehaviour():
-
+    '''Calcualtion of PSO behaviour based on own and other boats positions in swarm'''
     def __init__(self, fence, posWanted):
-
         self.K1 = 1.0
         self.K2 = 1.0
         self.Kr = 1.0
@@ -64,7 +63,7 @@ class psoBehaviour():
             self.best_self['value']    = current_self
 
     def noise_function(self, distance):
-        noise = random.randrange(0 , 1.0, 0.01)
+        noise = random.randrange(0.0 , 1.0, 0.01)
         value = noise + (self.perception/(m.pow(distance,2))) # function 1/r^2 with noise and perception
         return value
 
