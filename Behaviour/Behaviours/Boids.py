@@ -41,6 +41,8 @@ class boidBehavior():
         print("wantedXY: ")
         wantedXY.showVector()
         self.tick +=1
+        while self.tick < 10:
+            wantedXY.set(0.0,5.0)
         print("tid:", self.tick)
         return wantedXY
 
