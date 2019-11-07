@@ -16,7 +16,7 @@ class boidBehavior():
 
         self.maxForce   = 0.3 # Magnitude of cohesion and separation
         self.maxSpeed   = 2.0 # Maximum speed in m/s
-        self.perception = 100 # Max distance to ...
+        self.perception = 100.0 # Max distance to ...
 
         self.position = GPS()
         self.movement = Vector()

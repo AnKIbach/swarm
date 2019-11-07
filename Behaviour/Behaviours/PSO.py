@@ -13,9 +13,9 @@ class psoBehaviour():
         self.Kr = 1.0
 
         self.maxForce   = 0.3 # Magnitude of cohesion and separation - not used by now
-        self.maxDist    = 100 # Variable for weighting distances
+        self.maxDist    = 100.0 # Variable for weighting distances
         self.maxSpeed   = 2.0 # Maximum speed in m/s
-        self.perception = 100 # Max distance to ...
+        self.perception = 100.0 # Max distance to ...
 
         self.fence = fence
         self.wanted     = posWanted
@@ -64,7 +64,7 @@ class psoBehaviour():
 
     def noise_function(self, distance):
         noise = random.randrange(0, 100) /100
-        value = noise + (self.perception/(m.pow(distance,2))) # function 1/r^2 with noise and perception
+        value = noise + (self.perception/(m.pow(distance,2.0))) # function 1/r^2 with noise and perception
         return value
 
     def _calculate(self):
