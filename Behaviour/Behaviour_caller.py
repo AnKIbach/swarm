@@ -115,9 +115,10 @@ class Behave: # funny :)
             else:
                 self.inside_fence = True
                 return 0.0
-        except ValueError as e:
+        except AttributeError as e:
+            print(e)
             pass
-            # print(e)
+            
             # return 0.0
             # print("no fence recieved")
 
