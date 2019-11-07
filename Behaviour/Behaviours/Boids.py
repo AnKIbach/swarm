@@ -40,8 +40,8 @@ class boidBehavior():
         wantedXY = alignment * self.Ka + cohesion * self.Kc + separation * self.Ks
 
         self.tick +=1
-        while self.tick < 50:
-            wantedXY.set(0.0,5.0)
+        while self.tick < 100:
+            wantedXY.set(0.0, 1.0)
             self.tick += 1
         print("tid:", self.tick)
         print("wantedXY: ")
