@@ -140,7 +140,7 @@ class Behave: # funny :)
 
             angle += self.current_movement.angle
             if angle >= 360.0:
-                angle -= 360.0
+                angle = angle - 360.0
             vec.set(magnitude * 0.8, self.current_movement.angle + angle)
         else:
             vec = self.current_movement
