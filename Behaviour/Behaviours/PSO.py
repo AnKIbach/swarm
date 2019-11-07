@@ -14,6 +14,7 @@ class psoBehaviour():
 
         self.maxForce   = 0.3 # Magnitude of cohesion and separation - not used by now
         self.maxDist    = 100.0 # Variable for weighting distances
+        self.minDist    = 5.0
         self.maxSpeed   = 2.0 # Maximum speed in m/s
         self.perception = 100.0 # Max distance to ...
 
@@ -33,7 +34,7 @@ class psoBehaviour():
         if self.has_newCurr == True:
             self.fitness(global_list)
 
-            wanted = self._calculate()
+            wanted = self._calculate(global_list)
             return wanted
         else:
             return Vector(0.0, 0.0)
@@ -73,11 +74,19 @@ class psoBehaviour():
         value = float(noise) + (self.perception / (distance**2.0)) # function 1/r^2 with noise and perception
         return value
 
-    def _calculate(self):
+    def _calculate(self, boats):
+        boatPos = GPS()
         pbest = Vector()
         gbest = Vector()
         curr  = self.movement
         rand  = Vector()
+        sep   = Vector()
+
+        for boat in boats:
+            boatPos.set(boat['latitude'], boat['longitude'])
+            dist = self.position.calculate(boatPos)
+            if dist > self.minDist:
+                sep.set(dist.magnitude, (dist.angle - 180.0))
 
         vec_pbest = self.position.calculate(self.best_self['position'])
         if vec_pbest.magnitude > self.maxSpeed:
