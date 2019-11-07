@@ -92,5 +92,6 @@ class psoBehaviour():
 
         tot = curr + pbest * self.K1 + gbest * self.K2 + rand * self.Kr
 
+        print("tot:")
         print(tot)
         return tot

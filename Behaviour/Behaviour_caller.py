@@ -70,7 +70,7 @@ class Behave: # funny :)
             self.current_position.set(data[self.boat_id].position.latitude, data[self.boat_id].position.longitude)
             self.current_movement.set(data[self.boat_id].movement.velocity, data[self.boat_id].movement.bearing)
 
-            print("speed and pos: ", self.current_movement.magnitude)
+            print("speed: ", self.current_movement.magnitude, 'and pos: ', self.current_movement.angle)
             self.current_position.show()
 
             self.has_newSelf = True
@@ -110,8 +110,6 @@ class Behave: # funny :)
 
     def _check_fence(self):
         try:
-            print("fencecenter: ")
-            self.fence_center.show()
             distFence = self.current_position.calculate(self.fence_center)  
 
             if distFence.magnitude >= self.fence_radius:
