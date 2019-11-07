@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import random
 import math as m
-import numpy as np
 
 from Classes.GPS_class import GPS
 from Classes.Vector_class import Vector
@@ -14,7 +13,7 @@ class psoBehaviour():
         self.K2 = 1.0
         self.Kr = 1.0
 
-        self.maxForce   = 0.3 # Magnitude of cohesion and separation
+        self.maxForce   = 0.3 # Magnitude of cohesion and separation - not used by now
         self.maxDist    = 100 # Variable for weighting distances
         self.maxSpeed   = 2.0 # Maximum speed in m/s
         self.perception = 100 # Max distance to ...

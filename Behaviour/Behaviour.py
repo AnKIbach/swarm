@@ -43,6 +43,8 @@ def main():
     while not rospy.is_shutdown():
         try:
             data_full = data()
+
+            print("recieved elements: ", len(data_full))
             
             wanted = behaviour(data_full)
 

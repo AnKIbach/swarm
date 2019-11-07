@@ -67,7 +67,8 @@ class Behave: # funny :)
             self.current_position.set(data[self.boat_id].position.latitude, data[self.boat_id].position.longitude)
             self.current_movement.set(data[self.boat_id].movement.velocity, data[self.boat_id].movement.bearing)
 
-            print(self.current_movement.magnitude)
+            print("speed and pos: "self.current_movement.magnitude)
+            self.current_position.show()
 
             self.has_newSelf = True
 
@@ -92,7 +93,8 @@ class Behave: # funny :)
                             "relative": dist.angle,
                             "x"       : x,
                             "y"       : y})
-            
+
+        print("elements in list: ", len(clist))    
         print("clist: ", clist)
         return clist
 
@@ -113,8 +115,9 @@ class Behave: # funny :)
             else:
                 self.inside_fence = True
                 return 0.0
-        except:
-            pass
+        except ValueError as e:
+            # print(e)
+            # return 0.0
             # print("no fence recieved")
 
     def _get_xy(self, vector):
