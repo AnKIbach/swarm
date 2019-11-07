@@ -145,7 +145,7 @@ class Behave: # funny :)
             if angle >= 360.0:
                 print('angle in fix: ', angle)
                 angle = angle - 360.0
-            vec.set(magnitude * 0.8, )
+            vec.set(magnitude * 0.8, angle)
         else:
             vec = self.current_movement
 
