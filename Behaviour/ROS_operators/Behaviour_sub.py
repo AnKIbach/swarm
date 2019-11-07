@@ -40,8 +40,7 @@ class Subscriber:
         self.fence = data.destination
 
     def get_static_fence(self):
-        static = GPS(self.static_fence.latitude, self.static_fence.longitude)
-        return static
+        return self.static_fence
 
     def get_command(self):
         return self.command

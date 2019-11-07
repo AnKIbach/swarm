@@ -24,7 +24,7 @@ class Behave: # funny :)
         self.current_position = GPS()
         self.current_movement = Vector()
         self.boat_id = ID
-        self.fence_center = fencePOS #could insert GPS point here for test
+        self.fence_center = GPS(fencePOS.latitude, fencePOS.longitude) #could insert GPS point here for test
         self.fence_radius = 75.0
 
         self._handle_behaviour(use_behaviour)
