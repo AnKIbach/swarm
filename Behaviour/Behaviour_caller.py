@@ -9,7 +9,7 @@ from Behaviours.Classes.GPS_class import GPS
 from Behaviours.Classes.Vector_class import Vector
 
 from Behaviours.Boids import boidBehavior
-# from Behaviours.PSO import waypointBehaviour
+from Behaviours.PSO import psoBehaviour
 
 from swarm.msg import BoatOdometry
 
@@ -38,22 +38,29 @@ class Behave: # funny :)
         if self.inside_fence == True:
             
             if self.behaviour_chosen == "BOIDS" and self.has_newSelf == True:
-                behaviour_data = self._make_list(global_list) 
+                boid_data = self._make_list(global_list) 
 
                 self.has_newSelf = False
-                behaviourXY = self.behaviour(self.current_position, self.current_movement, behaviour_data)
+                behaviourXY = self.boids(self.current_position, self.current_movement, boid_data)
                 
                 return self._get_vec(behaviourXY)
+            
+            if self.behaviour_chosen == "PSO" and self.has_newSelf == True:
+                pso_data = self._make_PSO_list(global_list)
+
+                self.has_newSelf = False
+                behaviourXY = self.pso(self.current_position, self.current_movement, pso_data)
         else:
             return toFence #Turns boat around if its outside the fence - probably wont work
         
     def _handle_behaviour(self, behaviour):   
         if behaviour == BehaviourType.BOID:
             self.behaviour_chosen = "BOIDS"
-            self.behaviour = boidBehavior() #add borders
+            self.boids = boidBehavior() #add borders
             
         if behaviour == BehaviourType.PSO:
             self.behaviour_chosen = "PSO"
+            self.pso = psoBehaviour(self.fence_center, self.fence_center)
 
     def _update_current(self, data):
         try:
@@ -127,3 +134,19 @@ class Behave: # funny :)
             vec.set(0.0, 0.0)
 
         return vec
+
+    def _make_PSO_list(self, dataObj):
+        clist = [] 
+
+        for i in range(len(dataObj)):
+            if i == self.boat_id: #removes unwanted elements from list - i.e own boat and empty elements
+                pass
+            elif dataObj[i].position.latitude == 0.0 and dataObj[i].position.longitude == 0.0:
+                pass
+            else:
+                # dist = self._get_distance(dataObj[i].position)
+                clist.append({'lat' : dataObj[i].position.latitude,
+                            'lon' : dataObj[i].position.longitude})
+            
+        print("clist PSO: ", clist)
+        return clist

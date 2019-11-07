@@ -6,19 +6,21 @@ import numpy as np
 from Classes.GPS_class import GPS
 from Classes.Vector_class import Vector
 
-class boidBehavior():
+class psoBehaviour():
 
-    def __init__(self, posWanted):
+    def __init__(self, fence, posWanted):
 
         self.K1 = 1.0
         self.K2 = 1.0
-        self.Kw = 1.0
+        self.Kr = 1.0
 
-        self.wanted     = posWanted
         self.maxForce   = 0.3 # Magnitude of cohesion and separation
+        self.maxDist    = 100 # Variable for weighting distances
         self.maxSpeed   = 2.0 # Maximum speed in m/s
         self.perception = 100 # Max distance to ...
 
+        self.fence = fence
+        self.wanted     = posWanted
         self.best_self   = {'position': GPS(), 'value':0.0}
         self.best_global = {'position': GPS(), 'value':0.0}
 
@@ -32,6 +34,9 @@ class boidBehavior():
 
         self.fitness(global_list)
 
+        wanted = self._calculate()
+        return wanted
+
     def _handle_current(self, current_movement, current_position):
         self.position = current_position
         self.movement = current_movement
@@ -39,76 +44,49 @@ class boidBehavior():
         self.has_newCurr = True
 
     def fitness(self, boats):
-        self._check_gBest(boats)
         self._check_pBest(self.position)
+        self._check_gBest(boats)
 
     def _check_gBest(self, boats):
-        pass
+        boatPos = GPS()
+        for boat in boats:
+            boatPos.set(boat['lat'], boat['lon'])
+            distCent = boatPos.calculate(self.wanted)
+            boatVal = self.noise_function(distCent)
+            if boatVal > self.best_global['value']:
+                self.best_global['position'] = boatPos
+                self.best_global['value']    = boatVal
 
-    def _check_pBest(self, function):
-        dist = self.position.calculate(self.wanted)
+    def _check_pBest(self, position):
+        dist = position.calculate(self.wanted)
         current_self = self.noise_function(dist)
-        if current_self > self.best_self:
+        if current_self > self.best_self['value']:
             self.best_self['position'] = self.position
             self.best_self['value']    = current_self
-        else:
-            pass
 
     def noise_function(self, distance):
         noise = random.randrange(0 , 1.0, 0.01)
-        value = noise * (self.perception/(m.pow(distance,2))) # function 1/r^2 with noise and perception
+        value = noise + (self.perception/(m.pow(distance,2))) # function 1/r^2 with noise and perception
         return value
 
+    def _calculate(self):
+        pbest = Vector()
+        gbest = Vector()
+        curr  = self.movement
+        rand  = Vector()
 
-# Particle Swarm Optimization
-def PSO(problem, MaxIter = 100, PopSize = 100, c1 = 1.4962, c2 = 1.4962, w = 0.7298, wdamp = 1.0):
+        vec_pbest = self.position.calculate(self.best_self['position'])
+        if vec_pbest.magnitude > self.maxSpeed:
+            vec_pbest.magnitude = (vec_pbest.magnitude / self.maxDist) * self.maxSpeed
 
-    # Extract Problem Info
-    CostFunction = problem['CostFunction'];
-    VarMin = problem['VarMin'];
-    VarMax = problem['VarMax'];
-    nVar = problem['nVar'];
+        vec_gbest = self.position.calculate(self.best_global['position'])
+        if vec_gbest.magnitude > self.maxSpeed:
+            vec_gbest.magnitude = (vec_gbest.magnitude / self.maxDist) * self.maxSpeed
 
-    # Initialize Global Best
-    gbest = {'position': None, 'cost': np.inf};
+        rand.magnitude = random.randrange(0,1) * self.maxSpeed
+        rand.angle     = random.randrange(0,360)
 
-    # Create Initial Population
-    pop = [];
-    for i in range(0, PopSize):
-        pop.append(empty_particle.copy());
-        pop[i]['position'] = np.random.uniform(VarMin, VarMax, nVar);
-        pop[i]['velocity'] = np.zeros(nVar);
-        pop[i]['cost'] = CostFunction(pop[i]['position']);
-        pop[i]['best_position'] = pop[i]['position'].copy();
-        pop[i]['best_cost'] = pop[i]['cost'];
-        
-        if pop[i]['best_cost'] < gbest['cost']:
-            gbest['position'] = pop[i]['best_position'].copy();
-            gbest['cost'] = pop[i]['best_cost'];
-    
-    # PSO Loop
-    for it in range(0, MaxIter):
-        for i in range(0, PopSize):
-            
-            pop[i]['velocity'] = w*pop[i]['velocity'] \
-                + c1*np.random.rand(nVar)*(pop[i]['best_position'] - pop[i]['position']) \
-                + c2*np.random.rand(nVar)*(gbest['position'] - pop[i]['position']);
+        tot = curr + pbest * self.K1 + gbest * self.K2 + rand * self.Kr
 
-            pop[i]['position'] += pop[i]['velocity'];
-            pop[i]['position'] = np.maximum(pop[i]['position'], VarMin);
-            pop[i]['position'] = np.minimum(pop[i]['position'], VarMax);
-
-            pop[i]['cost'] = CostFunction(pop[i]['position']);
-            
-            if pop[i]['cost'] < pop[i]['best_cost']:
-                pop[i]['best_position'] = pop[i]['position'].copy();
-                pop[i]['best_cost'] = pop[i]['cost'];
-
-                if pop[i]['best_cost'] < gbest['cost']:
-                    gbest['position'] = pop[i]['best_position'].copy();
-                    gbest['cost'] = pop[i]['best_cost'];
-
-        w *= wdamp;
-        print('Iteration {}: Best Cost = {}'.format(it, gbest['cost']));
-
-    return gbest, pop;
+        print(tot)
+        return tot
