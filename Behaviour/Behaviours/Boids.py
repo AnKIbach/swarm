@@ -107,7 +107,7 @@ class boidBehavior():
             average_vector = average_vector.__truediv__(total)
             average_vector_tot = m.sqrt(m.pow(average_vector.magnitude, 2.0)+m.pow(average_vector.angle, 2.0))
             if average_vector_tot > 0.0:
-                average_vector=(average_vector.__truediv__(alignment_tot)) * self.maxSpeed
+                average_vector=(average_vector.__truediv__(average_vector_tot)) * self.maxSpeed
             dx = average_vector.magnitude * m.sin(average_vector.angle)
             dy = average_vector.magnitude * m.cos(average_vector.angle)
 
