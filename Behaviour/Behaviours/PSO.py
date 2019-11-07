@@ -63,7 +63,7 @@ class psoBehaviour():
             self.best_self['value']    = current_self
 
     def noise_function(self, distance):
-        noise = random.randrange(0.0 , 1.0, 0.01)
+        noise = random.randrange(0, 100) /100
         value = noise + (self.perception/(m.pow(distance,2))) # function 1/r^2 with noise and perception
         return value
 
@@ -81,7 +81,7 @@ class psoBehaviour():
         if vec_gbest.magnitude > self.maxSpeed:
             vec_gbest.magnitude = (vec_gbest.magnitude / self.maxDist) * self.maxSpeed
 
-        rand.magnitude = random.randrange(0,1) * self.maxSpeed
+        rand.magnitude = random.randrange(0,10)/10 * self.maxSpeed
         rand.angle     = random.randrange(0,360)
 
         tot = curr + pbest * self.K1 + gbest * self.K2 + rand * self.Kr
