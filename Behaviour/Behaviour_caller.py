@@ -133,7 +133,7 @@ class Behave: # funny :)
             magnitude = m.sqrt(m.pow(XY.magnitude, 2) + m.pow(XY.angle, 2))
             angle = m.atan(XY.magnitude/XY.angle) #magn = x, angle = y
 
-            vec.set(magnitude * 0.8, angle)
+            vec.set(magnitude * 0.8, self.current_movement.angle + angle)
         else:
             vec.set(0.0, 0.0)
 
