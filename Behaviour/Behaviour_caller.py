@@ -49,7 +49,10 @@ class Behave: # funny :)
                 pso_data = self._make_PSO_list(global_list)
 
                 self.has_newSelf = False
+
                 behaviourXY = self.pso(self.current_position, self.current_movement, pso_data)
+
+                return self._get_vec(behaviourXY)
         else:
             return toFence #Turns boat around if its outside the fence - probably wont work
         
