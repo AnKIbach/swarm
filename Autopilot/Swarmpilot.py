@@ -62,19 +62,19 @@ def main():
                     wanted_vector = current_GPS.calculate(wanted)
                 else:
                     wanted_vector = wanted
-
             else: #if not recieving from behaviour stop boat
+                print("did not recieve")
                 wanted_vector = Vector(0.0, 0.0)
 
             autopilot.set_wanted_vector(wanted_vector)
 
             change_vector = autopilot(current_vector)
-            # print("current vector: ")
-            # current_vector.showVector()
-            # print("")
-            # print("wanted vector: ")
-            # wanted_vector.showVector()
-            # print("")
+
+            print("autopilot")
+            print("current vector: ")
+            current_vector.showVector()
+            print("wanted vector: ")
+            wanted_vector.showVector()
             print("change vector: ")
             change_vector.showVector()
             print("")
