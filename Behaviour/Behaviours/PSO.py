@@ -41,11 +41,13 @@ class psoBehaviour():
     def _handle_current(self, current_movement, current_position):
         self.movement = current_movement
         self.position = current_position
+        print("self: ")
+        self.position.show()
 
         self.has_newCurr = True
 
     def fitness(self, boats):
-        self._check_pBest(self.position)
+        self._check_pBest()
         self._check_gBest(boats)
 
     def _check_gBest(self, boats):
@@ -58,10 +60,9 @@ class psoBehaviour():
                 self.best_global['position'] = boatPos
                 self.best_global['value']    = boatVal
 
-    def _check_pBest(self, position):
-        position.show()
+    def _check_pBest(self):
         self.wanted.show()
-        dist = position.calculate(self.wanted)
+        dist = self.position.calculate(self.wanted)
         current_self = self.noise_function(dist)
         if current_self > self.best_self['value']:
             self.best_self['position'] = self.position
