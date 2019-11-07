@@ -38,7 +38,7 @@ def main():
     else:
         fence = command.get_static_fence()
 
-        behaviour = Behave(BOAT_ID, fence, use_behaviour=1) # BOIDS, PSO
+        behaviour = Behave(BOAT_ID, fence, use_behaviour=0) # BOIDS, PSO
 
     while not rospy.is_shutdown():
         try:

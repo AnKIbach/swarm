@@ -8,7 +8,7 @@ from Classes.Vector_class import Vector
 class psoBehaviour():
     '''Calcualtion of PSO behaviour based on own and other boats positions in swarm'''
     def __init__(self, fence, posWanted):
-        self.K1 = 1.0
+        self.K1 = 0.1
         self.K2 = 1.0
         self.Kr = 1.0
 
@@ -90,7 +90,7 @@ class psoBehaviour():
             boatPos.set(boat['latitude'], boat['longitude'])
             dist = self.position.calculate(boatPos)
             if dist > self.minDist:
-                sep.set(dist.magnitude, (dist.angle - 180.0))
+                sep.set(1.0, (dist.angle - 180.0))
 
         vec_pbest = self.position.calculate(self.best_self['position'])
         if vec_pbest.magnitude > self.maxSpeed:
@@ -106,5 +106,5 @@ class psoBehaviour():
         tot = curr + pbest * self.K1 + gbest * self.K2 + rand * self.Kr
 
         print("tot:")
-        print(tot)
+        tot.showVector()
         return tot
