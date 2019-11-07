@@ -28,7 +28,7 @@ def main():
         time_tot += 0.1
 
     if command.has_new():
-        fence = command.fence
+        fence = command.get_static_fence #change to new
         behaviour_type = command.get_taskType
 
         print(behaviour_type)
@@ -36,15 +36,13 @@ def main():
         behaviour = Behave(BOAT_ID, fence, behaviour_type) #argument for behaviour type
 
     else:
-        fence = command.standard_fence
+        fence = command.get_static_fence()
 
         behaviour = Behave(BOAT_ID, fence, use_behaviour=1) # BOIDS, PSO
 
     while not rospy.is_shutdown():
         try:
             data_full = data()
-
-            print("recieved elements: ", len(data_full))
             
             wanted = behaviour(data_full)
 

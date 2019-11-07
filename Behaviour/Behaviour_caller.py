@@ -110,7 +110,10 @@ class Behave: # funny :)
 
     def _check_fence(self):
         try:
-            distFence = self.current_position.calculate(self.fence_center)   
+            print("fencecenter: ")
+            self.fence_center.show()
+            distFence = self.current_position.calculate(self.fence_center)  
+
             if distFence.magnitude >= self.fence_radius:
                 self.inside_fence = False
                 return distFence

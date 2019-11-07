@@ -17,9 +17,9 @@ class Subscriber:
         self.wanted_pos = Position()
         self.fence      = Position()
 
-        self.standard_fence = Position()
-        self.standard_fence.latitude  = 60.366034
-        self.standard_fence.longitude = 5.264511
+        self.static_fence = Position
+        self.static_fence.latitude  = 60.366034
+        self.static_fence.longitude = 5.264511
 
         self.new_command = False
 
@@ -38,6 +38,10 @@ class Subscriber:
 
     def _update_fence(self, data):
         self.fence = data.destination
+
+    def get_static_fence(self):
+        static = GPS(self.static_fence.latitude, self.static_fence.longitude)
+        return static
 
     def get_command(self):
         return self.command
