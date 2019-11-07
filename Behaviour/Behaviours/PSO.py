@@ -17,7 +17,7 @@ class psoBehaviour():
         self.maxSpeed   = 2.0 # Maximum speed in m/s
         self.perception = 100.0 # Max distance to ...
 
-        self.fence = fence
+        self.fence      = fence
         self.wanted     = posWanted
         self.best_self   = {'position': GPS(), 'value':0.0}
         self.best_global = {'position': GPS(), 'value':0.0}
@@ -30,10 +30,13 @@ class psoBehaviour():
     def __call__(self, position, movement, global_list):
         self._handle_current(movement, position)
 
-        self.fitness(global_list)
+        if self.has_newCurr == True:
+            self.fitness(global_list)
 
-        wanted = self._calculate()
-        return wanted
+            wanted = self._calculate()
+            return wanted
+        else:
+            return Vector(0.0, 0.0)
 
     def _handle_current(self, current_movement, current_position):
         self.movement = current_movement
