@@ -71,8 +71,8 @@ class Behave: # funny :)
             self.current_position.set(data[self.boat_id].position.latitude, data[self.boat_id].position.longitude)
             self.current_movement.set(data[self.boat_id].movement.velocity, data[self.boat_id].movement.bearing)
 
-            print("speed: ", self.current_movement.magnitude, 'and pos: ', self.current_movement.angle)
-            self.current_position.show()
+            # print("speed: ", self.current_movement.magnitude, 'and pos: ', self.current_movement.angle)
+            # self.current_position.show()
 
             self.has_newSelf = True
 
@@ -136,10 +136,13 @@ class Behave: # funny :)
         vec = Vector()
         if XY.magnitude != 0.0 and XY.angle != 0.0:
             magnitude = m.sqrt(m.pow(XY.magnitude, 2) + m.pow(XY.angle, 2))
-            angle = m.atan(XY.magnitude/XY.angle) #magn = x, angle = y
+            angle = m.atan(XY.magnitude/XY.angle) + 
+            print('angle: ', angle)
 
-            angle += self.current_movement.angle
+            angle = angle + self.current_movement.angle #magn = x, angle = y
+
             if angle >= 360.0:
+                print('angle in fix: ', angle)
                 angle = angle - 360.0
             vec.set(magnitude * 0.8, self.current_movement.angle + angle)
         else:
