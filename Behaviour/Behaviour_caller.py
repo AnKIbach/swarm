@@ -67,7 +67,7 @@ class Behave: # funny :)
             self.current_position.set(data[self.boat_id].position.latitude, data[self.boat_id].position.longitude)
             self.current_movement.set(data[self.boat_id].movement.velocity, data[self.boat_id].movement.bearing)
 
-            print("speed and pos: "self.current_movement.magnitude)
+            print("speed and pos: ", self.current_movement.magnitude)
             self.current_position.show()
 
             self.has_newSelf = True
