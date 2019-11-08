@@ -54,8 +54,8 @@ class Behave: # funny :)
 
                 return self._get_vec(behaviourXY)
         else:
-            self.current_movement.set(1.0, self.current_movement.angle + 180.0)
-            return self.current_movement #Turns boat around if its outside the fence - probably wont work
+            toFence.set(1.0, toFence.angle)
+            return toFence #Turns boat around if its outside the fence - probably wont work
         
     def _handle_behaviour(self, behaviour):   
         if behaviour == BehaviourType.BOID:
