@@ -61,6 +61,8 @@ class psoBehaviour():
                 self.best_global['position'] = boatPos
                 self.best_global['value']    = boatVal
 
+        print("gbest: "self.best_global['value'])
+
     def _check_pBest(self):
         self.wanted.show()
         dist = self.position.calculate(self.wanted)
