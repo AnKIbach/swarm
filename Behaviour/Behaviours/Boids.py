@@ -115,8 +115,8 @@ class boidBehavior():
         for boid in boats:
             if boid['distance'] < self.perception and boid['distance'] != 0.0: #finds number of boids within perception
 
-                dx = boid['speed'] * m.sin(boid['bearing'])
-                dy = boid['speed'] * m.cos(boid['bearing'])
+                dx = boid['speed'] * m.sin(m.radians(boid['bearing']))
+                dy = boid['speed'] * m.cos(m.radians(boid['bearing']))
                 average_temp.set(dx,dy)
 
                 average_vector += average_temp
