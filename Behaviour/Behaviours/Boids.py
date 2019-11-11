@@ -34,7 +34,7 @@ class boidBehavior():
         '''
         self._handle_current(position, movement)
 
-        print("x og y avstand - x: ", global_list['x'], "y: ", global_list['y'])
+        print("x og y avstand - x: ", global_list[0]['x'], "y: ", global_list[0]['y'])
         # if self.movement.velocity > self.maxSpeed: #adjusting current speed to not exceed max
         #     self.movement.velocity = self.maxSpeed * 0.7
 
