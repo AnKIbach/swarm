@@ -112,12 +112,15 @@ class boidBehavior():
         total = 0.0
         average_temp = Vector(0.0, 0.0)
         average_vector = Vector(0.0, 0.0)
+
         for boid in boats:
             if boid['distance'] < self.perception and boid['distance'] != 0.0: #finds number of boids within perception
 
                 dx = boid['speed'] * m.sin(m.radians(boid['bearing']))
                 dy = boid['speed'] * m.cos(m.radians(boid['bearing']))
                 average_temp.set(dx,dy)
+                print("average vect: ")
+                average_temp.showVector()
 
                 average_vector += average_temp
                 total += 1.0
