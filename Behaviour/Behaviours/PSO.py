@@ -89,7 +89,7 @@ class psoBehaviour():
         sep   = Vector()
 
         for boat in boats:
-            boatPos.set(boat['latitude'], boat['longitude'])
+            boatPos.set(boat['lat'], boat['lon'])
             dist = self.position.calculate(boatPos)
             if dist > self.minDist:
                 sep.set(1.0, (dist.angle - 180.0))
