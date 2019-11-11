@@ -124,13 +124,14 @@ class boidBehavior():
                 total += 1.0
 
         if total > 0.0:
+            average_vector.showVector()
             try:
-                average_vector.magnitude = average_vector.magnitude / total
+                alignment.magnitude = average_vector.magnitude / total
             except ValueError:
                 pass
 
             try:
-                average_vector.angle = average_vector.angle / total
+                alignment.angle = average_vector.angle / total
             except ValueError:
                 pass
 
