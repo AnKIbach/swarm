@@ -129,8 +129,8 @@ class Behave: # funny :)
     def _get_xy(self, vector):
         print("vector inn: ")
         vector.showVector()
-        dx = vector.magnitude * m.sin(m.radians(vector.angle))
-        dy = vector.magnitude * m.cos(m.radians(vector.angle))
+        dx = round(vector.magnitude * m.sin(m.radians(vector.angle)), 5)
+        dy = round(vector.magnitude * m.cos(m.radians(vector.angle)), 5)
 
         print("ut - x:", dx, "y:", dy)
 
