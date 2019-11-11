@@ -71,7 +71,7 @@ class Behave: # funny :)
             self.current_position.set(data[self.boat_id].position.latitude, data[self.boat_id].position.longitude)
             self.current_movement.set(data[self.boat_id].movement.velocity, data[self.boat_id].movement.bearing)
 
-            print("pos: lat:", self.current_position.lat, "lon: ", self.current_position.lon)
+            # print("pos: lat:", self.current_position.lat, "lon: ", self.current_position.lon)
 
             self.has_newSelf = True
 
@@ -84,11 +84,13 @@ class Behave: # funny :)
 
         for i in range(len(dataObj)):
             if i == self.boat_id: #removes unwanted elements from list - i.e own boat and empty elements
+                print("boat_id removed: ", i)
                 pass
             elif dataObj[i].position.latitude == 0.0 and dataObj[i].position.longitude == 0.0:
                 pass
             else:
                 dist = self._get_distance(dataObj[i].position)
+                print("distance: ", dist.showVector())
                 x, y = self._get_xy(dist)
                 clist.append({"speed" : dataObj[i].movement.velocity,
                             "bearing" : dataObj[i].movement.bearing,
@@ -97,7 +99,8 @@ class Behave: # funny :)
                             "x"       : x,
                             "y"       : y})
 
-        print("elements in list: ", len(clist))    
+        print("elements in list: ", len(clist))
+        print("clist: ", clist)   
         return clist
 
     def _get_distance(self, pos):
