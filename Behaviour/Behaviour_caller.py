@@ -84,13 +84,11 @@ class Behave: # funny :)
 
         for i in range(len(dataObj)):
             if i == self.boat_id: #removes unwanted elements from list - i.e own boat and empty elements
-                print("boat_id removed: ", i)
                 pass
             elif dataObj[i].position.latitude == 0.0 and dataObj[i].position.longitude == 0.0:
                 pass
             else:
                 dist = self._get_distance(dataObj[i].position)
-                print("distance: ", dist.showVector())
                 x, y = self._get_xy(dist)
                 clist.append({"speed" : dataObj[i].movement.velocity,
                             "bearing" : dataObj[i].movement.bearing,
@@ -129,9 +127,13 @@ class Behave: # funny :)
             # print("no fence recieved")
 
     def _get_xy(self, vector):
+        print("vector inn: ")
+        vector.showVector()
         dx = vector.magnitude * m.sin(vector.angle)
         dy = vector.magnitude * m.cos(vector.angle)
 
+        print("ut - x:", dx, "y:", dy)
+        
         return dx, dy
 
     def _get_vec(self, XY):
