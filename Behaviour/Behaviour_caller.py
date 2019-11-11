@@ -98,7 +98,6 @@ class Behave: # funny :)
                             "y"       : y})
 
         print("elements in list: ", len(clist))
-        print("clist: ", clist)   
         return clist
 
     def _get_distance(self, pos):
@@ -127,12 +126,8 @@ class Behave: # funny :)
             # print("no fence recieved")
 
     def _get_xy(self, vector):
-        print("vector inn: ")
-        vector.showVector()
         dx = round(vector.magnitude * m.sin(m.radians(vector.angle)), 5)
         dy = round(vector.magnitude * m.cos(m.radians(vector.angle)), 5)
-
-        print("ut - x:", dx, "y:", dy)
 
         return dx, dy
 
@@ -153,8 +148,6 @@ class Behave: # funny :)
         else:
             vec = self.current_movement
 
-        print("vec to pilot: ")
-        vec.showVector()
         return vec
 
     def _make_PSO_list(self, dataObj):
