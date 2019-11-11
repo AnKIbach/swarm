@@ -23,7 +23,7 @@ class Sim:
         self.curr = BoatOdometry()
 
         self.speed = 0.5
-        self.bearing = 160
+        self.bearing = 0
 
     def __call__(self):
         self.header = self._get_header()
@@ -62,8 +62,8 @@ class Sim:
 
         self.curr.movement.velocity  = self.speed
         self.curr.movement.bearing   = self.bearing
-        self.curr.position.latitude  = 60.394367
-        self.curr.position.longitude = 5.265970
+        self.curr.position.latitude  = 60.394333
+        self.curr.position.longitude = 5.265925
 
         self.pub_current.publish(self.curr)
 
