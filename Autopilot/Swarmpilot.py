@@ -11,6 +11,8 @@ from Autopilot_caller import Autopilot
 from ROS_operators.Autopilot_sub import swarmWanted
 from ROS_operators.Navigation_data import navData
 from ROS_operators.Autopilot_talker import Talker
+#for sim
+from ROS_operators.Autopilot_datasim import Sim
 
 
 def main():
@@ -22,7 +24,8 @@ def main():
     nav = navData()
     autopilot = Autopilot()
     time.sleep(0.2)
-    talker = Talker()
+    # talker = Talker()
+    sim = Sim()
     time.sleep(0.2)
     arduino = Arduino('/dev/Arduino', speedLimit = 0.8) #speed limiter for testing
     time.sleep(0.2)
@@ -81,8 +84,10 @@ def main():
 
             arduino(change_vector.magnitude, change_vector.angle) #possible addition
 
-            talker(current_vector, current_GPS, wanted_vector, change_vector)
+            # talker(current_vector, current_GPS, wanted_vector, change_vector)
+            sim()
 
+            
             if clicks >= 20:
                 # talker.publish_status(status) not working
                 clicks = 0
