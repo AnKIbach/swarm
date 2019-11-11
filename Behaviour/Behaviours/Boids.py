@@ -123,11 +123,10 @@ class boidBehavior():
                 total += 1.0
 
         if total > 0.0 and average_vector.magnitude != 0.0 and average_vector.angle != 0.0:
+
             average_vector = average_vector.__truediv__(total)
 
-            alignment_tot = m.sqrt(m.pow(alignment.magnitude, 2.0) + m.pow(alignment.angle, 2.0))
-
-            if alignment_tot > 0.000:
-                average_vector = average_vector * self.maxSpeed
+            alignment_tot = m.sqrt(m.pow(average_vector.magnitude, 2.0) + m.pow(average_vector.angle, 2.0))
+            alignment = alignment.__truediv__(alignment_tot) * self.maxSpeed
 
         return alignment
