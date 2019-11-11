@@ -135,7 +135,6 @@ class boidBehavior():
                 pass
 
             alignment_tot = m.sqrt(m.pow(average_vector.magnitude, 2.0) + m.pow(average_vector.angle, 2.0))
-            alignment = alignment.__truediv__(alignment_tot) * self.maxSpeed
 
         if alignment_tot > self.maxForce:
             alignment = (alignment.__truediv__(alignment_tot)) * self.maxForce
