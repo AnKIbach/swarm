@@ -14,7 +14,7 @@ class psoBehaviour():
 
         self.maxForce   = 0.3 # Magnitude of cohesion and separation - not used by now
         self.maxDist    = 100.0 # Variable for weighting distances
-        self.minDist    = 5.0
+        self.minDist    = 1.0
         self.maxSpeed   = 2.0 # Maximum speed in m/s
         self.perception = 100.0 # Max distance to ...
 
@@ -97,15 +97,19 @@ class psoBehaviour():
         vec_pbest = self.position.calculate(self.best_self['position'])
         if vec_pbest.magnitude > self.maxSpeed:
             vec_pbest.magnitude = (vec_pbest.magnitude / self.maxDist) * self.maxSpeed
+            print("vector to pbest: ")
+            vec_pbest.showVector()
 
         vec_gbest = self.position.calculate(self.best_global['position'])
         if vec_gbest.magnitude > self.maxSpeed:
             vec_gbest.magnitude = (vec_gbest.magnitude / self.maxDist) * self.maxSpeed
+            print("vector to gbest: ")
+            vec_gbest.showVector()
 
-        rand.magnitude = random.randrange(0,10)/10 * self.maxSpeed
-        rand.angle     = random.randrange(0,360)
+        # rand.magnitude = random.randrange(0,10) / 10
+        # rand.angle     = random.randrange(0,360)
 
-        tot = curr + pbest * self.K1 + gbest * self.K2 + rand * self.Kr
+        tot = curr + pbest * self.K1 + gbest * self.K2 + sep * self.Kr
 
         print("tot:")
         tot.showVector()

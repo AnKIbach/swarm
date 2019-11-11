@@ -29,7 +29,7 @@ class AbstractMulticastHandler(object):
 
 class MulticastListener(AbstractMulticastHandler):
     def __init__(self, mcast_grp, mcast_port, timeout=None, num_recv=8192):
-        """
+        '''
         Create a new Multicast listener
 
         Args:
@@ -38,7 +38,7 @@ class MulticastListener(AbstractMulticastHandler):
             timeout: Float with socket timeout in seconds, default no timeout
             num_recv: Integer with number of bytes to receive at a time,
                 default 8192 bytes
-        """
+        '''
         super(MulticastListener, self).__init__(mcast_grp, mcast_port)
         # How many bytes should we receive at a time
         self._num_recv = num_recv

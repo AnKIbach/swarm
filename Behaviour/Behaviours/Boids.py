@@ -6,7 +6,7 @@ from Classes.GPS_class import GPS
 from Classes.Vector_class import Vector
 
 class boidBehavior():
-
+    ''' Object for running calculations of Boids behaviour '''
     def __init__(self):
 
         self.Ka = 10.0
@@ -14,7 +14,7 @@ class boidBehavior():
         self.Ks = 10.0
         self.tick = 0
 
-        self.maxForce   = 0.3 # Magnitude of cohesion and separation
+        self.maxForce   = 0.9 # Magnitude of cohesion and separation
         self.maxSpeed   = 2.0 # Maximum speed in m/s
         self.perception = 100.0 # Max distance to ...
 
@@ -24,7 +24,14 @@ class boidBehavior():
         self.has_newCurr = False
 
     def __call__(self, position, movement, global_list):
+        ''' Call function for initiated boid behaviour
 
+        args:
+            position: Vector of current position
+            movement: Vector of current movement
+            global_list: Pre-made list of dictionaries from caller with behaviour based
+            data from other boats in swarm
+        '''
         self._handle_current(position, movement)
         # if self.movement.velocity > self.maxSpeed: #adjusting current speed to not exceed max
         #     self.movement.velocity = self.maxSpeed * 0.7
@@ -97,25 +104,33 @@ class boidBehavior():
                 separation = (separation.__truediv__(separation_tot)) * self.maxSpeed
             if separation_tot > self.maxForce:
                 separation = (separation.__truediv__(separation_tot)) * self.maxForce
+
         return separation
 
     def _calculate_alignment(self, boats): #maybe working
         alignment = Vector()
         total = 0.0
+        average_temp = Vector(0.0, 0.0)
         average_vector = Vector(0.0, 0.0)
         for boid in boats:
             if boid['distance'] < self.perception and boid['distance'] != 0.0: #finds number of boids within perception
-                #omforme for vinkel i X Y
-                average_vector.magnitude += boid['speed']
-                average_vector.angle     += boid['bearing']
+
+                dx = boid['speed'] * m.sin(boid['bearing'])
+                dy = boid['speed'] * m.cos(boid['bearing'])
+                average_temp.set(dx,dy)
+
+                average_vector += average_temp
                 total += 1.0
+
         if total > 0.0 and average_vector.magnitude != 0.0 and average_vector.angle != 0.0:
             average_vector = average_vector.__truediv__(total)
-            average_vector_tot = m.sqrt(m.pow(average_vector.magnitude, 2.0)+m.pow(average_vector.angle, 2.0))
-            if average_vector_tot > 0.000:
-                average_vector=(average_vector.__truediv__(average_vector_tot)) * self.maxSpeed
-            dx = average_vector.magnitude * m.sin(average_vector.angle)
-            dy = average_vector.magnitude * m.cos(average_vector.angle)
 
-            alignment.set(dx,dy)
+            alignment_tot = m.sqrt(m.pow(alignment.magnitude, 2.0) + m.pow(alignment.angle, 2.0))
+
+            if alignment_tot > 0.000:
+                average_vector = average_vector * self.maxSpeed
+
+            if alignment_tot > self.maxForce:
+                alignment = (alignment.__truediv__(alignment_tot)) * self.maxForce
+
         return alignment

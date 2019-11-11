@@ -26,6 +26,14 @@ class Vector:
             return Vector(self.magnitude + other, self.angle + other)
         else:
             return NotImplemented
+
+    def __iadd__(self, other): # for bruken av + i vectorer
+        if isinstance(other, Vector):
+            return Vector(self.magnitude + other.magnitude, self.angle + other.angle)
+        elif isinstance(other, int) or isinstance(other, float):
+            return Vector(self.magnitude + other, self.angle + other)
+        else:
+            return NotImplemented
         
     def __sub__(self, other): # for bruken av - i vektorer
         if isinstance(other, Vector):
