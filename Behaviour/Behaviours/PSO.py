@@ -56,7 +56,7 @@ class psoBehaviour():
         for boat in boats:
             boatPos.set(boat['lat'], boat['lon'])
             distCent = boatPos.calculate(self.wanted)
-            boatVal = self.noise_function(distCent)
+            boatVal = self.noise_function(distCent.magnitude)
             if boatVal > self.best_global['value']:
                 self.best_global['position'] = boatPos
                 self.best_global['value']    = boatVal
@@ -75,7 +75,7 @@ class psoBehaviour():
         print("distance", distance)
         if distance != 0.0:
             noise = random.randrange(1, 100) /100
-            value = float(noise) + (self.perception / m.pow(distance,2.0)) # function 1/r^2 with noise and perception
+            value = float(noise) + (self.perception / m.pow(distance, 2.0)) # function 1/r^2 with noise and perception
             return value
         else:
             return 0.0
