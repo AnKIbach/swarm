@@ -4,7 +4,6 @@ import sys
 import rospy
 
 from Classes.GPS_class import GPS
-from Classes.PID_plotter import Plotter
 from Classes.Vector_class import Vector
 from Classes.Arduino_data import Arduino
 from Autopilot_caller import Autopilot
@@ -16,7 +15,6 @@ from ROS_operators.Autopilot_talker import Talker
 
 def main():
     nav = navData()
-    plt = Plotter()
     autopilot = Autopilot()
     
     #uncomment for test

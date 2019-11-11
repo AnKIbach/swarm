@@ -6,6 +6,7 @@ from  Vector_class import Vector
 
 
 class PID :
+    '''PID class to measure correct speed with minimal delay'''
     def __init__(self): 
         self.Kp=Vector(0.85,1.0) #mindre
         self.Ki=Vector(0.0,0.0) #set for test
