@@ -121,12 +121,18 @@ class boidBehavior():
                 average_temp.set(dx,dy)
 
                 average_vector += average_temp
-                average_vector.showVector()
                 total += 1.0
 
-        if total > 0.0 and average_vector.magnitude != 0.0 and average_vector.angle != 0.0:
+        if total > 0.0:
+            try:
+                average_vector.magnitude = average_vector.magnitude / total
+            except ValueError:
+                pass
 
-            average_vector = average_vector.__truediv__(total)
+            try:
+                average_vector.angle = average_vector.angle / total
+            except ValueError:
+                pass
 
             alignment_tot = m.sqrt(m.pow(average_vector.magnitude, 2.0) + m.pow(average_vector.angle, 2.0))
             alignment = alignment.__truediv__(alignment_tot) * self.maxSpeed
