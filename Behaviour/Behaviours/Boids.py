@@ -9,9 +9,9 @@ class boidBehavior():
     ''' Object for running calculations of Boids behaviour '''
     def __init__(self):
 
-        self.Ka = 10.0
-        self.Kc = 10.0
-        self.Ks = 10.0
+        self.Ka = 1.0
+        self.Kc = 1.0
+        self.Ks = 1.0
         self.tick = 0
 
         self.maxForce   = 0.9 # Magnitude of cohesion and separation
@@ -97,8 +97,6 @@ class boidBehavior():
             # average_vector = average_vector / total            
             separation = average_vector.__truediv__(total)#- self.movement
             separation_tot = m.sqrt(m.pow(separation.magnitude, 2.0)+m.pow(separation.angle, 2.0))
-
-            print("separation: {} : {} tot: {}", separation.magnitude, separation.angle, separation_tot)
 
             if separation_tot > 0.0:
                 separation = (separation.__truediv__(separation_tot)) * self.maxSpeed
