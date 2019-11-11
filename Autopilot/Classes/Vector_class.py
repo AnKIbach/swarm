@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 class Vector:
+    '''Vector definition'''
     def __init__(self, magnitude = 0.0, angle = 0.0):
         self.magnitude = 0.0
         self.angle = 0.0
@@ -8,7 +9,7 @@ class Vector:
             angle = magnitude[1]
             magnitude = magnitude[0] 
             
-        elif isinstance(magnitude, Vector): # samme - failsafes
+        elif isinstance(magnitude, Vector): # same - failsafes
             angle = magnitude.angle
             magnitude = magnitude.magnitude
             
