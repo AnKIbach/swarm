@@ -129,11 +129,11 @@ class Behave: # funny :)
     def _get_xy(self, vector):
         print("vector inn: ")
         vector.showVector()
-        dx = vector.magnitude * m.sin(vector.angle)
-        dy = vector.magnitude * m.cos(vector.angle)
+        dx = vector.magnitude * m.sin(m.radians(vector.angle))
+        dy = vector.magnitude * m.cos(m.radians(vector.angle))
 
         print("ut - x:", dx, "y:", dy)
-        
+
         return dx, dy
 
     def _get_vec(self, XY):
