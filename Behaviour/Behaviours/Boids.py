@@ -124,7 +124,6 @@ class boidBehavior():
                 total += 1.0
 
         if total > 0.0:
-            average_vector.showVector()
             try:
                 alignment.magnitude = average_vector.magnitude / total
             except ValueError:
@@ -137,5 +136,8 @@ class boidBehavior():
 
             alignment_tot = m.sqrt(m.pow(average_vector.magnitude, 2.0) + m.pow(average_vector.angle, 2.0))
             alignment = alignment.__truediv__(alignment_tot) * self.maxSpeed
+
+        if alignment_tot > self.maxForce:
+            alignment = (alignment.__truediv__(alignment_tot)) * self.maxForce
 
         return alignment

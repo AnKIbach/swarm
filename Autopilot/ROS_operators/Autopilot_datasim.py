@@ -30,7 +30,7 @@ class Sim:
 
         
         # self._send1(0)
-        # self._send2(1)
+        self._send2(1)
         self._send3(2)
         self._send4(3)
         
@@ -52,7 +52,7 @@ class Sim:
         self.curr.movement.velocity  = self.speed
         self.curr.movement.bearing   = self.bearing
         self.curr.position.latitude  = 60.394333
-        self.curr.position.longitude = 5.265970
+        self.curr.position.longitude = 5.266005
 
         self.pub_current.publish(self.curr)
 
