@@ -119,10 +119,9 @@ class boidBehavior():
                 dx = boid['speed'] * m.sin(m.radians(boid['bearing']))
                 dy = boid['speed'] * m.cos(m.radians(boid['bearing']))
                 average_temp.set(dx,dy)
-                print("average vect: ")
-                average_temp.showVector()
 
                 average_vector += average_temp
+                average_vector.showVector()
                 total += 1.0
 
         if total > 0.0 and average_vector.magnitude != 0.0 and average_vector.angle != 0.0:
