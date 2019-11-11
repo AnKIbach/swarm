@@ -8,11 +8,11 @@ from Classes.Vector_class import Vector
 class psoBehaviour():
     '''Calcualtion of PSO behaviour based on own and other boats positions in swarm'''
     def __init__(self, fence, posWanted):
-        self.K1 = 0.1
-        self.K2 = 1.0
+        self.K1 = 0.5
+        self.K2 = 0.5
         self.Kr = 1.0
 
-        self.maxForce   = 0.3 # Magnitude of cohesion and separation - not used by now
+        self.maxForce   = 0.8 # Magnitude of cohesion and separation - not used by now
         self.maxDist    = 100.0 # Variable for weighting distances
         self.minDist    = 1.0
         self.maxSpeed   = 2.0 # Maximum speed in m/s

@@ -50,9 +50,9 @@ class Behave: # funny :)
 
                 self.has_newSelf = False
 
-                behaviourXY = self.pso(self.current_position, self.current_movement, pso_data)
+                vectorPSO = self.pso(self.current_position, self.current_movement, pso_data)
 
-                return self._get_vec(behaviourXY)
+                return vectorPSO
         else:
             toFence.set(1.0, toFence.angle)
             return toFence #Turns boat around if its outside the fence - probably wont work
