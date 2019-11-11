@@ -29,9 +29,10 @@ class Sim:
         self.header = self._get_header()
 
         
-        self._send1(0)
-        self._send2(1)
-        # self._send3(2)
+        # self._send1(0)
+        # self._send2(1)
+        self._send3(2)
+        self._send4(3)
         
     def _send1(self, bid):
         self.curr.header = self.header
@@ -55,7 +56,18 @@ class Sim:
 
         self.pub_current.publish(self.curr)
 
-    def _send2(self, bid):
+    def _send3(self, bid):
+        self.curr.header = self.header
+        self.curr.header.id = bid
+
+        self.curr.movement.velocity  = self.speed
+        self.curr.movement.bearing   = self.bearing
+        self.curr.position.latitude  = 60.394367
+        self.curr.position.longitude = 5.265970
+
+        self.pub_current.publish(self.curr)
+
+    def _send4(self, bid):
         self.curr.header = self.header
         self.curr.header.id = bid
 
