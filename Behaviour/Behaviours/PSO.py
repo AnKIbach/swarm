@@ -74,8 +74,8 @@ class psoBehaviour():
     def noise_function(self, distance):
         print("distance", distance)
         if distance != 0.0:
-            noise = random.randrange(0, 100) /100
-            value = float(noise) + (self.perception / (distance**2.0)) # function 1/r^2 with noise and perception
+            noise = random.randrange(1, 100) /100
+            value = float(noise) + (self.perception / m.pow(distance,2.0)) # function 1/r^2 with noise and perception
             return value
         else:
             return 0.0
