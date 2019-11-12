@@ -9,8 +9,8 @@ class boidBehavior():
     ''' Object for running calculations of Boids behaviour '''
     def __init__(self):
 
-        self.Ka = 1.0
-        self.Kc = 1.0
+        self.Ka = 1.2
+        self.Kc = 0.6
         self.Ks = 1.0
         self.tick = 0
 
