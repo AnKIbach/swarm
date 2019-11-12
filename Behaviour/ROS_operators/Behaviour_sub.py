@@ -18,8 +18,8 @@ class Subscriber:
         self.fence      = Position()
 
         self.static_fence = Position()
-        self.static_fence.latitude  = 60.365991
-        self.static_fence.longitude = 5.264527
+        self.static_fence.latitude  = 60.3943
+        self.static_fence.longitude = 5.2662
 
         self.new_command = False
 
