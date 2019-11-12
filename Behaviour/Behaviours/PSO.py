@@ -12,11 +12,11 @@ class psoBehaviour():
         self.K2 = 0.5
         self.Kr = 1.0
 
-        self.maxForce   = 0.8 # Magnitude of cohesion and separation - not used by now
-        self.maxDist    = 100.0 # Variable for weighting distances
+        self.maxForce   = 0.7 # Magnitude of cohesion and separation - not used by now
+        self.maxDist    = 50.0 # Variable for weighting distances
         self.minDist    = 1.0
-        self.maxSpeed   = 2.0 # Maximum speed in m/s
-        self.perception = 100.0 # Max distance to ...
+        self.maxSpeed   = 1.5 # Maximum speed in m/s
+        self.perception = 50.0 # Max distance to ...
 
         self.fence      = fence
         self.wanted     = posWanted
