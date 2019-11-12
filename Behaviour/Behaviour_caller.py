@@ -97,7 +97,7 @@ class Behave: # funny :)
                             "x"       : x,
                             "y"       : y})
 
-        print("elements in list: ", len(clist))
+        print"elements in list: ", len(clist)
         return clist
 
     def _get_distance(self, pos):

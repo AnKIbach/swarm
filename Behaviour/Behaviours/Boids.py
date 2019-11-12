@@ -42,9 +42,9 @@ class boidBehavior():
         cohesion = self._calculate_cohesion(global_list)
         separation = self._calculate_separation(global_list)
 
-        print("alignment: ", alignment.showVector())
-        print("cohesion: ", cohesion.showVector())
-        print("separation: ", separation.showVector())
+        print"alignment: x: ", alignment.magnitude, " y : ", alignment.angle
+        print"cohesion: x: ", cohesion.magnitude, " y : ", cohesion.angle
+        print"separation: x: ", separation.magnitude, " y : ", separation.angle
 
         wantedXY = alignment * self.Ka + cohesion * self.Kc + separation * self.Ks
 
@@ -52,7 +52,7 @@ class boidBehavior():
         while self.tick < 100:
             wantedXY.set(0.0, 1.0)
             self.tick += 1
-        print("tid:", self.tick)
+        print"tid:", self.tick
         # print("wantedXY: ")
         # wantedXY.showVector()
         return wantedXY
