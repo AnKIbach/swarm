@@ -84,8 +84,8 @@ def main():
 
             arduino(change_vector.magnitude, change_vector.angle) #possible addition
 
-            talker(current_vector, current_GPS, wanted_vector, change_vector)
-            # sim()
+            # talker(current_vector, current_GPS, wanted_vector, change_vector)
+            sim()
 
             
             if clicks >= 20:
