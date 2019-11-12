@@ -23,7 +23,7 @@ class Sim:
         self.curr = BoatOdometry()
 
         self.speed = 0.5
-        self.bearing = 0
+        self.bearing = 340
 
     def __call__(self):
         self.header = self._get_header()
