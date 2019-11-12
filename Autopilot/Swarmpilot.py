@@ -86,7 +86,6 @@ def main():
 
             # talker(current_vector, current_GPS, wanted_vector, change_vector)
             sim()
-
             
             if clicks >= 20:
                 # talker.publish_status(status) not working
