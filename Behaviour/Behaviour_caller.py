@@ -134,17 +134,15 @@ class Behave: # funny :)
     def _get_vec(self, XY):
         vec = Vector()
         if XY.magnitude != 0.0 and XY.angle != 0.0:
-            magnitude = m.sqrt(m.pow(XY.magnitude, 2) + m.pow(XY.angle, 2))
-            angle = m.degrees(m.atan(XY.magnitude/XY.angle))
+            magnitude = m.sqrt(m.pow(XY.magnitude, 2.0) + m.pow(XY.angle, 2.0))
+            angle = m.degrees(m.atan2(XY.magnitude, XY.angle))
 
-            print('angle: ', angle)
+            if XY.magnitude < 0.0:
+                angle = angle + 360    
+                
+            print('angle: ', angle) 
 
-            angle = angle + self.current_movement.angle #magn = x, angle = y
-
-            if angle >= 360.0:
-                print('angle in fix: ', angle)
-                angle = angle - 360.0
-            vec.set(magnitude * 0.8, angle)
+            vec.set(magnitude * 0.9, angle)
         else:
             vec = self.current_movement
 
