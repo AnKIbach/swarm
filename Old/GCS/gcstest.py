@@ -222,7 +222,7 @@ class threadClient:
         if not self.running:
             import sys
             sys.exit(1)
-        self.master.after(100, self._periodicCall)
+        self.master.after(10, self._periodicCall)
 
     # def _workerThread1(self):
     #     '''starts Udp Multicast listener'''
@@ -246,11 +246,13 @@ class threadClient:
                 # if msgType == MsgType.BOAT_STATUS:
                 #     command = Interpreter.status2GCS
                 #add fetch of data here
-                time.sleep(0.3)
                 #msg = {'id': rand.randrange(4), 'velocity': rand.random(), 'bearing': rand.random(), 'latitude': rand.random(), 'longitude': rand.random()}
             except KeyboardInterrupt as e:
                 print("Exiting with error: {}".format(e))
                 self._endApplication()
+                
+            except socket.timeout:
+                pass
 
     def _endApplication(self):
         self.running = 0

@@ -28,7 +28,7 @@ def main():
 
     mcast_grp  = rospy.get_param('~mcast_addr', "225.0.0.25")
     mcast_port = rospy.get_param('~mcast_port', 4243)
-    compress   = rospy.get_param('~compression', True)
+    compress   = rospy.get_param('~compression', False)
     nav_hz     = rospy.get_param('~nav_hz', 10.0)
     state_hz   = rospy.get_param('~state_hz', 1.0)
     cpu_hz     = rospy.get_param('~cpu_hz', 1.0)
