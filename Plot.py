@@ -4,14 +4,17 @@ import sys, getopt
 import rosbag
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.colors as clr 
+import matplotlib.axes as ax
 from gmplot import gmplot
 
 class plotter():
 	def __init__(self):
+		self.fig, self.ax = plt.subplots() 
 		self.bag  = ''
 
 		self.numTopics = 1
-		# set arrays to store data
+		
 		self.time = []
 		self.gps_lat = []
 		self.gps_lon = []
@@ -31,7 +34,9 @@ class plotter():
 							self.topic2_angle,
 							self.topic3_angle]
 
-		# set a flag
+
+		self.colors = ['b', 'g', 'r']
+
 		self.Iter = 0
 
 	def set_bag(self, bag):
@@ -67,14 +72,24 @@ class plotter():
 	def speed_plot(self, topic):
 		print(self.topics_speed[0])
 		for i in range(self.numTopics):
-			plt.plot(self.topics_speed[i], label=str(topic[i]))
-		plt.legend()
+			plt.plot(self.topics_speed[i], label=str(topic[i])+"/velocity", color=self.colors[i])
+
+		self.ax.set_title('Velocity', fontsize=24, loc='center')
+		self.ax.set_xlabel('Time[s]', color='k')
+		self.ax.set_ylabel('Velocity[m/s]', color='k')
+		plt.grid(linestyle='--', linewidth=1)	
+		plt.legend(loc=1, fontsize=10, title='Lines')
 		plt.show()
 
 	def angle_plot(self, topic):
 		for i in range(self.numTopics):
-			plt.plot(self.topics_angle[i], label=str(topic[i]))
-		plt.legend()
+			plt.plot(self.topics_angle[i], label=str(topic[i])+"/bearing", color=self.colors[i])
+
+		self.ax.set_title('Bearing', fontsize=24, loc='center')
+		self.ax.set_xlabel('Time[s]', color='k')
+		self.ax.set_ylabel('Beairng[deg]', color='k')
+		plt.grid(linestyle='--', linewidth=1)
+		plt.legend(loc=1, fontsize=10, title='Lines')
 		plt.show()	
 
 	# google map plotting
