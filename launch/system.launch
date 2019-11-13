@@ -1,26 +1,27 @@
 <!-- Launcher for entire swarm system -->
 <launch>
 
-<arg name="enable_datalink" default="true"/>
-<arg name="enable_cmdlink" default="false"/>
-<arg name="enable_video" default="false"/>
-<arg name="enable_recording" default="true"/>
-<arg name="enable_mavros" default="true"/>
+    <arg name="enable_datalink" default="true"/>
+    <arg name="enable_cmdlink" default="false"/>
+    <arg name="enable_video" default="false"/>
+    <arg name="enable_recording" default="true"/>
+    <arg name="enable_mavros" default="true"/>
 
-<!-- may not be necessairy --> 
-<!--param name="uav_id" type="int" value="1"/-->
+    <!-- may not be necessairy --> 
+    <!--param name="uav_id" type="int" value="1"/-->
 
-<!-- include other .launch files -->
-<include file="$(find swarm)/launch/autopilot.launch"/>
-<include file="$(find swarm)/launch/swarm_control.launch"/>
-<include file="$(find swarm)/launch/rx.launch" if="$(arg enable_datalink)"/>
-<include file="$(find swarm)/launch/tx.launch" if="$(arg enable_datalink)"/>
-<!--
-<include file="$(find swarm)/launch/rosbag.launch" if="$(arg enable_recording)"/>
--->
-<!--Test to start mavros from system file-->
+    <!-- include other .launch files -->
+    <include file="$(find swarm)/launch/autopilot.launch"/>
+    <include file="$(find swarm)/launch/swarm_control.launch"/>
+    <include file="$(find swarm)/launch/rx.launch" if="$(arg enable_datalink)"/>
+    <include file="$(find swarm)/launch/tx.launch" if="$(arg enable_datalink)"/>
+    <!--
+    <include file="$(find swarm)/launch/rosbag.launch" if="$(arg enable_recording)"/>
+    -->
+    <!--Test to start mavros from system file-->
 
-<include file="$(find mavros)/launch/px4.launch" <arg name="log_output" value="log"/>
-if="$(arg enable_mavros)"/>
+    <include file="$(find mavros)/launch/px4.launch" if="$(arg enable_mavros)"> 
+    <arg name="log_output" value="log"/>
+    <include/>
 
 </launch>
