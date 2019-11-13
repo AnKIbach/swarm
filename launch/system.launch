@@ -22,6 +22,6 @@
 
     <include file="$(find mavros)/launch/px4.launch" if="$(arg enable_mavros)"> 
     <arg name="log_output" value="log"/>
-    <include/>
+    </include>
 
 </launch>
