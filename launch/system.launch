@@ -15,9 +15,11 @@
 <include file="$(find swarm)/launch/swarm_control.launch"/>
 <include file="$(find swarm)/launch/rx.launch" if="$(arg enable_datalink)"/>
 <include file="$(find swarm)/launch/tx.launch" if="$(arg enable_datalink)"/>
-<include file="$(find swarm)/launch/rosbag.launch" args="log_output:=log" if="$(arg enable_recording)"/>
+<include file="$(find swarm)/launch/rosbag.launch" if="$(arg enable_recording)"/>
 
 <!--Test to start mavros from system file-->
-<include file="$(find mavros)/launch/px4.launch" if="$(arg enable_mavros)"/>
-
+<!--
+<include file="$(find mavros)/launch/px4.launch" <arg name"log_output" value="log"/>
+if="$(arg enable_mavros)"/>
+-->
 </launch>

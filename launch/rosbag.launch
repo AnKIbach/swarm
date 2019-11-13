@@ -4,8 +4,7 @@
     <arg name="record_communication" default="true"/>
 
     <node pkg="rosbag" type="record" name="rosbag_record_current"
-    args="record /autopilot/current /autopilot/status /swarm/behaviour/movement
-    -O home/b05/rosbags/current" 
+    args="record -o home/b05/rosbags/current /autopilot/current /autopilot/status /swarm/behaviour/movement" 
     if="$(arg record_current)"/>
 
     <node pkg="rosbag" type="record" name="rosbag_record_comms"
