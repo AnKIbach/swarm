@@ -3,9 +3,9 @@
     <arg name="gcs_url" default="" />
     <arg name="tgt_system" default="1" />
     <arg name="tgt_component" default="1" />
-    <arg name="log_output" default="screen" />
+    <arg name="log_output" default="log" />
     <arg name="fcu_protocol" default="v2.0" />
-    <arg name="respawn_mavros" default="false" />
+    <arg name="respawn_mavros" default="true" />
 
     <include file="$(find mavros)/launch/node.launch">
         <arg name="pluginlists_yaml" value="$(find mavros)/launch/px4_pluginlists.yaml" />
