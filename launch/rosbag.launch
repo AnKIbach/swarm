@@ -9,7 +9,7 @@
     if="$(arg record_current)"/>
 
     <node pkg="rosbag" type="record" name="rosbag_record_comms"
-    args=" record -o tmp/current /swarm/data/odom /swarm/data/status /swarm/com/command"
+    args=" record -o home/b05/rosbags/comms /swarm/data/odom /swarm/data/status /swarm/com/command"
     if="$(arg record_communication)"/>
 
 </launch>
