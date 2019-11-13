@@ -4,6 +4,7 @@ import math as m
 from Vector_class import Vector
 
 class GPS:
+    '''Class helper to enable the storing and mathematical operations of GPS points (lat, lon)'''
     def __init__(self, latitude = 0.0, longitude = 0.0): 
         self.lat = latitude
         self.lon = longitude
