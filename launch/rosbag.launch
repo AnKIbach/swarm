@@ -4,11 +4,11 @@
     <arg name="record_communication" default="true"/>
 
     <node pkg="rosbag" type="record" name="rosbag_record_current"
-    args="record -o /autopilot/current /autopilot/status /swarm/behaviour/movement" 
+    args="record -o tmp/current /autopilot/current /autopilot/status /swarm/behaviour/movement" 
     if="$(arg record_current)"/>
 
     <node pkg="rosbag" type="record" name="rosbag_record_comms"
-    args=" record -o /swarm/data/odom /swarm/data/status /swarm/com/command"
+    args=" record -o tmp/current /swarm/data/odom /swarm/data/status /swarm/com/command"
     if="$(arg record_communication)"/>
 
 </launch>
