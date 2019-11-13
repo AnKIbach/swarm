@@ -20,7 +20,7 @@
 -->
 <!--Test to start mavros from system file-->
 
-<include file="$(find mavros)/launch/px4.launch" <arg name"log_output" value="log"/>
+<include file="$(find mavros)/launch/px4.launch" <arg name="log_output" value="log"/>
 if="$(arg enable_mavros)"/>
 
 </launch>
