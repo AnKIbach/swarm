@@ -6,6 +6,12 @@ from Vector_class import Vector
 class GPS:
     '''Class helper to enable the storing and mathematical operations of GPS points (lat, lon)'''
     def __init__(self, latitude = 0.0, longitude = 0.0): 
+        '''initialise a GPS object with lat and lon
+
+        Args:
+            latitude: Float value of latitude in decimal, 0.0 by default
+            longitude: Float value of longituce in decimal, 0.0 by default
+        '''
         self.lat = latitude
         self.lon = longitude
 
@@ -22,11 +28,26 @@ class GPS:
         self.calculated_vector = Vector()
     
     def set(self, latitude, longitude):
+        '''Simple set helper class to change value of GPS point
+
+        args:
+            latitude: Float value of latitude in decimal
+            longitude: Float value of longituce in decimal
+        '''
         self.lat = latitude
         self.lon = longitude
         
 
     def calculate(self, other):
+        '''Calculates distance in m and bearing relative to 
+        North from self to given GPS point -180 to 180 deg
+
+        Args:
+            other: GPS object of GPS to get distance to
+
+        Returns:
+            Vector instance containing distance and bearing to GPS point
+        '''
         if isinstance(self, (GPS, tuple)) and isinstance(other, (GPS, tuple)):
             delta_lat = other.lat - self.lat
             delta_lon = other.lon - self.lon
@@ -44,8 +65,5 @@ class GPS:
             return self.calculated_vector
 
     def show(self):
+        '''Helper to print latitude and longitude of self rounded of to 2 decimals'''
         print("GPS coordinates: lat: ", round(self.lat,2), "lon: ", round(self.lon, 2))
-
-
-
-    

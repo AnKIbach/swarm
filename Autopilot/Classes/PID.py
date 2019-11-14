@@ -6,8 +6,9 @@ from  Vector_class import Vector
 
 
 class PID :
-    '''PID class to measure correct speed with minimal delay'''
+    '''Class to serve ass a PID regulator between wanted and current vector'''
     def __init__(self): 
+        '''Initialises values for future PID calculations'''
         self.Kp=Vector(0.85,1.0) #mindre
         self.Ki=Vector(0.0,0.0) #set for test
         self.Kd=Vector(0.1,0.0) #set for test
@@ -22,6 +23,14 @@ class PID :
         self.delta_angle = 0.0
 
     def update(self, current_vector): 
+        '''Calculates new PID value based on current vector input
+
+        Args:
+            current_vector: Vector containing current movement and bearing
+        
+        Returns:
+            Vector containing new speed and angle to boat calculated with PID
+        '''
         self.error.magnitude = self.wanted_vector.magnitude - current_vector.magnitude 
         self.error.angle = self._get_delta_angle(current_vector)
 
@@ -54,6 +63,11 @@ class PID :
         return pid
 
     def set_wanted(self, wanted): 
+        '''Function for setting wanted vector for PID object
+
+        Args:
+            wanted: Vector containing wanted movement in speed and angle relative to North
+        '''
         if isinstance(wanted, Vector) or isinstance(wanted, tuple):
             self.wanted_vector = wanted
             self.Integrator.set(0.0,0.0) #For resetting
