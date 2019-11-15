@@ -54,9 +54,7 @@ def main():
     rospy.Subscriber(status_topic,    BoatStatus,   listener.handle_boat_status)
     # rospy.Subscriber(order_ack_topic, SwarmCommand,  listener.handle_swarm_command)
 
-    #swarm_order_sub = rospy.get_param('~swarm_order_sub', "/hal/swarm/order_ack")
-    #rospy.Subscriber(swarm_order_sub, SwarmCommand, listener.handle_swarm_command)
-    
+
     #Give control over to ROS so that Python doesn't exit
     rospy.loginfo("Starting to publish")
     rospy.spin()

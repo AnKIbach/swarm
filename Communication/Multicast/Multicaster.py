@@ -205,6 +205,7 @@ class MulticastSender(AbstractMulticastHandler):
         Args:
             data: bytes of data to transmit
         """
+        print(data)
         header = 0
         if self._compress:
             print("compressing data..")
