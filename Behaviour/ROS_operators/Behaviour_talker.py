@@ -5,7 +5,9 @@ from swarm.msg import Movement
 from swarm.msg import Position
 
 class Talker:
+    ''' Helper class to let behaviour publish wanted movement to ROS'''
     def __init__(self):
+        '''Initialises ROS publishers'''
         topic_movement  = "/swarm/behaviour/movement"
         topic_position  = "/swarm/behaviour/position"
 
@@ -16,15 +18,11 @@ class Talker:
         self.wanted_position = Position()
 
     def __call__(self, data, typ = 'movement'):
-        
-        # if there is need to use headers
-        # self.time_now = rospy.get_rostime()
-        # self.current_data.header.secs    = self.time_now.secs
-        # self.current_data.header.nsecs   = self.time_now.nsecs
-        # self.current_data.header.id      = BOAT_ID
-        # self.current_data.header.msgType = 1
+        '''Caller function to publish newest data
 
-        # self.wanted_data.header = self.current_data.header
+        Args:
+            data: Either a Vector or GPS point containing wanted from behaviour
+        '''
 
         if typ == 'movement': #probably pretty shady way to do it
             self.wanted_movement.velocity = data.magnitude

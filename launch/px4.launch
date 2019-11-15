@@ -1,3 +1,5 @@
+<!--Launch file for launch of px4 sensorsystem node-->
+
 <launch>
     <arg name="fcu_url" default="/dev/PX4:115200" />
     <arg name="gcs_url" default="" />
