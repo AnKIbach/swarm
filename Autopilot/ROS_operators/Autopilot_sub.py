@@ -10,8 +10,9 @@ from Classes.Vector_class import Vector
 BOATS_IN_SWARM = 5
 
 class swarmWanted():
-    '''class responsible for fetching wanted movement from behaviour'''
+    '''Helper class to fetch data from behaviour through ROS'''
     def __init__(self):
+        '''Initialises subscribers to behaviour topics'''
         self.topic_main = "/swram/behaviour"
         
         topic_movement = "/swarm/behaviour/movement"
@@ -32,6 +33,12 @@ class swarmWanted():
         self.recieving_data = False
 
     def __call__(self):
+        '''Call function that returns newest data
+
+        Returns either:
+            Vector of newest movement wanted
+            GPS point wanted
+        '''
         if self.newest == 'movement':
             return self.swarm_movement
 
@@ -51,6 +58,11 @@ class swarmWanted():
         self.newest = 'position'
 
     def is_recieving(self):
+        '''Helper function to return if topics are published to
+
+        Returns:
+            Boolean on wether its receiving or not
+        '''
         self.time_since = rospy.get_rostime().secs-self.last_receive
         if self.time_since < 2 and self.newest != '':
             self.recieving_data = True

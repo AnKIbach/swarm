@@ -5,16 +5,14 @@ import rospy
 from swarm.msg import SwarmHeader
 from swarm.msg import BoatOdometry
 from swarm.msg import BoatStatus
-# from swarm.msg import Position
-# from swarm.msg import Movement
 
 from Boat_ID import get_ID
-# from Classes.GPS_class import GPS
-# from Classes.Vector_class import Vector
+
 
 class Talker:
-    '''Sends data from autopilot to ROS topics'''
+    '''Helper class to publish data from autopilot to ROS'''
     def __init__(self):
+        '''initialises topics and publishers to those topics'''
 
         topic_status  = "autopilot/status"
         topic_current = "autopilot/current"
@@ -39,7 +37,14 @@ class Talker:
                 current_position, 
                 wanted_movement,
                 change_movement):
+        '''Caller function to publish data from autopilot
 
+        Args:
+            current_movement: Vector containing current movement
+            current_position: GPS point containing current position
+            wanted_movement: Vector containg wanted movement 
+            change_movement: Vector containg data sent to actuators
+        '''
         self.current_data.header = self._get_header()
         self.current_data.movement.velocity  = current_movement.magnitude
         self.current_data.movement.bearing   = current_movement.angle
@@ -78,7 +83,11 @@ class Talker:
         self.pub_change.publish(self.change_data)
 
     def publish_status(self, status):
-        '''Publishes status of boat to ROS topic given'''
+        '''Outside function to publish status of boat
+        
+        Args:
+            Dictionary containing status of boat
+        '''
 
         self.current_status.header = self._get_header(msgtype=2)
 

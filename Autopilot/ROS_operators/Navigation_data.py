@@ -11,7 +11,11 @@ from Classes.GPS_class import GPS
 from Classes.Vector_class import Vector
 
 class navData:
+    '''Helper class that fetches data from sensor (PX4) through ROS topics'''
+
     def __init__(self):
+        '''Initialises subscribers to active given topics'''
+
         rospy.init_node('navigation', anonymous=True)
 
         statePX     = "/mavros/state" 
@@ -67,22 +71,52 @@ class navData:
         self.has_velocity = True
 
     def get_connection_state(self):
+        '''Helper function get connection state of sensor
+
+        Returns:
+            Boolean to determine conneciton state
+        '''
         return self.connection 
 
     def get_GPS(self):
+        '''Helper function get current GPS position
+
+        Returns:
+            GPS point to current position
+        '''
         return self.GPS
 
     def get_bearing(self):
+        '''Helper function get current bearing
+
+        Returns:
+            Float of current bearing
+        '''
         return self.bearing
 
     def get_velocity(self):
+        '''Helper function get current velocity
+
+        Returns:
+            Float of current velocity
+        '''
         return self.velocity
 
     def get_Vector(self):
+        '''Helper function get current movement vector
+
+        Returns:
+            Vector object containing current movement
+        '''
         self.vector = Vector(self.velocity, self.bearing)
         return self.vector
 
     def is_ready(self):
+        '''Helper function to determine if all sensors are ready and publishing
+
+        Returns:
+            Boolean of wether sensors are ready or not
+        '''
         if all( [self.is_connected == True, 
                 self.has_GPS == True, 
                 self.has_bearing == True, 
