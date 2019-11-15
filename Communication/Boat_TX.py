@@ -43,7 +43,7 @@ def main():
     rospy.loginfo("Using multicast group: {}:{}".format(mcast_grp, mcast_port))
     rospy.loginfo("Odometry subscription: {!s}".format(odometry_topic))
 
-    rospy.logdebug("Should output be compressed: {!s}".format(compress))
+    rospy.loginfo("Should output be compressed: {!s}".format(compress))
     rospy.logdebug("Time to live for UDP: {!s}".format(ttl))
 
     listener = PositionPublisher(mcast_grp, mcast_port,
