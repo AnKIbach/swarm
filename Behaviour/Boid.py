@@ -14,8 +14,8 @@ class Boid():
         self.movement = Vector(*vec)
         vec = (np.random.rand(2) - 0.5)/2
         self.acc = Vector(*vec)
-        self.maxSpeed   = 8.0 # Maximum speed in m/s
-        self.maxForce   = 0.3
+        self.maxSpeed   = 2.0 # Maximum speed in m/s
+        self.maxForce   = 0.1
         self.perception = 100 # Max distance to ...
         self.width = width
         self.height = height
@@ -35,9 +35,9 @@ class Boid():
             self.position.y = self.height
 
     def align(self, boids):
-        alignment = Vector(*np.zeros(2))
+        alignment = Vector(0.0,0.0)
         total = 0
-        avg_vector = Vector(*np.zeros(2))
+        avg_vector = Vector(0.0,0.0)
         for boid in boids:
             if np.linalg.norm(boid.position - self.position) < self.perception:
                 avg_vector += boid.movement
@@ -51,9 +51,9 @@ class Boid():
         return alignment
 
     def cohesion(self, boids):
-        cohesion = Vector(*np.zeros(2))
+        cohesion = Vector(0.0,0.0)
         total = 0
-        center_of_mass = Vector(*np.zeros(2))
+        center_of_mass = Vector(0.0,0.0)
         for boid in boids:
             if np.linalg.norm(boid.position - self.position) < self.perception:
                 center_of_mass += boid.position
@@ -64,20 +64,23 @@ class Boid():
             vec_to_com = center_of_mass - self.position
             if np.linalg.norm(vec_to_com) > 0:
                 vec_to_com = (vec_to_com / np.linalg.norm(vec_to_com)) * self.maxSpeed
-            cohesion = (vec_to_com - self.movement)
+            cohesion = vec_to_com - self.movement
             if np.linalg.norm(cohesion)> self.maxForce:
                 cohesion = (cohesion /np.linalg.norm(cohesion)) * self.maxForce
-   
+            # for boid in boids:
+            #     distance = np.linalg.norm(boid.position - self.position)
+            #     if distance < 0.1:
+            #         cohesion = Vector(0.0,0.0)
         return cohesion
 
     def separation(self, boids):
-        separation = Vector(*np.zeros(2))
+        separation = Vector(0.0,0.0)
         total = 0
-        avg_vector = Vector(*np.zeros(2))
+        avg_vector = Vector(0.0,0.0)
         for boid in boids:
             distance = np.linalg.norm(boid.position - self.position)
             if self.position != boid.position and distance < self.perception:
-                diff = - (boid.position - self.position)
+                diff = self.position - boid.position
                 diff /= distance
                 avg_vector += diff
                 total += 1
@@ -97,13 +100,9 @@ class Boid():
         cohesion = self.cohesion(boids)
         separation = self.separation(boids)
 
-        for boid in boids:
-            distance = np.linalg.norm(boid.position - self.position)
-            if distance > 10:
-                self.acc += self.Ka * alignment
-                self.acc += self.Kc * cohesion
-                self.acc += self.Ks * separation
-            if distance    
+        self.acc += self.Ka * alignment
+        self.acc += self.Kc * cohesion
+        self.acc += self.Ks * separation
 
 
     def update(self):
@@ -113,4 +112,4 @@ class Boid():
         if np.linalg.norm(self.movement) > self.maxSpeed:
             self.movement = self.movement / np.linalg.norm(self.movement) * self.maxSpeed
 
-        self.acc = Vector(*np.zeros(2))
+        self.acc = Vector(0.0,0.0)

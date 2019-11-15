@@ -1,0 +1,17 @@
+<!-- Launcher for entire swarm system -->
+<launch>
+
+<arg name="enable_datalink" default ="true"/>
+<arg name="enable_cmdlink" default ="false"/>
+<arg name="enable_video" default ="false"/>
+
+<!-- may not be necessairy --> 
+<param name="uav_id" type="int" value="1"/>
+
+<!-- include other .launch files -->
+<include file="$(find swarm)/launch/autopilot.launch"/>
+<include file="$(find swarm)/launch/swarm_control.launch"/>
+<include file="$(find swarm)/launch/rx.launch" if="$(arg enable_datalink)"/>
+<include file="$(find swarm)/launch/tx.launch" if="$(arg enable_datalink)"/>
+
+</launch>
