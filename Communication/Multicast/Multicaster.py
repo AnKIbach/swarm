@@ -207,6 +207,7 @@ class MulticastSender(AbstractMulticastHandler):
         """
         header = 0
         if self._compress:
+            print("compressing data..")
             header |= 1
             # We remove zlib header and checksum as that is superfluous and
             # many libraries doesn't support them
