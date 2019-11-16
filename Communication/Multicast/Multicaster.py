@@ -117,6 +117,9 @@ class MulticastListener(AbstractMulticastHandler):
                 if header & 1 == 1:
                     # Use -15 so that zlib does not check for header or checksum
                     data = zlib.decompress(data, -15)
+            except:
+                print"feil i loop"
+
             return self._load_data(data.decode('utf-8'))
         else:
             raise IOError("Not enough bytes to unpack in message: {!r}".format(data))
