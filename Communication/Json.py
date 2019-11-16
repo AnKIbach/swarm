@@ -38,14 +38,14 @@ def json2Header(msg):
 
 def position2Json(position):
     msg = {}
-    msg['lat'] = position.latitude
-    msg['lon'] = position.longitude
+    msg['latitude'] = position.latitude
+    msg['longitude'] = position.longitude
     return msg
 
 def json2Position(msg):
     position = Position()
-    position.latitude  = msg['lat']
-    position.longitude = msg['lon']
+    position.latitude  = msg['latitude']
+    position.longitude = msg['longitude']
     return position
 
 def movement2Json(movement):
