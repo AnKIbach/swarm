@@ -72,6 +72,7 @@ class Listener(object):
                 #is shutting down and we do this by way of timeout
                 pass
             except zlib.error as e:
+                print(e)
                 rospy.logwarn("Zlib error while decoding {!s}".format(e))
 
             except IOError as e:
