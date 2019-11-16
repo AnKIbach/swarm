@@ -136,7 +136,7 @@ def swarmCommand2Json(swarmCommand):
     msg['fence']           = position2Json(swarmCommand.fence)
     msg['speed']           = swarmCommand.speed
     msg['heading']         = swarmCommand.heading
-    msg['doImediate']     = swarmCommand.doImidiate
+    msg['doImidiate']     = swarmCommand.doImidiate
     return msg
 
 def json2SwarmCommand(msg):
