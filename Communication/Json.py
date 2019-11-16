@@ -149,7 +149,7 @@ def json2SwarmCommand(msg):
     cmd.fence              = json2Position(msg['fence'])
     cmd.speed              = msg['speed']
     cmd.heading            = msg['heading']
-    cmd.doImidiate         = msg['doImediate']
+    cmd.doImidiate         = msg['doImidiate']
     return cmd
 
 def cpuStatus2Json():
