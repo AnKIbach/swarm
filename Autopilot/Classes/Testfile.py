@@ -1,6 +1,11 @@
 from PID import PID
 from Vector_class import Vector
 
+import json
+import socket
+import struct
+import zlib
+
 def delta_angle_test():
     pid = PID()
     wanted = Vector(0.0, 0.0)
@@ -22,12 +27,8 @@ def delta_angle_test():
                 print("")
 
 def pid_test():
-    pid = PID()
-    wanted = Vector(0.0, 0.0)
-    current = Vector(0.0, 0.0)
-
-    wanted.set(1.0, 0.0)
+    print(struct.pack('b', 0))
     
 
 if __name__=="__main__":
-    delta_angle_test()
+    pid_test()

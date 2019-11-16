@@ -112,6 +112,7 @@ class MulticastListener(AbstractMulticastHandler):
         if len(data) > self._header_size:
             # Unpack header
             header = struct.unpack_from(HEADER_FMT, data)[0]
+            print("header: ", header)
             data = data[self._header_size:]
             if header & 1 == 1:
                 print("trying decomp")
