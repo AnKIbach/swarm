@@ -108,6 +108,7 @@ class MulticastListener(AbstractMulticastHandler):
         if bytez is None:
             bytez = self.num_recv
         data = self._sock.recv(bytez)
+        print(data)
         if len(data) > self._header_size:
             # Unpack header
             header = struct.unpack_from(HEADER_FMT, data)[0]
