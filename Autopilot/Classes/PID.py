@@ -2,7 +2,7 @@
 import sys
 import math as m
 
-from  Vector_class import Vector
+from Vector_class import Vector
 
 
 class PID :
