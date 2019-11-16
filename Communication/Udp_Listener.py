@@ -29,7 +29,7 @@ class Listener(object):
 
         self._odometryPublisher     = rospy.Publisher(topic_odometry, BoatOdometry,  queue_size = 50)
         self._statusPublisher       = rospy.Publisher(topic_status,  BoatStatus,    queue_size = 20)
-        self._swarmCommandPublisher = rospy.Publisher(topic_command, SwarmCommand,  queue_size = 20)
+        self._swarmCommandPublisher = rospy.Publisher(topic_command, SwarmCommand,  queue_size = 100)
 
     def _readHeader(self, msg):
         return Json.json2Header(msg['header'])
@@ -48,8 +48,10 @@ class Listener(object):
 
     def _publishSwarmCommand(self, json_msg):
         '''Method for publishing a SwarmCommand ROS message'''
-
+        print"recieved command, deompressing"
+        print"rawdata, ", json_msg
         msg = Json.json2SwarmCommand(json_msg)
+        print"convertert, ", msg
         self._swarmCommandPublisher.publish(msg)
 
     def run(self):
