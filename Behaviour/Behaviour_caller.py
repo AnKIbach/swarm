@@ -66,6 +66,9 @@ class Behave: # funny :)
             self.behaviour_chosen = "PSO"
             self.pso = psoBehaviour(self.fence_center, self.fence_center)
 
+    def _delete_old_behaviour(self, object):
+        del object
+
     def _update_current(self, data):
         try:
             self.current_position.set(data[self.boat_id].position.latitude, data[self.boat_id].position.longitude)
