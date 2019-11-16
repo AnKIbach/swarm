@@ -48,9 +48,8 @@ class Listener(object):
 
     def _publishSwarmCommand(self, json_msg):
         '''Method for publishing a SwarmCommand ROS message'''
-        print"recieved command, deompressing"
+
         msg = Json.json2SwarmCommand(json_msg)
-        print(msg)
         self._swarmCommandPublisher.publish(msg)
 
     def run(self):
@@ -59,7 +58,6 @@ class Listener(object):
             try:
                 msg = self._listener.listen()
                 header = self._readHeader(msg)
-                print(msg)
 
                 if header.msgType == MsgType.ODOMETRY:
                     self._publishOdometry(msg)
@@ -72,7 +70,6 @@ class Listener(object):
                 #is shutting down and we do this by way of timeout
                 pass
             except zlib.error as e:
-                print(e)
                 rospy.logwarn("Zlib error while decoding {!s}".format(e))
 
             except IOError as e:

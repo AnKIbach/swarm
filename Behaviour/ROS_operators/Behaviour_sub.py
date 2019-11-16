@@ -25,6 +25,7 @@ class Subscriber:
         self.new_command = False
 
     def _handle_command(self, command):
+        print(command)
         self.command = command
         self._handle_specifics(command)
 
