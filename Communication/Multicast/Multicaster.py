@@ -108,14 +108,15 @@ class MulticastListener(AbstractMulticastHandler):
         if bytez is None:
             bytez = self.num_recv
         data = self._sock.recv(bytez)
-        print(data)
+        print(data['header']['secs'])
         if len(data) > self._header_size:
             # Unpack header
-            header = struct.unpack_from(HEADER_FMT, data)[0]
-            data = data[self._header_size:]
-            if header & 1 == 1:
-                # Use -15 so that zlib does not check for header or checksum
-                data = zlib.decompress(data, -15)
+            try:
+                header = struct.unpack_from(HEADER_FMT, data)[0]
+                data = data[self._header_size:]
+                if header & 1 == 1:
+                    # Use -15 so that zlib does not check for header or checksum
+                    data = zlib.decompress(data, -15)
             return self._load_data(data.decode('utf-8'))
         else:
             raise IOError("Not enough bytes to unpack in message: {!r}".format(data))
