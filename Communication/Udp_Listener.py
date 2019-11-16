@@ -49,9 +49,8 @@ class Listener(object):
     def _publishSwarmCommand(self, json_msg):
         '''Method for publishing a SwarmCommand ROS message'''
         print"recieved command, deompressing"
-        print"rawdata, ", json_msg
         msg = Json.json2SwarmCommand(json_msg)
-        print"convertert, ", msg
+        print(msg)
         self._swarmCommandPublisher.publish(msg)
 
     def run(self):
@@ -60,6 +59,7 @@ class Listener(object):
             try:
                 msg = self._listener.listen()
                 header = self._readHeader(msg)
+                print(msg)
 
                 if header.msgType == MsgType.ODOMETRY:
                     self._publishOdometry(msg)
