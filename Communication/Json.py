@@ -129,29 +129,27 @@ def json2SwarmStatus(msg):
 def swarmCommand2Json(swarmCommand):
     msg = {}
     msg['header']          = header2Json(swarmCommand.header)
-    msg['tasktype']        = swarmCommand.taskType
+    msg['taskType']        = swarmCommand.taskType
     msg['headingMode']     = swarmCommand.headingMode
     msg['colavMode']       = swarmCommand.colavMode
     msg['destination']     = position2Json(swarmCommand.destination)
     msg['fence']           = position2Json(swarmCommand.fence)
     msg['speed']           = swarmCommand.speed
     msg['heading']         = swarmCommand.heading
-    # msg['area']            = area2Json(swarmCommand.area)
-    msg['do_imediate']     = swarmCommand.doImidiate
+    msg['doImediate']     = swarmCommand.doImidiate
     return msg
 
 def json2SwarmCommand(msg):
     cmd = SwarmCommand()
     cmd.header             = json2Header(msg['header'])
-    cmd.taskType           = msg['tasktype']
+    cmd.taskType           = msg['taskType']
     cmd.headingMode        = msg['headingMode']
     cmd.colavMode          = msg['colavMode']
     cmd.destination        = json2Position(msg['destination'])
     cmd.fence              = json2Position(msg['fence'])
     cmd.speed              = msg['speed']
     cmd.heading            = msg['heading']
-    # cmd.area               = json2Area( msg['area'])
-    cmd.doImidiate         = msg['do_imediate']
+    cmd.doImidiate         = msg['doImediate']
     return cmd
 
 def cpuStatus2Json():
