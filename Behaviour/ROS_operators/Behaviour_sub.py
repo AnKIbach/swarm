@@ -7,7 +7,11 @@ from swarm.msg import Position
 
 class NewCommand(Exception):
     '''New command recieved, needs to be handled'''
-    pass
+    def __init__(self, msg): 
+        self.msg = msg
+
+    def __str__(self): 
+        return(repr(self.msg)) 
 
 class Subscriber:
     '''Reads, stores and forwards commands for swarm, reads from topic given'''
@@ -31,8 +35,7 @@ class Subscriber:
     def _handle_command(self, command):
         self.command = command
         self._handle_specifics(command)
-        print("new command recieved")
-        raise NewCommand('new command reciveeeeed')
+        raise (NewCommand("yes"))
 
     def _handle_specifics(self, data):
         self.wanted_mov.velocity = data.speed
