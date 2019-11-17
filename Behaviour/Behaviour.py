@@ -22,6 +22,7 @@ def main():
 
     while not rospy.is_shutdown():
         try:
+            command()
             data_full = data()
             
             wanted = behaviour(data_full)
