@@ -33,7 +33,8 @@ class Subscriber:
         self.new_command = False
 
     def __call__(self):
-        return self.has_new()
+        if self.has_new():
+            raise NewCommand('t')
 
     def _handle_command(self, command):
         self.command = command

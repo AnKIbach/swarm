@@ -5,7 +5,7 @@ import rospy
 from Behaviour_caller import Behave
 from ROS_operators.Boat_ID import get_ID
 from ROS_operators.Global_data import swarmData
-from ROS_operators.Behaviour_sub import Subscriber
+from ROS_operators.Behaviour_sub import Subscriber, NewCommand
 from ROS_operators.Behaviour_talker import Talker
 
 def main():
@@ -22,8 +22,8 @@ def main():
 
     while not rospy.is_shutdown():
         try:
-            newCommand = command()
-            
+            command()
+
             data_full = data()
             
             wanted = behaviour(data_full)
