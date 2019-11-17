@@ -18,7 +18,7 @@ def main():
     behaviour_out = Talker()
 
     rospy.loginfo("INITIALIZING BEHAVIOUR")
-    time.sleep(1)
+    time.sleep(4)
 
     behaviour = Behave(BOAT_ID, fence, use_behaviour=0) # BOIDS, PSO
 

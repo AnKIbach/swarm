@@ -34,7 +34,6 @@ class Behave: # funny :)
     def __call__(self, global_list): # g_l is list of boatodom
         self._update_current(global_list)
         toFence = self._check_fence()
-        print("distance to fence: ", toFence.magnitude)
 
         if toFence.magnitude <= self.fence_radius:
             if self.behaviour_chosen == "BOIDS" and self.has_newSelf == True:
@@ -54,7 +53,7 @@ class Behave: # funny :)
 
                 return vectorPSO
         else:
-            print("outside fence, returning...")
+            print"outside fence by " toFence.magnitude "m, returning to center"
             toFence.set(1.0, toFence.angle)
             return toFence 
 
@@ -66,7 +65,6 @@ class Behave: # funny :)
         '''
         
         fence = GPS(new_fence.latitude, new_fence.longitude)
-        print("new fence center from funct: ", fence)
         self.fence_center = fence
     
     def set_destination(self, destination):
