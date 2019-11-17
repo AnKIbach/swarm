@@ -30,13 +30,13 @@ class Behave: # funny :)
         self._handle_behaviour(use_behaviour)
 
         self.has_newSelf = False
-        self.inside_fence = True
         
     def __call__(self, global_list): # g_l is list of boatodom
         self._update_current(global_list)
         toFence = self._check_fence()
-
-        if self.inside_fence == True:
+        print("distance to fence: ", toFence.magnitude)
+        
+        if toFence.magnitude <= self.fence_radius:
             if self.behaviour_chosen == "BOIDS" and self.has_newSelf == True:
                 boid_data = self._make_list(global_list) 
 
@@ -153,15 +153,12 @@ class Behave: # funny :)
         try:
             print("fence: ", self.fence_center.lat, self.fence_center.lon)
             distFence = self.current_position.calculate(self.fence_center)  
+            
+            return distFence
 
-            if distFence.magnitude >= self.fence_radius:
-                self.inside_fence = False
-                return distFence
-            else:
-                self.inside_fence = True
-                return 0.0
         except AttributeError as e:
             print(e)
+            return Vector(0.0, 0.0)
 
     def _get_xy(self, vector):
         dx = round(vector.magnitude * m.sin(m.radians(vector.angle)), 5)
