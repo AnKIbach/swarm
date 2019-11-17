@@ -53,7 +53,7 @@ class Behave: # funny :)
 
                 return vectorPSO
         else:
-            print"outside fence by ", toFence.magnitude "m, returning to center"
+            print"outside fence by ", toFence.magnitude, "m, returning to center "
             toFence.set(1.0, toFence.angle)
             return toFence 
 
