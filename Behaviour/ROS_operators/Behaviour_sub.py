@@ -61,6 +61,14 @@ class Subscriber:
         '''
         return self.static_fence
 
+    def get_fence(self):
+        '''Helper function to get static fence position
+
+        Returns:
+            GPS point for static fence center
+        '''
+        return self.fence
+
     def get_command(self):
         '''Helper function to get newest command recieved
 

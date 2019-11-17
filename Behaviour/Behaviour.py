@@ -9,7 +9,6 @@ from ROS_operators.Behaviour_sub import Subscriber, NewCommand
 from ROS_operators.Behaviour_talker import Talker
 
 def main():
-    time_tot = 0.0
     BOAT_ID = get_ID()
 
     data = swarmData()
@@ -17,6 +16,9 @@ def main():
     fence = command.get_static_fence()
 
     behaviour_out = Talker()
+
+    rospy.loginfo("INITIALIZING BEHAVIOUR")
+    time.sleep(1)
 
     behaviour = Behave(BOAT_ID, fence, use_behaviour=0) # BOIDS, PSO
 
@@ -47,15 +49,21 @@ def main():
                         rospy.loginfo("Initiating new behaviour...")
                         del behaviour
                         behaviour = Behave(BOAT_ID, fence, new_behaviour)
-                    except Error as e:
-                        ros.loginfo(e)
+                    except AttributeError as e:
                         rospy.loginfo("could not initiate new behaviour, with error: {} ", format(e))
+                
                 if colav == 2: #new fence
-                    pass
+                    fence = command.get_fence()
+
+                    behaviour.set_destination(fence)
+
                 if colav == 3: #new destination
-                    pass
+                    destination = command.get_wantedPos()
+                    
+                    behaviour.set_destination(destination)
+
                 if colav == 4: #new wanted movement
-                    pass
+                    pass #not in use for any beahviour pr now
             
         except rospy.ROSInterruptException():
             pass

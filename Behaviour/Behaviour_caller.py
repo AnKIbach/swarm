@@ -55,7 +55,30 @@ class Behave: # funny :)
                 return vectorPSO
         else:
             toFence.set(1.0, toFence.angle)
-            return toFence #Turns boat around if its outside the fence - probably wont work
+            return toFence 
+
+    def change_fence(self, new_fence):
+        '''Helper function to set new fence
+        
+        Args:
+            GPS point containing center of new fence
+        '''
+        fence = GPS(new_fence.latitude, new_fence.longitude)
+        self.fence_center = fence
+    
+    def set_destination(self, destination):
+        '''Helper function to set a destination for behaviour
+        
+        Args:
+            GPS point containing new destination
+        '''
+        destGPS = GPS(destination.latitude, destination.longitude)
+        try: 
+            del self.pso
+            self.pso = psoBehaviour(self.fence_center, destGPS)
+            
+        except AttributeError as e:
+            print"could not set destination, with error: ", e
         
     def _handle_behaviour(self, behaviour):   
         if behaviour == BehaviourType.BOID:
