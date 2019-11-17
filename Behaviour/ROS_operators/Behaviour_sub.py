@@ -5,6 +5,10 @@ from swarm.msg import SwarmCommand
 from swarm.msg import Movement
 from swarm.msg import Position
 
+class NewCommand(Exception):
+    '''New command recieved, needs to be handled'''
+    pass
+
 class Subscriber:
     '''Reads, stores and forwards commands for swarm, reads from topic given'''
     def __init__(self):
@@ -28,7 +32,7 @@ class Subscriber:
         self.command = command
         self._handle_specifics(command)
 
-        self.new_command = True
+        raise NewCommand('New command recieved')
 
     def _handle_specifics(self, data):
         self.wanted_mov.velocity = data.speed
@@ -63,6 +67,14 @@ class Subscriber:
             Integer containing task type from command
         '''
         return self.command.taskType
+
+    def get_colavMode(self):
+        '''Helper function to get colav mode from command
+
+        Returns:
+            Integer containing colav mode from command
+        '''
+        return self.command.colavMode
     
     def get_headingMode(self):
         '''Helper function to get heading mode from command

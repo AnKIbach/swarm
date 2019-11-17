@@ -36,7 +36,7 @@ class Behave: # funny :)
         self._update_current(global_list)
         toFence = self._check_fence()
         if self.inside_fence == True:
-            
+            print("chosen behaviour: ", self.behaviour_chosen)
             if self.behaviour_chosen == "BOIDS" and self.has_newSelf == True:
                 boid_data = self._make_list(global_list) 
 
@@ -65,9 +65,6 @@ class Behave: # funny :)
         if behaviour == BehaviourType.PSO:
             self.behaviour_chosen = "PSO"
             self.pso = psoBehaviour(self.fence_center, self.fence_center)
-
-    def _delete_old_behaviour(self, object):
-        del object
 
     def _update_current(self, data):
         try:
