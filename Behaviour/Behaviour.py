@@ -53,7 +53,7 @@ def main():
                     print("trying to set new fence")
                     new_fence = command.get_fence()
 
-                    behaviour.set_destination(new_fence)
+                    behaviour.change_fence(new_fence)
 
                 if colav == 3: #new destination
                     print("trying to set new dest")
