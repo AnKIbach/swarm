@@ -33,13 +33,13 @@ class Subscriber:
         self.new_command = False
 
     def __call__(self):
-        if self.has_new():
-            raise NewCommand('yes')
+        return self.has_new()
 
     def _handle_command(self, command):
         self.command = command
         self._handle_specifics(command)
-        # raise (NewCommand("yes"))
+
+        self.new_command = True
 
     def _handle_specifics(self, data):
         self.wanted_mov.velocity = data.speed
