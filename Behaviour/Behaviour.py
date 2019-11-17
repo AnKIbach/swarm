@@ -53,9 +53,9 @@ def main():
                         rospy.loginfo("could not initiate new behaviour, with error: {} ", format(e))
                 
                 if colav == 2: #new fence
-                    fence = command.get_fence()
+                    new_fence = command.get_fence()
 
-                    behaviour.set_destination(fence)
+                    behaviour.set_destination(new_fence)
 
                 if colav == 3: #new destination
                     destination = command.get_wantedPos()

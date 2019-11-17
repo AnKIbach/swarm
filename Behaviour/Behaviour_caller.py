@@ -64,6 +64,7 @@ class Behave: # funny :)
         Args:
             GPS point containing center of new fence
         '''
+        print(fence)
         fence = GPS(new_fence.latitude, new_fence.longitude)
         self.fence_center = fence
     
@@ -150,6 +151,7 @@ class Behave: # funny :)
 
     def _check_fence(self):
         try:
+            print("fence: " self.fence_center.lat, self.fence_center.lon)
             distFence = self.current_position.calculate(self.fence_center)  
 
             if distFence.magnitude >= self.fence_radius:
@@ -160,7 +162,6 @@ class Behave: # funny :)
                 return 0.0
         except AttributeError as e:
             print(e)
-            pass
 
     def _get_xy(self, vector):
         dx = round(vector.magnitude * m.sin(m.radians(vector.angle)), 5)
