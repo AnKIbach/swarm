@@ -150,7 +150,6 @@ class Behave: # funny :)
 
     def _check_fence(self):
         try:
-            print("fence: ", self.fence_center.lat, self.fence_center.lon)
             distFence = self.current_position.calculate(self.fence_center)  
             
             return distFence
