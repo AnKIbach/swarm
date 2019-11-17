@@ -34,6 +34,7 @@ def main():
             time.sleep(0.5)
 
         except NewCommand:
+            print("new command")
             if command.stop() == True: 
                 rospy.signal_shutdown('stop command recieved')
 
