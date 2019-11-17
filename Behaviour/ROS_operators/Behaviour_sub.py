@@ -32,7 +32,7 @@ class Subscriber:
         self.command = command
         self._handle_specifics(command)
         print("new command recieved")
-        raise NewCommand(command)
+        raise NewCommand('new command reciveeeeed')
 
     def _handle_specifics(self, data):
         self.wanted_mov.velocity = data.speed
