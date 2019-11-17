@@ -103,8 +103,8 @@ class psoBehaviour():
             print("vector to gbest: ")
             vec_gbest.showVector()
 
-        # rand.magnitude = random.randrange(0,10) / 10
-        # rand.angle     = random.randrange(0,360)
+        rand.magnitude = random.randrange(0,10) / 10
+        rand.angle     = random.randrange(0,360)
 
         tot = curr + pbest * self.K1 + gbest * self.K2 + sep * self.Kr
 

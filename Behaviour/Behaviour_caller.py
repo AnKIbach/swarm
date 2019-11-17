@@ -35,8 +35,8 @@ class Behave: # funny :)
     def __call__(self, global_list): # g_l is list of boatodom
         self._update_current(global_list)
         toFence = self._check_fence()
+
         if self.inside_fence == True:
-            print("chosen behaviour: ", self.behaviour_chosen)
             if self.behaviour_chosen == "BOIDS" and self.has_newSelf == True:
                 boid_data = self._make_list(global_list) 
 
@@ -76,7 +76,7 @@ class Behave: # funny :)
         try: 
             del self.pso
             self.pso = psoBehaviour(self.fence_center, destGPS)
-            
+
         except AttributeError as e:
             print"could not set destination, with error: ", e
         
@@ -120,7 +120,23 @@ class Behave: # funny :)
                             "x"       : x,
                             "y"       : y})
 
-        print"elements in list: ", len(clist)
+        print"elements in BOIDS list: ", len(clist)
+        return clist
+
+    def _make_PSO_list(self, dataObj):
+        clist = [] 
+
+        for i in range(len(dataObj)):
+            if i == self.boat_id: #removes unwanted elements from list - i.e own boat and empty elements
+                pass
+            elif dataObj[i].position.latitude == 0.0 and dataObj[i].position.longitude == 0.0:
+                pass
+            else:
+                # dist = self._get_distance(dataObj[i].position)
+                clist.append({'lat' : dataObj[i].position.latitude,
+                            'lon' : dataObj[i].position.longitude})
+
+        print"elements in PSO list: ", len(clist)    
         return clist
 
     def _get_distance(self, pos):
@@ -144,9 +160,6 @@ class Behave: # funny :)
         except AttributeError as e:
             print(e)
             pass
-            
-            # return 0.0
-            # print("no fence recieved")
 
     def _get_xy(self, vector):
         dx = round(vector.magnitude * m.sin(m.radians(vector.angle)), 5)
@@ -162,8 +175,6 @@ class Behave: # funny :)
 
             if XY.magnitude < 0.0:
                 angle = angle + 360    
-                
-            print('angle: ', angle) 
 
             vec.set(magnitude * 0.9, angle)
         else:
@@ -171,18 +182,3 @@ class Behave: # funny :)
 
         return vec
 
-    def _make_PSO_list(self, dataObj):
-        clist = [] 
-
-        for i in range(len(dataObj)):
-            if i == self.boat_id: #removes unwanted elements from list - i.e own boat and empty elements
-                pass
-            elif dataObj[i].position.latitude == 0.0 and dataObj[i].position.longitude == 0.0:
-                pass
-            else:
-                # dist = self._get_distance(dataObj[i].position)
-                clist.append({'lat' : dataObj[i].position.latitude,
-                            'lon' : dataObj[i].position.longitude})
-            
-        print("clist PSO: ", clist)
-        return clist
