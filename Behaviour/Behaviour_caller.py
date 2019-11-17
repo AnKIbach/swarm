@@ -54,6 +54,7 @@ class Behave: # funny :)
 
                 return vectorPSO
         else:
+            print("outside fence, returning...")
             toFence.set(1.0, toFence.angle)
             return toFence 
 

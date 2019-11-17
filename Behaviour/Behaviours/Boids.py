@@ -48,13 +48,6 @@ class boidBehavior():
 
         wantedXY = alignment * self.Ka + cohesion * self.Kc + separation * self.Ks
 
-        self.tick +=1
-        while self.tick < 100:
-            wantedXY.set(0.0, 1.0)
-            self.tick += 1
-        print"tid:", self.tick
-        # print("wantedXY: ")
-        # wantedXY.showVector()
         return wantedXY
 
     def _handle_current(self, current_movement, current_position):
