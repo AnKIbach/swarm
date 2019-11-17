@@ -45,6 +45,7 @@ def main():
                 if colav == 1: #new behaviour order
                     new_behaviour = command.get_taskType()
                     try:
+                        rospy.loginfo("Initiating new behaviour...")
                         del behaviour
                         behaviour = Behave(BOAT_ID, fence, new_behaviour)
                     except Error as e:
