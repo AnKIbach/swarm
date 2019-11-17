@@ -69,21 +69,3 @@ def main():
 
 if __name__=="__main__":
     main()
-
-
-## Working outtake
-    # # start procedure
-    # rospy.loginfo("Initiating behaviour, waiting for command..")
-
-    # while not command.has_new() and time_tot < 2.0:
-    #     rospy.loginfo("waiting...{}".format(time_tot))
-    #     time.sleep(0.1)
-    #     time_tot += 0.1
-
-    # if command.has_new():
-    #     fence = command.get_static_fence #change to new
-    #     behaviour_type = command.get_taskType
-
-    #     print(behaviour_type)
-    #     rospy.loginfo_once("Loading behaviour for boat: {}, from command".format(BOAT_ID+1))
-    #     behaviour = Behave(BOAT_ID, fence, behaviour_type) #argument for behaviour type
