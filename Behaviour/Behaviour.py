@@ -29,11 +29,8 @@ def main():
             data_full = data()
             
             wanted = behaviour(data_full)
-
-            if command.stop():
-                rospy.signal_shutdown('stop command recieved')
-            else:    
-                behaviour_out(wanted)
+ 
+            behaviour_out(wanted)
 
             time.sleep(0.5)
 
@@ -53,11 +50,13 @@ def main():
                         rospy.loginfo("could not initiate new behaviour, with error: {} ", format(e))
                 
                 if colav == 2: #new fence
+                    print("trying to set new fence")
                     new_fence = command.get_fence()
 
                     behaviour.set_destination(new_fence)
 
                 if colav == 3: #new destination
+                    print("trying to set new dest")
                     destination = command.get_wantedPos()
                     
                     behaviour.set_destination(destination)

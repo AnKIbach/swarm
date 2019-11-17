@@ -35,7 +35,7 @@ class Behave: # funny :)
         self._update_current(global_list)
         toFence = self._check_fence()
         print("distance to fence: ", toFence.magnitude)
-        
+
         if toFence.magnitude <= self.fence_radius:
             if self.behaviour_chosen == "BOIDS" and self.has_newSelf == True:
                 boid_data = self._make_list(global_list) 
@@ -64,8 +64,9 @@ class Behave: # funny :)
         Args:
             GPS point containing center of new fence
         '''
-        print(fence)
+        
         fence = GPS(new_fence.latitude, new_fence.longitude)
+        print("new fence center from funct: ", fence)
         self.fence_center = fence
     
     def set_destination(self, destination):
