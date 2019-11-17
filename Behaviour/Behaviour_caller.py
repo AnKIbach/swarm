@@ -151,7 +151,7 @@ class Behave: # funny :)
 
     def _check_fence(self):
         try:
-            print("fence: " self.fence_center.lat, self.fence_center.lon)
+            print("fence: ", self.fence_center.lat, self.fence_center.lon)
             distFence = self.current_position.calculate(self.fence_center)  
 
             if distFence.magnitude >= self.fence_radius:
