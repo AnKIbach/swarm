@@ -11,7 +11,7 @@ class NewCommand(Exception):
         self.msg = msg
 
     def __str__(self): 
-        return(repr(self.msg)) 
+        return(self.msg) 
 
 class Subscriber:
     '''Reads, stores and forwards commands for swarm, reads from topic given'''
@@ -32,10 +32,14 @@ class Subscriber:
 
         self.new_command = False
 
+    def __call__(self):
+        if self.has_new():
+            raise NewCommand('yes')
+
     def _handle_command(self, command):
         self.command = command
         self._handle_specifics(command)
-        raise (NewCommand("yes"))
+        # raise (NewCommand("yes"))
 
     def _handle_specifics(self, data):
         self.wanted_mov.velocity = data.speed
