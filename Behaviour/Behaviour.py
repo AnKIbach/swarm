@@ -36,7 +36,6 @@ def main():
             time.sleep(0.5)
 
         except NewCommand:
-            print("new command")
             if command.stop() == True: 
                 rospy.signal_shutdown('stop command recieved')
 
@@ -50,7 +49,7 @@ def main():
                         behaviour = Behave(BOAT_ID, fence, new_behaviour)
                     except Error as e:
                         ros.loginfo(e)
-                        print"could not initiate new behaviour, with error: ", e
+                        rospy.loginfo("could not initiate new behaviour, with error: {} ", format(e))
                 if colav == 2: #new fence
                     pass
                 if colav == 3: #new destination
