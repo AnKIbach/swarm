@@ -73,8 +73,8 @@ class Sim:
 
         self.curr.movement.velocity  = self.speed
         self.curr.movement.bearing   = 0.0
-        self.curr.position.latitude  = 60.394262
-        self.curr.position.longitude = 5.265919
+        self.curr.position.latitude  = 60.394279
+        self.curr.position.longitude = 5.265884
 
         self.pub_current.publish(self.curr)
 
