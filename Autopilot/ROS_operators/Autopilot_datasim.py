@@ -29,7 +29,7 @@ class Sim:
         self.header = self._get_header()
 
         
-        self._send1(0)
+        # self._send1(0)
         self._send2(1)
         self._send3(2)
         self._send4(3)
@@ -51,8 +51,8 @@ class Sim:
 
         self.curr.movement.velocity  = self.speed
         self.curr.movement.bearing   = 60.0
-        self.curr.position.latitude  = 60.394333
-        self.curr.position.longitude = 5.266005
+        self.curr.position.latitude  = 60.394240
+        self.curr.position.longitude = 5.265839
 
         self.pub_current.publish(self.curr)
 
@@ -62,8 +62,8 @@ class Sim:
 
         self.curr.movement.velocity  = self.speed
         self.curr.movement.bearing   = 120.0
-        self.curr.position.latitude  = 60.394333
-        self.curr.position.longitude = 5.265925
+        self.curr.position.latitude  = 60.394240
+        self.curr.position.longitude = 5.265930
 
         self.pub_current.publish(self.curr)
 
@@ -73,8 +73,8 @@ class Sim:
 
         self.curr.movement.velocity  = self.speed
         self.curr.movement.bearing   = 0.0
-        self.curr.position.latitude  = 60.394367
-        self.curr.position.longitude = 5.265970
+        self.curr.position.latitude  = 60.394262
+        self.curr.position.longitude = 5.265919
 
         self.pub_current.publish(self.curr)
 
