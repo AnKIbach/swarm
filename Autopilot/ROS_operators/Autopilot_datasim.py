@@ -50,7 +50,7 @@ class Sim:
         self.curr.header.id = bid
 
         self.curr.movement.velocity  = self.speed
-        self.curr.movement.bearing   = 120.0
+        self.curr.movement.bearing   = 0.0
         self.curr.position.latitude  = 60.394240
         self.curr.position.longitude = 5.265839
 
@@ -61,7 +61,7 @@ class Sim:
         self.curr.header.id = bid
 
         self.curr.movement.velocity  = self.speed
-        self.curr.movement.bearing   = 60.0
+        self.curr.movement.bearing   = 0.0
         self.curr.position.latitude  = 60.394240
         self.curr.position.longitude = 5.265930
 
