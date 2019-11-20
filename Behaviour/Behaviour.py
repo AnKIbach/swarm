@@ -9,8 +9,7 @@ from ROS_operators.Behaviour_sub import Subscriber, NewCommand
 from ROS_operators.Behaviour_talker import Talker
 
 def main():
-    # BOAT_ID = get_ID()
-    BOAT_ID = 3
+    BOAT_ID = get_ID()
     
     data = swarmData()
     command = Subscriber() 
@@ -19,7 +18,7 @@ def main():
     behaviour_out = Talker()
 
     rospy.loginfo("INITIALIZING BEHAVIOUR")
-    time.sleep(4)
+    time.sleep(10)
 
     behaviour = Behave(BOAT_ID, fence, use_behaviour=0) # BOIDS, PSO
 
