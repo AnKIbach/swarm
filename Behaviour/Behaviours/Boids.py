@@ -11,7 +11,7 @@ class boidBehavior():
 
         self.Ka = 1.0
         self.Kc = 1.0
-        self.Ks = 1.0
+        self.Ks = 0.7
         self.tick = 0
 
         self.maxForce   = 0.9 # Magnitude of cohesion and separation
