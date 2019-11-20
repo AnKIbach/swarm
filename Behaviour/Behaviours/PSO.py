@@ -8,9 +8,10 @@ from Classes.Vector_class import Vector
 class psoBehaviour():
     '''Calcualtion of PSO behaviour based on own and other boats positions in swarm'''
     def __init__(self, fence, posWanted):
-        self.K1 = 0.5
-        self.K2 = 0.5
-        self.Kr = 1.0
+        self.Kc = 0.5
+        self.K1 = 0.6
+        self.K2 = 0.6
+        self.Kr = 0.8
 
         self.maxForce   = 0.7 # Magnitude of cohesion and separation - not used by now
         self.maxDist    = 50.0 # Variable for weighting distances
@@ -79,35 +80,49 @@ class psoBehaviour():
 
     def _calculate(self, boats):
         boatPos = GPS()
-        pbest = Vector()
-        gbest = Vector()
+        vec_pbest = Vector()
+        vec_gbest = Vector()
         curr  = self.movement
         rand  = Vector()
         sep   = Vector()
+        sep_tot = Vector()
 
         for boat in boats:
             boatPos.set(boat['lat'], boat['lon'])
             dist = self.position.calculate(boatPos)
             if dist > self.minDist:
                 sep.set(1.0, (dist.angle - 180.0))
+                sep = self._get_xy(sep)
+            sep_tot += sep
 
         vec_pbest = self.position.calculate(self.best_self['position'])
         if vec_pbest.magnitude > self.maxSpeed:
             vec_pbest.magnitude = (vec_pbest.magnitude / self.maxDist) * self.maxSpeed
             print("vector to pbest: ")
             vec_pbest.showVector()
+        vec_pbest = self._get_xy(vec_pbest)
 
         vec_gbest = self.position.calculate(self.best_global['position'])
         if vec_gbest.magnitude > self.maxSpeed:
             vec_gbest.magnitude = (vec_gbest.magnitude / self.maxDist) * self.maxSpeed
             print("vector to gbest: ")
             vec_gbest.showVector()
+        vec_gbest = self._get_xy(vec_gbest)
 
         rand.magnitude = random.randrange(0,10) / 10
         rand.angle     = random.randrange(0,360)
+        rand = self._get_xy(rand)
+        
+        
 
-        tot = curr + pbest * self.K1 + gbest * self.K2 + sep * self.Kr
+        tot = curr * self.Kc + vec_pbest * self.K1 + vec_gbest * self.K2 + sep * self.Kr
 
         print("tot:")
         tot.showVector()
         return tot
+
+    def _get_xy(self, vector):
+        dx = round(vector.magnitude * m.sin(m.radians(vector.angle)), 5)
+        dy = round(vector.magnitude * m.cos(m.radians(vector.angle)), 5)
+
+        return Vector(dx, dy)

@@ -51,7 +51,7 @@ class Behave: # funny :)
 
                 vectorPSO = self.pso(self.current_position, self.current_movement, pso_data)
 
-                return vectorPSO
+                return self._get_vec(vectorPSO)
         else:
             print"outside fence by ", toFence.magnitude, "m, returning to center "
             toFence.set(1.0, toFence.angle)
