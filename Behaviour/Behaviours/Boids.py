@@ -15,7 +15,7 @@ class boidBehavior():
         self.tick = 0
 
         self.maxForce   = 0.9 # Magnitude of cohesion and separation
-        self.maxSpeed   = 1.8 # Maximum speed in m/s
+        self.maxSpeed   = 2.0 # Maximum speed in m/s
         self.perception = 100.0 # Max distance to ...
 
         self.position = GPS()
@@ -42,9 +42,9 @@ class boidBehavior():
         cohesion = self._calculate_cohesion(global_list)
         separation = self._calculate_separation(global_list)
 
-        print"alignment: x: ", alignment.magnitude, " y : ", alignment.angle
-        print"cohesion: x: ", cohesion.magnitude, " y : ", cohesion.angle
-        print"separation: x: ", separation.magnitude, " y : ", separation.angle
+        print"alignment x: ", alignment.magnitude * self.Ka, " y : ", alignment.angle * self.Ka
+        print"cohesion x: ", cohesion.magnitude * self.Kc , " y : ", cohesion.angle * self.Kc
+        print"separation x: ", separation.magnitude * self.Ks, " y : ", separation.angle * self.Ks
 
         wantedXY = alignment * self.Ka + cohesion * self.Kc + separation * self.Ks
 
