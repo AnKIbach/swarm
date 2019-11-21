@@ -9,8 +9,7 @@ from ROS_operators.Behaviour_sub import Subscriber, NewCommand
 from ROS_operators.Behaviour_talker import Talker
 
 def main():
-    # BOAT_ID = get_ID()
-    BOAT_ID = 3
+    BOAT_ID = get_ID()
     
     data = swarmData()
     command = Subscriber() 
