@@ -112,8 +112,6 @@ class Behave: # funny :)
             elif dataObj[i].position.latitude == 0.0 and dataObj[i].position.longitude == 0.0:
                 pass
             else:
-                print"Object from comunication with id: ", i + 1
-                print(dataObj)
                 dist = self._get_distance(dataObj[i].position)
                 x, y = self._get_xy(dist)
                 clist.append({"speed" : dataObj[i].movement.velocity,
@@ -122,7 +120,9 @@ class Behave: # funny :)
                             "relative": dist.angle,
                             "x"       : x,
                             "y"       : y})
-
+        for i in range(len(clist)):
+            print"data from boat ", i
+            print(clist[i])
         print"elements in BOIDS list: ", len(clist)
         return clist
 
