@@ -14,7 +14,7 @@ import os
 
 import rospy
 
-from Udp_Publisher import PositionPublisher
+from Classes.Udp_Publisher import PositionPublisher
 
 from swarm.msg import BoatOdometry
 from swarm.msg import BoatStatus
