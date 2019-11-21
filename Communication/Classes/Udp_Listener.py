@@ -9,7 +9,7 @@ import rospy
 import Json
 
 from Msg_type import MsgType
-from Multicast.Multicaster import MulticastListener
+from Multicaster import MulticastListener
 
 from swarm.msg import BoatStatus
 from swarm.msg import BoatOdometry
