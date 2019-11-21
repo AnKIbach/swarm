@@ -10,7 +10,7 @@ class boidBehavior():
     def __init__(self):
 
         self.Ka = 1.6
-        self.Kc = 1.6
+        self.Kc = 1.8
         self.Ks = 0.5
         self.tick = 0
 
