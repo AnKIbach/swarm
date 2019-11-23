@@ -38,12 +38,12 @@ def main():
     odometry_topic    = rospy.get_param('~odometry_subscriber',      "/autopilot/current")
     status_topic      = rospy.get_param('~status_subscriber',    "/autopilot/status")
 
-    listener = PositionPublisher(mcast_grp, mcast_port,
+    publisher = PositionPublisher(mcast_grp, mcast_port,
             ttl=ttl, compress=compress, nav_hz = nav_hz, state_hz=state_hz,
             cpu_hz=cpu_hz)
 
-    rospy.Subscriber(odometry_topic,  BoatOdometry, listener.handle_odometry)
-    rospy.Subscriber(status_topic,    BoatStatus,   listener.handle_boat_status)
+    rospy.Subscriber(odometry_topic,  BoatOdometry, publisher.handle_odometry)
+    rospy.Subscriber(status_topic,    BoatStatus,   publisher.handle_boat_status)
 
     rospy.loginfo("Using multicast group: {}:{}".format(mcast_grp, mcast_port))
     rospy.loginfo("Odometry subscription: {!s}".format(odometry_topic))
@@ -54,7 +54,7 @@ def main():
     #Give control over to ROS so that Python doesn't exit
     rospy.loginfo("Starting to publish")
     rospy.spin()
-    listener.shutdown()
+    publisher.shutdown()
     rospy.loginfo("Shutting down")
 
 if __name__ == '__main__':
