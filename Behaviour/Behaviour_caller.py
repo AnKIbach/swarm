@@ -25,7 +25,7 @@ class Behave: # funny :)
         self.current_movement = Vector()
         self.boat_id = ID
         self.fence_center = GPS(fencePOS.latitude, fencePOS.longitude) #could insert GPS point here for test
-        self.fence_radius = 50.0
+        self.fence_radius = 25.0
 
         self._handle_behaviour(use_behaviour)
 
@@ -175,7 +175,7 @@ class Behave: # funny :)
             if XY.magnitude < 0.0:
                 angle = angle + 360    
 
-            vec.set(magnitude * 0.9, angle)
+            vec.set(magnitude, angle)
         else:
             vec = self.current_movement
 
