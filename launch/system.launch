@@ -7,8 +7,6 @@
     <arg name="enable_recording" default="true"/>
     <arg name="enable_mavros" default="true"/>
 
-    <!-- may not be necessairy --> 
-    <!--param name="uav_id" type="int" value="1"/-->
 
     <!-- include other .launch files -->
     <include file="$(find swarm)/launch/autopilot.launch"/>
