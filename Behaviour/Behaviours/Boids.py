@@ -9,12 +9,12 @@ class boidBehavior():
     ''' Object for running calculations of Boids behaviour '''
     def __init__(self):
 
-        self.Ka = 1.6
-        self.Kc = 1.8
+        self.Ka = 1.5
+        self.Kc = 1.85
         self.Ks = 0.5
         self.tick = 0
 
-        self.maxForce   = 0.9 # Magnitude of cohesion and separation
+        self.maxForce   = 1.0 # Magnitude of cohesion and separation
         self.maxSpeed   = 2.0 # Maximum speed in m/s
         self.perception = 100.0 # Max distance to ...
 
