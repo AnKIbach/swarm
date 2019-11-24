@@ -49,8 +49,6 @@ def main():
                 'arduino': True,
                 'fix': False,
                 'wifi': False}
-
-    # talker.publish_status(status) Not working
     
     print("entering loop...")
 
@@ -59,13 +57,13 @@ def main():
             current_GPS    = nav.get_GPS()
             current_vector = nav.get_Vector()
 
-            if behaviour.is_recieving():
+            if behaviour.is_recieving(): # check if 
                 wanted = behaviour()
                 if isinstance(wanted, GPS):
                     wanted_vector = current_GPS.calculate(wanted)
                 else:
                     wanted_vector = wanted
-            else: #if not recieving from behaviour stop boat
+            else: #if not recieving from behaviour stop USV
                 print("did not recieve")
                 wanted_vector = Vector(0.0, 0.0)
 
@@ -100,7 +98,7 @@ def main():
             sys.exit()
         finally:
             pass
-    arduino()
+    arduino() # to reset boat when exiting node
 
 if __name__ == "__main__":
     main()
