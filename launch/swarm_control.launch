@@ -2,7 +2,6 @@
 <launch>
 
 <node name="swarm_behaviour_node" type="Behaviour.py" pkg="swarm" output="screen" respawn="false">
-    <!-- Information to program -->
 
 </node>
 </launch>

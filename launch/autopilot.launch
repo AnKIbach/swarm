@@ -2,8 +2,6 @@
 <launch>
 
 <node name="autopilot_node" type="Swarmpilot.py" pkg="swarm" output="screen" respawn="true">
-    <!-- Information to program -->
-    <!-- multicast port to use -->
 
 </node>
 </launch>
