@@ -9,6 +9,8 @@ from ROS_operators.Behaviour_sub import Subscriber, NewCommand
 from ROS_operators.Behaviour_talker import Talker
 
 def main():
+    wait_time = 0.0
+
     BOAT_ID = get_ID()
     
     data = swarmData()
@@ -18,7 +20,19 @@ def main():
     behaviour_out = Talker()
 
     rospy.loginfo("INITIALIZING BEHAVIOUR")
-    time.sleep(10)
+    rospy.loginfo("Waiting for data...")
+
+    while not data.has_recieved():
+    #waits to recieve data
+        wait_time += 0.1
+        time.sleep(0.1)
+        if wait_time in (10.0, 20.0, 30.0, 40.0):
+            rospy.loginfo("Time waited: {s}", format(wait_time))
+        elif wait_time > 60.0:
+            rospy.loginfo("No data recieved in 60 seconds, behaviour timed out")
+            rospy.signal_shutdown('Behaviour timed out')
+
+    rospy.loginfo("Data recieved after time: {s}, starting", format(wait_time))
 
     behaviour = Behave(BOAT_ID, fence, use_behaviour=0) # BOIDS, PSO
 
@@ -26,13 +40,13 @@ def main():
         try:
             command()
 
+            time.sleep(0.5)
+            
             data_full = data()
             
             wanted = behaviour(data_full)
  
             behaviour_out(wanted)
-
-            time.sleep(0.5)
 
         except NewCommand:
             if command.stop() == True: 

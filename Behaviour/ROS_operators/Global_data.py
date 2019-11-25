@@ -16,6 +16,8 @@ class swarmData:
         topic_odometry = "/swarm/data/odom"
 
         rospy.Subscriber(topic_odometry, BoatOdometry, self._update)
+
+        self.data_recieved = False
     
     def __call__(self):
         '''Caller function to return newest list of data
@@ -26,15 +28,19 @@ class swarmData:
         return self.list_global
 
     def _update(self, data):
+
         try:
             ID = data.header.id
 
             self.list_global[ID] = data
 
-            self._get_time_since(data.header, ID)
+            self.data_recieved = True
 
         except IndexError:
             pass
 
-    def _get_time_since(self, header, id): #for use of Ack from GCS
-        pass
+    def has_recieved(self): 
+        if self.data_recieved == True:
+            return True
+        else:
+            return False
