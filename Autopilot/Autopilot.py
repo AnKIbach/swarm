@@ -54,7 +54,6 @@ def main():
             autopilot_talker(current_vector, 
                             current_GPS,
                             wanted_vector,
-                            wanted_GPS, #change for behaviour
                             change_vector)
 
             clicks += 1
@@ -62,11 +61,9 @@ def main():
             time.sleep(0.2)
 
         except rospy.ROSInterruptException():
-            arduino._start() 
             sys.exit()
         finally:
             pass
-    arduino()
 
 if __name__ == "__main__":
     main()
