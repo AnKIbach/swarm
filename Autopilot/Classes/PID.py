@@ -15,8 +15,8 @@ class PID :
 
         self.Derivator=Vector()
         self.Integrator=Vector()
-        self.Integrator_max=Vector(50.0,45.0) #set for test
-        self.Integrator_min=Vector(-50.0,-45.0) #set for test
+        self.Integrator_max=Vector(50.0,45.0)
+        self.Integrator_min=Vector(-50.0,-45.0) 
         self.pid_max = Vector(5.0, 45.0)  
         self.wanted_vector=Vector()
         self.error=Vector()
@@ -57,8 +57,10 @@ class PID :
         #max speed fix
         if pid.magnitude > self.pid_max.magnitude or pid.magnitude < 0.0: 
             pid.magnitude = self.pid_max.magnitude
+
         if pid.angle > self.pid_max.angle: 
             pid.angle = self.pid_max.angle
+            
         if pid.angle < -1.0*self.pid_max.angle:
             pid.angle = -1.0*self.pid_max.angle
 
