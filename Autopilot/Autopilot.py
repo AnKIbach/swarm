@@ -50,8 +50,6 @@ def main():
 
             change_vector = autopilot(current_vector)
             
-            arduino(change_vector.magnitude, change_vector.angle) #possible addition of another dampening for angle
-            
             #publishing to ROS
             autopilot_talker(current_vector, 
                             current_GPS,
