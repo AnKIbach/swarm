@@ -27,12 +27,12 @@ def main():
         wait_time += 0.1
         time.sleep(0.1)
         if wait_time in (10.0, 20.0, 30.0, 40.0):
-            rospy.loginfo("Time waited: {}", wait_time)
+            rospy.loginfo("Time waited: {}".format(wait_time))
         elif wait_time > 60.0:
             rospy.loginfo("No data recieved in 60 seconds, behaviour timed out")
             rospy.signal_shutdown('Behaviour timed out')
 
-    rospy.loginfo("Data recieved after time: {}, starting", wait_time)
+    rospy.loginfo("Data recieved after time: {}, starting".format(wait_time))
 
     behaviour = Behave(BOAT_ID, fence, use_behaviour=0) # BOIDS, PSO
 
