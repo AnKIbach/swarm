@@ -24,8 +24,8 @@ def main():
     nav = navData()
     autopilot = Autopilot()
     time.sleep(0.2)
-    talker = Talker()
-    # sim = Sim()
+    # talker = Talker()
+    sim = Sim()
     time.sleep(0.2)
     arduino = Arduino('/dev/Arduino', speedLimit = 0.8) #speed limiter for testing
     time.sleep(0.2)
@@ -82,8 +82,8 @@ def main():
 
             arduino(change_vector.magnitude, change_vector.angle) #possible addition
 
-            talker(current_vector, current_GPS, wanted_vector, change_vector)
-            # sim()
+            # talker(current_vector, current_GPS, wanted_vector, change_vector)
+            sim()
 
             if clicks >= 20:
                 # talker.publish_status(status) not working
