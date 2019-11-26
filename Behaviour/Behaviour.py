@@ -41,11 +41,14 @@ def main():
             command()
 
             time.sleep(0.5)
-            
+
+            #get newest table of data from units in swarm
             data_full = data()
             
+            #calculate wanted vector based on current behaviour
             wanted = behaviour(data_full)
  
+            #publish wanted vector to autopilot
             behaviour_out(wanted)
 
         except NewCommand:
