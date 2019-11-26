@@ -42,8 +42,9 @@ def main():
     while not rospy.is_shutdown():
         try:
             # wanted_GPS = new_gps(wanted_GPS)
-
-            current_GPS = nav.get_GPS()
+            
+            # fetches newest current speed and position
+            current_GPS = nav.get_GPS() 
             current_vector = nav.get_Vector()
 
             autopilot.set_wanted_vector(wanted_vector)

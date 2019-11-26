@@ -104,7 +104,7 @@ class Arduino:
 
     def get_current(self, what = 0):
         if what == 1:
-            return self.motor_wanted #add pin.read function if wanted
+            return self.motor_wanted 
         elif what == 2:
             return self.rudder_wanted
         elif what == 0:

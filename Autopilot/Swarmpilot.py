@@ -24,8 +24,8 @@ def main():
     nav = navData()
     autopilot = Autopilot()
     time.sleep(0.2)
-    # talker = Talker()
-    sim = Sim()
+    talker = Talker() # chnage between for sim or real
+    # sim = Sim()
     time.sleep(0.2)
     arduino = Arduino('/dev/Arduino', speedLimit = 0.8) #speed limiter for testing
     time.sleep(0.2)
@@ -41,9 +41,9 @@ def main():
         if wait_time > 10.0: #exit if timeout is over 10s
             sys.exit(0)
 
-    print("Pixhawk is connected and ready and: ", nav.mode)
-    print("Arduino is connected and started at: ", arduino.port)
-    print("Behaviour is publishing data at: ", behaviour.topic_main)
+    rospy.loginfo("Pixhawk is connected and ready: {}".format(nav.mode))
+    rospy.loginfo("Arduino is connected and started at: {}".format(arduino.port))
+    rospy.loginfo("Behaviour is publishing data at: {}".format(behaviour.topic_main))
     
     status = {'pixhawk': True,
                 'arduino': True,
@@ -54,10 +54,10 @@ def main():
 
     while not rospy.is_shutdown():
         try:
-            current_GPS    = nav.get_GPS()
+            current_GPS    = nav.get_GPS() #gets newest 
             current_vector = nav.get_Vector()
 
-            if behaviour.is_recieving(): # check if 
+            if behaviour.is_recieving(): # check if behaviour is sending wanted
                 wanted = behaviour()
                 if isinstance(wanted, GPS):
                     wanted_vector = current_GPS.calculate(wanted)
@@ -67,26 +67,22 @@ def main():
                 print("did not recieve")
                 wanted_vector = Vector(0.0, 0.0)
 
+            #sets wanted value for regulator
             autopilot.set_wanted_vector(wanted_vector)
 
+            #calculates vector for new mvoement
             change_vector = autopilot(current_vector)
 
-            print("autopilot")
-            print("current vector: ")
-            current_vector.showVector()
-            print("wanted vector: ")
-            wanted_vector.showVector()
-            print("change vector: ")
-            change_vector.showVector()
-            print("")
-
+            #sends vector with new movmement to arduino
             arduino(change_vector.magnitude, change_vector.angle) #possible addition
 
-            # talker(current_vector, current_GPS, wanted_vector, change_vector)
-            sim()
+            #publishes current data to ROS
+            talker(current_vector, current_GPS, wanted_vector, change_vector) #change between for sim or real
+            # sim()
 
+            #publishes status of USV every 20 clicks 
             if clicks >= 20:
-                # talker.publish_status(status) not working
+                talker.publish_status(status) 
                 clicks = 0
             else:
                 clicks += 1

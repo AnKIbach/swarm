@@ -13,7 +13,7 @@ class swarmWanted():
     '''Helper class to fetch data from behaviour through ROS'''
     def __init__(self):
         '''Initialises subscribers to behaviour topics'''
-        self.topic_main = "/swram/behaviour"
+        self.topic_main = "/swarm/behaviour/"
         
         topic_movement = "/swarm/behaviour/movement"
         topic_position = "/swarm/behaviour/position"
