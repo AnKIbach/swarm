@@ -63,7 +63,6 @@ class psoBehaviour():
                 self.best_global['value']    = boatVal
 
     def _check_pBest(self):
-        self.wanted.show()
         dist = self.position.calculate(self.wanted)
         current_self = self.noise_function(dist.magnitude)
         if current_self > self.best_self['value']:
@@ -113,9 +112,15 @@ class psoBehaviour():
         rand.angle     = random.randrange(0,360)
         rand = self._get_xy(rand)
         
-        
+        if sep_tot.magnitude > 0.0 != sep_tot.angle != 0.0:
+            tot = sep * self.Kr
 
-        tot = curr * self.Kc + vec_pbest * self.K1 + vec_gbest * self.K2 + sep * self.Kr
+        else:
+            tot = curr * self.Kc + vec_pbest * self.K1 + vec_gbest * self.K2
+            
+            tot_tot = m.sqrt(m.pow(tot.magnitude, 2.0)+m.pow(tot.angle, 2.0))
+            if tot_tot > self.maxSpeed:
+                tot = (tot.__truediv__(tot_tot)) * self.maxSpeed
 
         print("tot:")
         tot.showVector()
