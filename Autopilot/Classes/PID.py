@@ -55,13 +55,16 @@ class PID :
         pid.magnitude = current_vector.magnitude + pid.magnitude
 
         #max speed fix
-        if pid.magnitude > self.pid_max.magnitude or pid.magnitude < 0.0: 
+        if pid.magnitude > self.pid_max.magnitude: 
             pid.magnitude = self.pid_max.magnitude
 
+        elif pid.magnitude < -1.0*self.pid_max.magnitude:
+            pid.magnitude = -1.0*self.pid_max.magnitude
+            
         if pid.angle > self.pid_max.angle: 
             pid.angle = self.pid_max.angle
             
-        if pid.angle < -1.0*self.pid_max.angle:
+        elif pid.angle < -1.0*self.pid_max.angle:
             pid.angle = -1.0*self.pid_max.angle
 
         return pid
