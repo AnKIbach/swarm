@@ -1,7 +1,9 @@
-<!-- Launch file for udp data sender -->
+<!-- Launch file for autopilot node -->
 <launch>
 
 <node name="autopilot_node" type="Swarmpilot.py" pkg="swarm" output="screen" respawn="true">
 
 </node>
 </launch>
+
+

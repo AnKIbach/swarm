@@ -1,4 +1,4 @@
-<!-- Launch file for udp data sender -->
+<!-- Launch file for behaviour node -->
 <launch>
 
 <node name="swarm_behaviour_node" type="Behaviour.py" pkg="swarm" output="screen" respawn="false">

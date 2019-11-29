@@ -1,4 +1,4 @@
-<!-- Launch file for udp data reciever -->
+<!-- Launch file for udp data sender -->
 <launch>
 
 <node name="boat_tx_node" type="Boat_TX.py" pkg="swarm" output="screen" respawn="true">
