@@ -1,10 +1,17 @@
 #!/usr/bin/env python
+'''
+This class contains and stores GPS points
+
+Questions: anhellesnes@oslo.mil.no
+'''
+
 import math as m
 
 from Vector_class import Vector
 
 class GPS:
-    '''Class helper to enable the storing and mathematical operations of GPS points (lat, lon)'''
+    '''Class helper to enable the storing and operations with GPS points (lat, lon)'''
+
     def __init__(self, latitude = 0.0, longitude = 0.0): 
         '''initialise a GPS object with lat and lon
 

@@ -1,4 +1,10 @@
 #!/usr/bin/env python
+'''
+This class contains functions to serve as a PID regulator between two vectors
+
+Questions: anhellesnes@oslo.mil.no
+'''
+
 import sys
 import math as m
 

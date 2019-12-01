@@ -1,14 +1,11 @@
 #!/usr/bin/env python
-
 '''
-This is a class responsible for establishing a connection with an arduino through firmata
+This class is responsible for establishing a connection with an arduino through firmata
 
 It also converts a vector to the propper signals to actuate the motor and servo connected to ports
 5,6 9,10,11 on the arduino
 
-It contains these functions:
-    * 
-
+Questions: anhellesnes@oslo.mil.no
 '''
 import time
 import sys
@@ -16,7 +13,7 @@ import sys
 import serial
 import pyfirmata
 
-from Ranger import autoRange
+from .Ranger import autoRange
 
 class Arduino:
     '''Class resposible for compiling and sending data to arduino for motor and servo control'''
@@ -49,7 +46,7 @@ class Arduino:
             self.error = e
             print("could not connect to arduino at", self.port, "with error: ", e)
 
-        if self.has_connection == True:
+        if self.has_connection == True: #defines list of pins to send data to
             self.pins = [self.board.get_pin('d:5:s'),
                         self.board.get_pin('d:6:s'),
                         self.board.get_pin('d:9:s'),

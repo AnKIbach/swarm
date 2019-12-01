@@ -1,4 +1,10 @@
 #!/usr/bin/env python
+'''
+This class contains functions to range a value between two ranges
+
+Questions: anhellesnes@oslo.mil.no
+'''
+
 from Vector_class import Vector
 
 class autoRange:
