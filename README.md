@@ -1,11 +1,8 @@
-# _Swarm
-
-Når klar til å teste SVERM - lag en branch til hver båt, kall den B0.. og endre der lokalt lokale variabler som BOAT_ID
-
+# Swarm
 
 Autopilot, kommunikasjon og behaviour til bacheloroppgave med båter
 
-Hovedprogrammene er Autopilot.py, Behaviour.py og Communication.py
+Hovedprogrammene er Autopilot.py, Behaviour.py, Boat_RX.py / TX.py
 
 ''
 Mappestruktur: 4 hovedmapper for de aktuelle programmene som skal kjøre og deres undermoduler
@@ -17,7 +14,7 @@ Mappestruktur: 4 hovedmapper for de aktuelle programmene som skal kjøre og dere
 - GCS - inneholder alle moduler og mapper for at GroundControlStationen skal fungere (Work in progress uten ROS)
 ''
 
-'' Arbeides med nå? Test med flere båter samtidig''
+'' Arbeides med nå - levering av oppgave''
 
 '' Setup på ny pc:''
 
