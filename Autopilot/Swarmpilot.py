@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+'''
+
+
+Questions: anhellesnes@oslo.mil.no
+'''
 import time
 import sys
 import rospy
@@ -11,16 +16,17 @@ from Autopilot_caller import Autopilot
 from ROS_operators.Autopilot_sub import swarmWanted
 from ROS_operators.Navigation_data import navData
 from ROS_operators.Autopilot_talker import Talker
-#for sim
-from ROS_operators.Autopilot_datasim import Sim
+from ROS_operators.Autopilot_datasim import Sim # for simulation
 
 
 def main():
+    #definitin of status dictionary
     status = {'pixhawk': False, 
                 'arduino': False, 
                 'fix': False, 
                 'wifi': False}
 
+    #initiating objects for autopilot
     nav = navData()
     autopilot = Autopilot()
     time.sleep(0.2)
