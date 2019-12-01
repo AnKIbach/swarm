@@ -1,4 +1,10 @@
 #!/usr/bin/env python
+'''
+This class with a ROS publisher is used to get current nav data from sensor
+
+Questions: anhellesnes@oslo.mil.no
+'''
+
 import rospy
 import math as m
 

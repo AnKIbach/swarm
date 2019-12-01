@@ -1,4 +1,10 @@
 #!/usr/bin/env python
+'''
+This class with a ROS publisher is used to publish nav data to topics
+
+Questions: anhellesnes@oslo.mil.no
+'''
+
 import time
 import rospy
 
@@ -6,7 +12,7 @@ from swarm.msg import SwarmHeader
 from swarm.msg import BoatOdometry
 from swarm.msg import BoatStatus
 
-from Boat_ID import get_ID
+from .Boat_ID import get_ID
 
 
 class Talker:

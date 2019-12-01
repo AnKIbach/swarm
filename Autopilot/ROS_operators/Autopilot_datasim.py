@@ -1,4 +1,10 @@
 #!/usr/bin/env python
+'''
+This class with a ROS publisher is used to simulate nav data
+
+Questions: anhellesnes@oslo.mil.no
+'''
+
 import time
 import rospy
 

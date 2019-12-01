@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+'''
+This class with a ROS publisher is used to subscribe and get data from behaviour topics
+
+Questions: anhellesnes@oslo.mil.no
+'''
+
 import time
 import rospy
 
@@ -5,9 +12,6 @@ from swarm.msg import Movement
 from swarm.msg import Position
 from Classes.GPS_class import GPS
 from Classes.Vector_class import Vector
-
-
-BOATS_IN_SWARM = 5
 
 class swarmWanted():
     '''Helper class to fetch data from behaviour through ROS'''
