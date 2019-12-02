@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 '''
+Autopilot_caller.py
 This class is responsible for formating vector for PID-regulator in autopilot
 
 Questions: anhellesnes@oslo.mil.no

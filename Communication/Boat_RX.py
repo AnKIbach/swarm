@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 '''
+Boat_RX.py
 ROS node responsible for decoding multicast UDP messages and distributing
 them internally to ROS
 
@@ -14,6 +15,7 @@ import rospy
 from Classes.Udp_Listener import Listener
 
 def main():
+    #initialize ROS node
     rospy.init_node('uav_rx_node', anonymous=True)
     rospy.logdebug("Started udp_pos node")
 
@@ -21,9 +23,10 @@ def main():
     mcast_port = rospy.get_param('~mcast_port', 4243)
 
     rospy.loginfo("Using multicast group: {}:{}".format(mcast_grp, mcast_port))
-
+    #initiate listener socket
     pub = Listener(mcast_grp, mcast_port)
 
+    #Start listening and handling data from multicast
     rospy.loginfo("Starting run")
     pub.run()
     rospy.loginfo("Shutting down")

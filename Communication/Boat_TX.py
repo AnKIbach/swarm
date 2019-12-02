@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 '''
+Boat_TX.py
 ROS node responsible for encoding multicast UDP messages and distributing
 them over multicast
 
@@ -8,10 +9,6 @@ Questions: anhellesnes@fhs.mil.no
 
 import sys
 import os
-
-# uncertain of use in code
-# sys.path.append(
-#     os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
 import rospy
 

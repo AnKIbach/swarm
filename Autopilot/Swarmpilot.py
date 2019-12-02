@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 '''
+Swarmpilot.py
 This is the main program swarmpilot,
 it gets data from ROS with navData and swarmWanted
 then calculates new movement with the caller module

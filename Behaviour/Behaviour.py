@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 '''
+Behaviour.py
 This is the main program behaviour,
 it gets data from ROS with swarmData and Subscriber
 then calculates new movement from behave class
