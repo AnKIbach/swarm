@@ -1,33 +1,48 @@
 # Swarm
 
-Autopilot, kommunikasjon og behaviour til bacheloroppgave med båter
+Swarm is code from a bacheloursdegree focused on making a swarm platform, 
+it is made using [ROS melodic](http://wiki.ros.org/melodic/Installation), utilizing many of its functions. mostly written in Python
 
-Hovedprogrammene er Autopilot.py, Behaviour.py, Boat_RX.py / TX.py
+'''bash
+wiki.ros.org
+'''
 
-''
-Mappestruktur: 4 hovedmapper for de aktuelle programmene som skal kjøre og deres undermoduler
+## Contents
 
-- Autopilot - inneholder alle moduler og ROS_operators for at Autopilot.py skal fungere og publisere (Bruker ROS)
-- Communication - inneholder alle moduler og Multicast for at Boat_TX og -RX skal fungere og caste (Bruker ROS)
-- Behaviour - inneholder alle moduler og ... for at Behaviour.py skal fungere og publisere (Bruker ROS)
+This project contains:
+- Autopilot for a marine vessel based on GPS and a PID-regulator
+- Commmunication to send and recieve data over multicast
+- Behaviour to calculate movement and control the vessel based on Boids or PSO
 
-- GCS - inneholder alle moduler og mapper for at GroundControlStationen skal fungere (Work in progress uten ROS)
-''
+The main files that run as ROS nodes are:
+- Autopilot/Swarmpilot.py
+- Communication/Boat_TX.py
+- Communication/Boat_RX.py
+- Behaviour/Behaviour.py
 
-'' Arbeides med nå - levering av oppgave''
+# Bonus
 
-'' Setup på ny pc:''
+A GCS, Ground Control Station was also made for this project in node-red the JSON file is named GCS_node-red.json
 
-https://code.visualstudio.com/docs/python/python-tutorial !!!
+## Usage
 
-    last ned python
+'''bash
+roslaunch <pkg> <launch file> #General ROS command to start
 
-    bruk command pallette med kommandoer shift-ctrl-p : python: select interpreter og python: select..
+roslaunch <swarm> <system.launch> #specific to start this system
+'''
 
-    last ned pylint - kommer en pop-up, om ikke bruk pip pylint
+### Current work
 
-    Kjør opp en virtual env med: py -3 -m .venv env & src\scripts\activate 4.5. Om det gir feil må du skrive inn: Set-ExecutionPolicy Unrestricted i powerShell som admin
+Nothing - this project was delivered 03.12.2019.
 
-    i virtuelle så kjører man pip og laster ned andre pakker etter behov 5.5. Pr nå brukes: pygame pyserial pyfirmata
 
-    Plassering av mappen - vær bevisst på at programmer som ligger i mappen ROS_operators krever at prosjektmappen kjøres i en catkin workspace på en PC med ROS og MAVROS installert ''
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+Contact me either here on github or over mail: anhellesnes@fhs.mil.no.
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
