@@ -1,4 +1,12 @@
 #!/usr/bin/env python3
+'''
+This file is used for plotting data from rosbags to matplot
+For help use plot.py -h functionability
+
+utilizes additional modules for python: matplotlib, gmplot
+
+Questions: anhellesnes@fhs.mil.no
+'''
 
 import sys, getopt
 import rosbag
@@ -46,6 +54,12 @@ class plotter():
 		self.numTopics = topics
 
 	def readPosmsg(self, topic_name):
+		'''Function to read through rosbag and get position data
+
+		Args:
+			topic_name: string containing which topic to get
+		'''
+
 		# loop over the topic to read evey message
 		for topic, msg, t in self.bag.read_messages(topics=topic_name):
 			sec = t.to_nsec() 
@@ -59,6 +73,12 @@ class plotter():
 		self.bag.close()
 
 	def readVelAngmsg(self, topic_name, num):
+		'''Function to read through rosbag and get angular or velocity data
+
+		Args:
+			topic_name: string containing which topic to get
+			num: int of which number topic to read data to
+		'''
 		# loop over the topic to read evey message
 		for topic, msg, t in self.bag.read_messages(topics=topic_name):
 			sec = t.to_nsec() 
@@ -70,6 +90,11 @@ class plotter():
 			self.Iter += 1
 
 	def speed_plot(self, topic):
+		'''Function to plot angles 
+
+		Args: 
+			list of topics to plot from bag
+		'''
 		print(self.topics_speed[0])
 		for i in range(self.numTopics):
 			plt.plot(self.topics_speed[i], label=str(topic[i])+"/velocity", color=self.colors[i])
@@ -81,7 +106,12 @@ class plotter():
 		plt.legend(loc=1, fontsize=10, title='Lines')
 		plt.show()
 
-	def angle_plot(self, topic):
+	def angle_plot(self, topic): 
+		'''Function to plot angles 
+
+		Args: 
+			list of topics to plot from bag
+		'''
 		for i in range(self.numTopics):
 			plt.plot(self.topics_angle[i], label=str(topic[i])+"/bearing", color=self.colors[i])
 
@@ -109,6 +139,7 @@ def main(argv):
 	
 	gm = plotter()
 
+	#Fetch arguments from terminal based on expected arguments
 	try:
 		opts, args = getopt.getopt(argv, "hb:p:1:2:3:", ["bag=", "plot=", "topic1=", "topic2=", "topic3="]) 
 	except getopt.GetoptError as e:
@@ -117,6 +148,7 @@ def main(argv):
 
 	print(opts)
 
+	#decifer arguments from terminal 
 	for opt, arg in opts:
 		if opt in ('-h', '--help'):
 			print('Usage: Plot.py -b <bag> -p <plot> -1 <topic1> -2 <topic2> -3 <topic3>')
@@ -132,6 +164,7 @@ def main(argv):
 	
 	gm.set_numTopics(len(topics))
 
+	#use right plot type and plot data
 	try:
 		if pltType == 'position':
 			print("Topic: ", topics[0])
@@ -157,9 +190,6 @@ def main(argv):
 	
 	except UnboundLocalError:
 		pass
-	
-	# choose one topic  
-	
 
 
 if __name__ == '__main__':

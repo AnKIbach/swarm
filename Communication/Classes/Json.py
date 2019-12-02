@@ -1,3 +1,10 @@
+'''
+This file contains functions for converting between ROS msgs and JSON
+based on examples from FFI
+
+Questions: anhellesnes@fhs.mil.no
+'''
+
 import rospy
 import psutil
 

@@ -1,6 +1,12 @@
-import sys
-# import os
+#!/usr/bin/env python
+'''
+This module contains functions for opening 
+and maintaining a udp listener socket
 
+Questions: anhellesnes@fhs.mil.no
+'''
+
+import sys
 import socket
 import zlib
 

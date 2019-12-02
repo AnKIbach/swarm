@@ -1,9 +1,12 @@
 #!/usr/bin/env python
-
-"""
+'''
 This module contains a helper classes that is designed to support
 sending and receiving UDP multicast messages
-"""
+
+based on example from FFI
+
+Questions: anhellesnes@fhs.mil.no
+'''
 
 import json
 import socket

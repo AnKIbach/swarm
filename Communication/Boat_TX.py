@@ -1,9 +1,10 @@
 #!/usr/bin/env python
+'''
+ROS node responsible for encoding multicast UDP messages and distributing
+them over multicast
 
-"""
-ROS node responsible for decoding position messages and distributing them
-on multicast UDP
-"""
+Questions: anhellesnes@fhs.mil.no
+'''
 
 import sys
 import os
