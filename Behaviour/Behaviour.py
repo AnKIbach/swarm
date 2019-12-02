@@ -1,4 +1,13 @@
 #!/usr/bin/env python
+'''
+This is the main program behaviour,
+it gets data from ROS with swarmData and Subscriber
+then calculates new movement from behave class
+finally publishes to ROS with talker
+
+Questions: anhellesnes@fhs.mil.no
+'''
+
 import time
 import rospy
 
@@ -13,6 +22,7 @@ def main():
 
     BOAT_ID = get_ID()
     
+    #initialise objects for loop
     data = swarmData()
     command = Subscriber() 
     fence = command.get_static_fence()

@@ -1,4 +1,10 @@
 #!/usr/bin/env python
+'''
+This class is used to set boat_id based on IP-adress
+
+Questions: anhellesnes@fhs.mil.no
+'''
+
 
 import socket
 

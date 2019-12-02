@@ -1,9 +1,15 @@
 #!/usr/bin/env python
 '''
+This is the main program swarmpilot,
+it gets data from ROS with navData and swarmWanted
+then calculates new movement with the caller module
+finally publishes to ROS with talker
 
+Run this as a node either standalone or as part of system.launch
 
 Questions: anhellesnes@oslo.mil.no
 '''
+
 import time
 import sys
 import rospy
@@ -30,7 +36,7 @@ def main():
     nav = navData()
     autopilot = Autopilot()
     time.sleep(0.2)
-    talker = Talker() # chnage between for sim or real
+    talker = Talker() # change between for sim or real
     # sim = Sim()
     time.sleep(0.2)
     arduino = Arduino('/dev/Arduino', speedLimit = 0.8) #speed limiter for testing
@@ -40,8 +46,8 @@ def main():
 
     wait_time, clicks = 0.0, 0
 
-    while not nav.is_ready() and not arduino.is_ready():
     #waits for both systems to connect
+    while not nav.is_ready() and not arduino.is_ready():
         wait_time += 0.1
         time.sleep(0.1)
         if wait_time > 10.0: #exit if timeout is over 10s

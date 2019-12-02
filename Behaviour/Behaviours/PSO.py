@@ -1,23 +1,35 @@
 #!/usr/bin/env python
+'''
+This class calculates vector for the PSO behaviour
+
+needs:
+    from self
+        current movement and pos
+    from others in swarm
+        positions in lat, lon
+
+Questions: anhellesnes@fhs.mil.no
+'''
+
 import random
 import math as m
 
-from Classes.GPS_class import GPS
-from Classes.Vector_class import Vector
+from .Classes.GPS_class import GPS
+from .Classes.Vector_class import Vector
 
 class psoBehaviour():
     '''Calcualtion of PSO behaviour based on own and other boats positions in swarm'''
     def __init__(self, fence, posWanted):
-        self.Kc = 0.5
-        self.K1 = 0.6
-        self.K2 = 0.6
-        self.Kr = 0.8
+        self.Kc = 0.5 #force constant for current
+        self.K1 = 0.6 #force constant for personal best
+        self.K2 = 0.6 #force constant for global best
+        self.Kr = 0.8 #force for random
 
-        self.maxForce   = 0.8 # Magnitude of cohesion and separation - not used by now
-        self.maxDist    = 50.0 # Variable for weighting distances
-        self.minDist    = 1.5
-        self.maxSpeed   = 1.5 # Maximum speed in m/s
-        self.perception = 50.0 # Max distance to ...
+        self.maxForce   = 0.8   # Magnitude of cohesion and separation - not used by now
+        self.maxDist    = 50.0  # Variable for weighting distances
+        self.minDist    = 1.5   # Minimum distance before forced separation
+        self.maxSpeed   = 1.5   # Maximum speed in m/s
+        self.perception = 50.0  # Max distance to percieve other units
 
         self.fence      = fence
         self.wanted     = posWanted
@@ -30,6 +42,17 @@ class psoBehaviour():
         self.has_newCurr = False
 
     def __call__(self, position, movement, global_list):
+        ''' Caller function for behaviour calculations
+
+        Args:  
+            position: GPS point containng current position for self 
+            movement: Vector containing current movement for self
+            global_list: List of dictionaries containing other boats position lat,lon
+        
+        Returns:
+            Vector for wanted movement based on PSO behaviour
+        '''
+
         self._handle_current(movement, position)
 
         if self.has_newCurr == True:
@@ -53,6 +76,12 @@ class psoBehaviour():
         self._check_gBest(boats)
 
     def _check_gBest(self, boats):
+        ''' Function to check for new global best
+
+        Args:  
+            boats: list of dictionaries containing position of boats
+        '''
+
         boatPos = GPS()
         for boat in boats:
             boatPos.set(boat['lat'], boat['lon'])
@@ -63,6 +92,11 @@ class psoBehaviour():
                 self.best_global['value']    = boatVal
 
     def _check_pBest(self):
+        ''' Function to check for new personal best
+
+        Args:  
+            boats: list of dictionaries containing position of boats
+        '''
         dist = self.position.calculate(self.wanted)
         current_self = self.noise_function(dist.magnitude)
         if current_self > self.best_self['value']:

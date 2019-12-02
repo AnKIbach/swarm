@@ -2,7 +2,7 @@
 '''
 This class contains functions to range a value between two ranges
 
-Questions: anhellesnes@oslo.mil.no
+Questions: anhellesnes@fhs.mil.no
 '''
 
 from .Vector_class import Vector

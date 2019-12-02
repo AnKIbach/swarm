@@ -2,7 +2,8 @@
 '''
 This class with a ROS publisher is used to get current nav data from sensor
 
-Questions: anhellesnes@oslo.mil.no
+Based on examples from FFI
+Questions: anhellesnes@fhs.mil.no
 '''
 
 import rospy

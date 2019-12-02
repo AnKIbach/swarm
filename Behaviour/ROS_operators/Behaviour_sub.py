@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+'''
+This class with a ROS subscriber handles new commands from base
+
+Questions: anhellesnes@fhs.mil.no
+'''
+
 import rospy
 
 # from swarm.msg import SwarmHeader

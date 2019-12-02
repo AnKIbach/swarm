@@ -2,7 +2,7 @@
 '''
 This class is used to set boat_id based on IP-adress
 
-Questions: anhellesnes@oslo.mil.no
+Questions: anhellesnes@fhs.mil.no
 '''
 
 import socket

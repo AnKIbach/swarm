@@ -1,7 +1,13 @@
 #!/usr/bin/env python
+'''
+This class contains and stores GPS points
+
+Questions: anhellesnes@fhs.mil.no
+'''
+
 import math as m
 
-from Vector_class import Vector
+from .Vector_class import Vector
 
 class GPS:
     '''Class helper to enable the storing and mathematical operations of GPS points (lat, lon)'''

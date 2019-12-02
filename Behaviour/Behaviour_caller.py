@@ -1,4 +1,10 @@
 #!/usr/bin/env python
+'''
+This class is responsible for calling chosen behaviour and formatting data to behaviour
+
+Questions: anhellesnes@fhs.mil.no
+'''
+
 import time
 import rospy
 import math as m
@@ -19,8 +25,11 @@ class BehaviourType(IntEnum):
     OTHER    = 2
     SPECIALE = 3
 
-class Behave: # funny :)
+class Behave:
+    '''Class to run chosen behaviour'''
     def __init__(self, ID, fencePOS, use_behaviour = 0):
+        '''Initializes data holders and chosen behaviour object'''
+        
         self.current_position = GPS()
         self.current_movement = Vector()
         self.boat_id = ID
@@ -31,7 +40,15 @@ class Behave: # funny :)
 
         self.has_newSelf = False
         
-    def __call__(self, global_list): # g_l is list of boatodom
+    def __call__(self, global_list): 
+        '''Caller function to check if unit is inside swarm and run chosen behaviour
+
+        Args:
+            global_list: list of data from boats from ROS
+
+        Returns:
+            Vector to wanted movement 
+        '''
         self._update_current(global_list)
         toFence = self._check_fence()
 
@@ -94,8 +111,6 @@ class Behave: # funny :)
         try:
             self.current_position.set(data[self.boat_id].position.latitude, data[self.boat_id].position.longitude)
             self.current_movement.set(data[self.boat_id].movement.velocity, data[self.boat_id].movement.bearing)
-
-            # print("pos: lat:", self.current_position.lat, "lon: ", self.current_position.lon)
 
             self.has_newSelf = True
 

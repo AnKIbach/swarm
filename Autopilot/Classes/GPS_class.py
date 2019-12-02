@@ -2,12 +2,12 @@
 '''
 This class contains and stores GPS points
 
-Questions: anhellesnes@oslo.mil.no
+Questions: anhellesnes@fhs.mil.no
 '''
 
 import math as m
 
-from Vector_class import Vector
+from .Vector_class import Vector
 
 class GPS:
     '''Class helper to enable the storing and operations with GPS points (lat, lon)'''

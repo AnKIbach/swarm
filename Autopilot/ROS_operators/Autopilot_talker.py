@@ -2,7 +2,7 @@
 '''
 This class with a ROS publisher is used to publish nav data to topics
 
-Questions: anhellesnes@oslo.mil.no
+Questions: anhellesnes@fhs.mil.no
 '''
 
 import time

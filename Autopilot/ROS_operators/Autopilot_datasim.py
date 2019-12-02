@@ -2,7 +2,7 @@
 '''
 This class with a ROS publisher is used to simulate nav data
 
-Questions: anhellesnes@oslo.mil.no
+Questions: anhellesnes@fhs.mil.no
 '''
 
 import time

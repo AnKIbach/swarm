@@ -1,14 +1,21 @@
+#!/usr/bin/env python
+'''
+This class with a ROS subscriber is used to build a list of data from all units in swarm
+
+Questions: anhellesnes@fhs.mil.no
+'''
+
 import rospy
 
-# from swarm.msg import SwarmHeader
 from swarm.msg import BoatOdometry
 
-BOATS_IN_SWARM = 10 
+BOATS_IN_SWARM = 10 #How many boats there can be max in swarm
 
 class swarmData:
     '''Helper class to continously keep an updated list of other boats'''
     def __init__(self):
         '''Initialises subscriber to data from multicaster'''
+        
         self.list_global = [BoatOdometry()] * (BOATS_IN_SWARM)
 
         rospy.init_node('behaviour', anonymous=True)

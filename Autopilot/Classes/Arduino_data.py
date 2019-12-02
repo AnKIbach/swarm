@@ -5,13 +5,13 @@ This class is responsible for establishing a connection with an arduino through 
 It also converts a vector to the propper signals to actuate the motor and servo connected to ports
 5,6 9,10,11 on the arduino
 
-Questions: anhellesnes@oslo.mil.no
+Questions: anhellesnes@fhs.mil.no
 '''
 import time
 import sys
 
-import serial
-import pyfirmata
+import serial 
+import pyfirmata 
 
 from .Ranger import autoRange
 

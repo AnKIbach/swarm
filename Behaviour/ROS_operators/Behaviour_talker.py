@@ -1,4 +1,10 @@
 #!/usr/bin/env python
+'''
+This class with a ROS publisher sends data on wanted to ROS
+
+Questions: anhellesnes@fhs.mil.no
+'''
+
 import rospy
 
 from swarm.msg import Movement

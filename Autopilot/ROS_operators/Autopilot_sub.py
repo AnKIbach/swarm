@@ -2,7 +2,7 @@
 '''
 This class with a ROS publisher is used to subscribe and get data from behaviour topics
 
-Questions: anhellesnes@oslo.mil.no
+Questions: anhellesnes@fhs.mil.no
 '''
 
 import time

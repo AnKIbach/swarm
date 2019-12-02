@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+'''
+This class contains functions to store and evaluate operations for a vector 
+
+Questions: anhellesnes@fhs.mil.no
+'''
 
 class Vector:
     '''Class for containing Vector object with magnitude and angle'''

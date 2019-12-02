@@ -2,7 +2,7 @@
 '''
 This class contains functions to serve as a PID regulator between two vectors
 
-Questions: anhellesnes@oslo.mil.no
+Questions: anhellesnes@fhs.mil.no
 '''
 
 import sys
