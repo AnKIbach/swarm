@@ -3,9 +3,9 @@
 Swarm is code from a bacheloursdegree focused on making a swarm platform, 
 it is made using [ROS melodic](http://wiki.ros.org/melodic/Installation), utilizing many of its functions. mostly written in Python
 
-'''bash
+```bash
 wiki.ros.org
-'''
+```
 
 ## Contents
 
@@ -26,11 +26,11 @@ A GCS, Ground Control Station was also made for this project in node-red the JSO
 
 ## Usage
 
-'''bash
+```bash
 roslaunch <pkg> <launch file> #General ROS command to start
 
 roslaunch <swarm> <system.launch> #specific to start this system
-'''
+```
 
 ### Current work
 
