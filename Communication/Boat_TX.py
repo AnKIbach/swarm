@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 '''
+Written by Andreas Hellesnes, Norwegian Naval Academy 2019
+
 Boat_TX.py
 ROS node responsible for encoding multicast UDP messages and distributing
 them over multicast

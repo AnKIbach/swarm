@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 '''
+Written by Andreas Hellesnes, Norwegian Naval Academy 2019
+
 Behaviour.py
 This is the main program behaviour,
 it gets data from ROS with swarmData and Subscriber

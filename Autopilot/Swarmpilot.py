@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 '''
+Written by Andreas Hellesnes, Norwegian Naval Academy 2019
+
 Swarmpilot.py
 This is the main program swarmpilot,
 it gets data from ROS with navData and swarmWanted
