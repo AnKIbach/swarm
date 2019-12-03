@@ -44,5 +44,10 @@ Please make sure to update tests as appropriate.
 
 Contact me either here on github or over mail: anhellesnes@fhs.mil.no.
 
+## Written by
+
+Kim André Lyssand and Andreas Handal Hellesnes
+
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
